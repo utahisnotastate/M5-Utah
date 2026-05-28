@@ -29,6 +29,14 @@ cd ..
 pytest
 ```
 
+### Optional pre-commit setup
+
+```bash
+pip install pre-commit
+pre-commit install
+pre-commit run --all-files
+```
+
 ## Commit quality checklist
 
 - [ ] Intent protocol changes are documented.

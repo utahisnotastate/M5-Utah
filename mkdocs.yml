@@ -1,0 +1,21 @@
+site_name: M5 Resolver Substrate
+site_description: Unified M5Stack intent-resolution platform
+repo_url: https://github.com/utahisnotastate/M5-Utah
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+nav:
+  - Home: docs-site/index.md
+  - Architecture: docs-site/architecture.md
+  - Quickstart: docs-site/quickstart.md
+  - Migration: docs-site/migration.md
+  - Audience Guides:
+      - Technical Users: docs/technical-users.md
+      - Non-Technical Users: docs/non-technical-users.md
+      - Children: docs/children.md
+      - Electronics Engineers: docs/electronics-engineers.md
+      - Employee Playbook: docs/m5stack-employee-migration-playbook.md

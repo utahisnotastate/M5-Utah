@@ -1,5 +1,9 @@
 # M5 Resolver Substrate
 
+[![CI](https://github.com/utahisnotastate/M5-Utah/actions/workflows/ci.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/ci.yml)
+[![Docs](https://github.com/utahisnotastate/M5-Utah/actions/workflows/docs.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/docs.yml)
+[![Release](https://github.com/utahisnotastate/M5-Utah/actions/workflows/release.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/release.yml)
+
 Unified M5Stack development workspace with:
 
 - A single firmware image ("dumb terminal") that exposes core hardware capabilities through JSON intents.
@@ -67,10 +71,21 @@ python examples/tilt_tone.py --port COM3
 ## Quality and governance
 
 - Automated host tests via GitHub Actions (`.github/workflows/ci.yml`)
+- Docs deployment automation via GitHub Actions (`.github/workflows/docs.yml`)
+- Tag-based GitHub release workflow (`.github/workflows/release.yml`)
+- Dependency update bot (`.github/dependabot.yml`)
+- Reviewer ownership mapping (`.github/CODEOWNERS`)
+- Pre-commit hooks (`.pre-commit-config.yaml`)
 - Contribution standards (`CONTRIBUTING.md`)
 - Security reporting policy (`SECURITY.md`)
 - Code of conduct (`CODE_OF_CONDUCT.md`)
 - MIT licensing (`LICENSE`)
+
+## Release process
+
+1. Update `CHANGELOG.md`
+2. Create and push a semantic tag: `git tag v0.1.1 && git push origin v0.1.1`
+3. GitHub Actions generates release notes automatically
 
 ## Safety and scope
 

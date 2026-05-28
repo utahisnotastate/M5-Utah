@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  host-tests:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,11 +16,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install host package and test deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e ./host
-          pip install pytest
+          pip install pytest ruff mypy
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Type check (mypy)
+        run: mypy host/m5resolver
 
       - name: Run tests
         run: pytest
