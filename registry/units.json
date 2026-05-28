@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "units": [
+    {
+      "unit_id": "imu_builtin",
+      "bus": "internal",
+      "address": null,
+      "capabilities": ["accel", "gyro"],
+      "register_map": {}
+    },
+    {
+      "unit_id": "env4",
+      "bus": "i2c",
+      "address": 68,
+      "capabilities": ["temperature", "humidity", "pressure"],
+      "register_map": {
+        "chip": "BMP280+SHT4X",
+        "temperature_c": "computed",
+        "humidity_pct": "computed",
+        "pressure_pa": "computed"
+      }
+    },
+    {
+      "unit_id": "tof4m",
+      "bus": "i2c",
+      "address": 41,
+      "capabilities": ["distance_mm"],
+      "register_map": {
+        "chip": "VL53L1X",
+        "distance_mm": "0x0096"
+      }
+    }
+  ]
+}
