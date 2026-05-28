@@ -3,6 +3,7 @@
 [![CI](https://github.com/utahisnotastate/M5-Utah/actions/workflows/ci.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/ci.yml)
 [![Docs](https://github.com/utahisnotastate/M5-Utah/actions/workflows/docs.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/docs.yml)
 [![Release](https://github.com/utahisnotastate/M5-Utah/actions/workflows/release.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/release.yml)
+[![CodeQL](https://github.com/utahisnotastate/M5-Utah/actions/workflows/codeql.yml/badge.svg)](https://github.com/utahisnotastate/M5-Utah/actions/workflows/codeql.yml)
 
 Unified M5Stack development workspace with:
 
@@ -35,6 +36,7 @@ The M5Stack ecosystem has many independent repositories and drivers. This projec
 - `docs/` bilingual audience documentation and migration playbook
 - `tests/` host runtime test suite
 - `.github/` CI pipeline and contribution templates
+- `schemas/` JSON protocol contracts
 
 ## Quick start
 
@@ -73,6 +75,7 @@ python examples/tilt_tone.py --port COM3
 - Automated host tests via GitHub Actions (`.github/workflows/ci.yml`)
 - Docs deployment automation via GitHub Actions (`.github/workflows/docs.yml`)
 - Tag-based GitHub release workflow (`.github/workflows/release.yml`)
+- Code scanning via GitHub CodeQL (`.github/workflows/codeql.yml`)
 - Dependency update bot (`.github/dependabot.yml`)
 - Reviewer ownership mapping (`.github/CODEOWNERS`)
 - Pre-commit hooks (`.pre-commit-config.yaml`)
@@ -86,6 +89,7 @@ python examples/tilt_tone.py --port COM3
 1. Update `CHANGELOG.md`
 2. Create and push a semantic tag: `git tag v0.1.1 && git push origin v0.1.1`
 3. GitHub Actions generates release notes automatically
+4. Follow full release SOP in `RELEASE.md`
 
 ## Safety and scope
 

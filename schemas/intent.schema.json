@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M5 Resolver Intent",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "display": {
+      "type": "object",
+      "properties": {
+        "clear": { "type": "boolean" },
+        "bg_color": { "type": "integer" },
+        "text": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "integer" },
+            "y": { "type": "integer" },
+            "size": { "type": "integer" },
+            "color": { "type": "integer" },
+            "payload": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "speaker": {
+      "type": "object",
+      "properties": {
+        "stop": { "type": "boolean" },
+        "tone": {
+          "type": "object",
+          "properties": {
+            "frequency": { "type": "number" },
+            "duration": { "type": "integer" },
+            "channel": { "type": "integer" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "power": {
+      "type": "object",
+      "properties": {
+        "led": { "type": "integer" },
+        "off": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

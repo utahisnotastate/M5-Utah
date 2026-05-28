@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M5 Resolver Telemetry",
+  "type": "object",
+  "required": ["type", "board_id", "ts_us"],
+  "properties": {
+    "type": { "const": "telemetry" },
+    "board_id": { "type": "integer" },
+    "ts_us": { "type": "integer" },
+    "battery_pct": { "type": "integer" },
+    "charging": { "type": "integer" },
+    "accel": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      },
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

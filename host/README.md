@@ -30,3 +30,9 @@ Send intent:
 ```bash
 m5resolver --port COM3 --intent "{\"display\":{\"clear\":true}}"
 ```
+
+Validate intent without sending:
+
+```bash
+m5resolver --port COM3 --intent-file ./sample-intent.json --dry-run
+```
