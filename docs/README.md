@@ -12,6 +12,8 @@ This folder contains audience-specific documentation for the M5 Resolver Substra
 - Electronics engineers / 电子工程师: `docs/electronics-engineers.md`
 - M5Stack employee migration playbook / M5Stack 员工迁移手册: `docs/m5stack-employee-migration-playbook.md`
 - Operations runbook / 运维手册: `docs/operations-runbook.md`
+- Compatibility matrix / 兼容性矩阵: `docs/compatibility-matrix.md`
+- GitHub governance setup / GitHub 治理配置: `docs/github-governance-setup.md`
 
 ## Suggested Reading Path / 推荐阅读顺序
 

@@ -79,6 +79,9 @@ python examples/tilt_tone.py --port COM3
 - Dependency update bot (`.github/dependabot.yml`)
 - Reviewer ownership mapping (`.github/CODEOWNERS`)
 - Pre-commit hooks (`.pre-commit-config.yaml`)
+- Stale issue/PR triage automation (`.github/workflows/stale.yml`)
+- PR auto-label routing (`.github/workflows/pr-labeler.yml`, `.github/labeler.yml`)
+- Release artifact checksums (`.github/workflows/release-artifacts.yml`)
 - Contribution standards (`CONTRIBUTING.md`)
 - Security reporting policy (`SECURITY.md`)
 - Code of conduct (`CODE_OF_CONDUCT.md`)
@@ -90,6 +93,11 @@ python examples/tilt_tone.py --port COM3
 2. Create and push a semantic tag: `git tag v0.1.1 && git push origin v0.1.1`
 3. GitHub Actions generates release notes automatically
 4. Follow full release SOP in `RELEASE.md`
+
+## Enterprise operations
+
+- Board and protocol compatibility tracking: `docs/compatibility-matrix.md`
+- GitHub governance setup checklist: `docs/github-governance-setup.md`
 
 ## Safety and scope
 

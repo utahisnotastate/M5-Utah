@@ -18,6 +18,7 @@ git push origin vX.Y.Z
 ```
 
 GitHub Actions `release.yml` creates the release automatically.
+GitHub Actions `release-artifacts.yml` attaches source zip and `SHA256SUMS.txt`.
 
 ## Post-release
 

@@ -1,0 +1,19 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "docs-site/**", "*.md", "mkdocs.yml"]
+
+firmware:
+  - changed-files:
+      - any-glob-to-any-file: ["firmware/**"]
+
+host-runtime:
+  - changed-files:
+      - any-glob-to-any-file: ["host/**", "tests/**", "schemas/**"]
+
+ci-cd:
+  - changed-files:
+      - any-glob-to-any-file: [".github/workflows/**", ".pre-commit-config.yaml"]
+
+registry:
+  - changed-files:
+      - any-glob-to-any-file: ["registry/**"]

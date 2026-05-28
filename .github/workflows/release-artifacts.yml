@@ -1,0 +1,29 @@
+name: Release Artifacts
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create source archive and checksums
+        run: |
+          mkdir -p dist
+          git archive --format=zip --output=dist/m5-utah-${GITHUB_REF_NAME}.zip HEAD
+          sha256sum dist/m5-utah-${GITHUB_REF_NAME}.zip > dist/SHA256SUMS.txt
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/m5-utah-${{ github.ref_name }}.zip
+            dist/SHA256SUMS.txt

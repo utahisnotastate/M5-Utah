@@ -13,6 +13,10 @@ nav:
   - Architecture: docs-site/architecture.md
   - Quickstart: docs-site/quickstart.md
   - Migration: docs-site/migration.md
+  - Operations:
+      - Compatibility Matrix: docs/compatibility-matrix.md
+      - Governance Setup: docs/github-governance-setup.md
+      - Runbook: docs/operations-runbook.md
   - Audience Guides:
       - Technical Users: docs/technical-users.md
       - Non-Technical Users: docs/non-technical-users.md
