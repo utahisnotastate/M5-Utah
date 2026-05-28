@@ -14,3 +14,11 @@ python examples/tilt_tone.py --port COM3
 ```
 
 Use this as a template for additional intent-driven applications.
+
+## `sample-intent.json`
+
+Ready-to-send sample intent payload for CLI validation and smoke tests:
+
+```bash
+m5resolver --port COM3 --intent-file examples/sample-intent.json --dry-run
+```

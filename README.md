@@ -34,6 +34,7 @@ The M5Stack ecosystem has many independent repositories and drivers. This projec
 - `registry/` JSON capability and register map definitions for Units
 - `examples/` end-to-end host scripts
 - `docs/` bilingual audience documentation and migration playbook
+- `adr/` architecture decision records
 - `tests/` host runtime test suite
 - `.github/` CI pipeline and contribution templates
 - `schemas/` JSON protocol contracts
@@ -76,6 +77,7 @@ python examples/tilt_tone.py --port COM3
 - Docs deployment automation via GitHub Actions (`.github/workflows/docs.yml`)
 - Tag-based GitHub release workflow (`.github/workflows/release.yml`)
 - Code scanning via GitHub CodeQL (`.github/workflows/codeql.yml`)
+- JSON/schema syntax check (`.github/workflows/schema-check.yml`)
 - Dependency update bot (`.github/dependabot.yml`)
 - Reviewer ownership mapping (`.github/CODEOWNERS`)
 - Pre-commit hooks (`.pre-commit-config.yaml`)
@@ -98,6 +100,7 @@ python examples/tilt_tone.py --port COM3
 
 - Board and protocol compatibility tracking: `docs/compatibility-matrix.md`
 - GitHub governance setup checklist: `docs/github-governance-setup.md`
+- Architecture decisions index: `adr/README.md`
 
 ## Safety and scope
 

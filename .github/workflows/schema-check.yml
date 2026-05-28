@@ -1,0 +1,26 @@
+name: Schema Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JSON syntax
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          targets = list(Path("schemas").glob("*.json")) + list(Path("registry").glob("*.json"))
+          if not targets:
+              raise SystemExit("No JSON files found for validation.")
+          for p in targets:
+              json.loads(p.read_text(encoding="utf-8"))
+              print(f"ok: {p}")
+          PY

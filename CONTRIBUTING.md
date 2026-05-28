@@ -29,6 +29,13 @@ cd ..
 pytest
 ```
 
+### Common quality commands
+
+```bash
+make quality
+make docs-build
+```
+
 ### Optional pre-commit setup
 
 ```bash

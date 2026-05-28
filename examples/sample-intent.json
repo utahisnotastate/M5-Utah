@@ -1,0 +1,20 @@
+{
+  "display": {
+    "clear": true,
+    "bg_color": 0,
+    "text": {
+      "x": 8,
+      "y": 24,
+      "size": 2,
+      "color": 65535,
+      "payload": "Resolver OK"
+    }
+  },
+  "speaker": {
+    "tone": {
+      "frequency": 660.0,
+      "duration": 80,
+      "channel": 0
+    }
+  }
+}
