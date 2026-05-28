@@ -98,9 +98,13 @@ python examples/tilt_tone.py --port COM3
 
 ## Enterprise operations
 
-- Board and protocol compatibility tracking: `docs/compatibility-matrix.md`
-- GitHub governance setup checklist: `docs/github-governance-setup.md`
+- English compatibility matrix: `docs/en/compatibility-matrix.md`
+- Chinese compatibility matrix: `docs/zh/compatibility-matrix.md`
+- English governance setup: `docs/en/github-governance-setup.md`
+- Chinese governance setup: `docs/zh/github-governance-setup.md`
 - Architecture decisions index: `adr/README.md`
+- English docs index: `docs/en/README.md`
+- Chinese docs index: `docs/zh/README.md`
 
 ## Safety and scope
 

@@ -13,13 +13,23 @@ nav:
   - Architecture: docs-site/architecture.md
   - Quickstart: docs-site/quickstart.md
   - Migration: docs-site/migration.md
-  - Operations:
-      - Compatibility Matrix: docs/compatibility-matrix.md
-      - Governance Setup: docs/github-governance-setup.md
-      - Runbook: docs/operations-runbook.md
-  - Audience Guides:
-      - Technical Users: docs/technical-users.md
-      - Non-Technical Users: docs/non-technical-users.md
-      - Children: docs/children.md
-      - Electronics Engineers: docs/electronics-engineers.md
-      - Employee Playbook: docs/m5stack-employee-migration-playbook.md
+  - English Docs:
+      - Index: docs/en/README.md
+      - Technical Users: docs/en/technical-users.md
+      - Non-Technical Users: docs/en/non-technical-users.md
+      - Children: docs/en/children.md
+      - Electronics Engineers: docs/en/electronics-engineers.md
+      - Employee Playbook: docs/en/m5stack-employee-migration-playbook.md
+      - Operations Runbook: docs/en/operations-runbook.md
+      - Compatibility Matrix: docs/en/compatibility-matrix.md
+      - Governance Setup: docs/en/github-governance-setup.md
+  - 中文文档:
+      - 索引: docs/zh/README.md
+      - 技术用户: docs/zh/technical-users.md
+      - 非技术用户: docs/zh/non-technical-users.md
+      - 儿童: docs/zh/children.md
+      - 电子工程师: docs/zh/electronics-engineers.md
+      - 员工迁移手册: docs/zh/m5stack-employee-migration-playbook.md
+      - 运维手册: docs/zh/operations-runbook.md
+      - 兼容性矩阵: docs/zh/compatibility-matrix.md
+      - GitHub治理配置: docs/zh/github-governance-setup.md
