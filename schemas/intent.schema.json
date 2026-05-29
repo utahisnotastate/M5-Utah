@@ -5,6 +5,7 @@
   "additionalProperties": false,
   "properties": {
     "capability_query": { "type": "boolean" },
+    "memory_compact": { "type": "boolean" },
     "registry": {
       "type": "object",
       "properties": {
@@ -60,6 +61,87 @@
         "off": { "type": "boolean" }
       },
       "additionalProperties": false
+    },
+    "binwire": {
+      "type": "object",
+      "description": "Optional fast-path binary encoding hints (host validates, device receives binwire frame)",
+      "properties": {
+        "unit_id": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "pin": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "frequency": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "frequency_hz": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "state_flag": { "type": "integer", "minimum": 0 },
+        "refresh_sequence_id": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "rpp": {
+      "type": "object",
+      "description": "Asymmetric Remote Procedure Piping (#P) fixed-width execution frame",
+      "properties": {
+        "unit_id": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "opcode": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "functional_opcode": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "data_vector": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "parameter": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "sequence_id": { "type": "integer", "minimum": 0 },
+        "refresh_sequence_id": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "intent": {
+      "type": "object",
+      "description": "Vibe-coded action envelope routed through FastPathSerializer when action is fast_track_gpio",
+      "properties": {
+        "action": { "type": "string" },
+        "parameters": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "fastpath": {
+      "type": "boolean",
+      "description": "When true, host emits raw ## binwire bytes instead of JSON when encodable"
+    },
+    "security": {
+      "type": "object",
+      "description": "Zero-trust intent signature envelope (SHA-256 over canonical body)",
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha256-canonical-v1"] },
+        "signature_hex": { "type": "string", "minLength": 16 },
+        "timestamp_epoch": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["signature_hex"],
+      "additionalProperties": false
+    },
+    "native_jit": {
+      "type": "object",
+      "description": "Position-independent machine code hot-load patch (IRAM)",
+      "properties": {
+        "unit_id": { "type": "string" },
+        "type": { "type": "string", "enum": ["native_jit_patch"] },
+        "code_size_bytes": { "type": "integer", "minimum": 4, "maximum": 4096 },
+        "payload_hex": { "type": "string", "minLength": 8 },
+        "execute": { "type": "boolean" }
+      },
+      "required": ["type", "payload_hex", "code_size_bytes"],
+      "additionalProperties": false
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "code_size_bytes": { "type": "integer", "maximum": 4096 },
+          "payload_hex": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "vector_clock_sync": {
+      "type": "object",
+      "description": "Host-to-device logical clock mirror for causal telemetry alignment",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
     }
   }
 }

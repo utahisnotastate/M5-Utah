@@ -4,7 +4,8 @@ from typing import Any
 
 MAX_I2C_FREQUENCY_HZ = 1_000_000
 MIN_I2C_FREQUENCY_HZ = 10_000
-VALID_BUS_TYPES = {"raw_gpio", "gpio", "I2C", "i2c", "SPI", "spi", "PWM", "pwm"}
+VALID_BUS_TYPES = {"raw_gpio", "gpio", "I2C", "i2c", "SPI", "spi", "PWM", "pwm", "internal"}
+SEMANTIC_UNIT_TYPES = {"fast_path_bridge", "hardware_driver", "virtual_dsp"}
 
 
 def validate_bus_multiplexing(registry: dict[str, Any]) -> list[str]:
@@ -33,7 +34,11 @@ def validate_bus_multiplexing(registry: dict[str, Any]) -> list[str]:
 
 def _validate_unit_bus(unit_id: str, unit: dict[str, Any], claimed_pins: dict[int, str]) -> list[str]:
     errors: list[str] = []
-    bus_type = unit.get("type") or unit.get("bus_type") or unit.get("bus")
+    semantic_type = unit.get("type")
+    if semantic_type in SEMANTIC_UNIT_TYPES:
+        bus_type = unit.get("bus_type") or unit.get("bus")
+    else:
+        bus_type = unit.get("type") or unit.get("bus_type") or unit.get("bus")
     if bus_type is None:
         return errors
 
@@ -55,6 +60,13 @@ def _validate_unit_bus(unit_id: str, unit: dict[str, Any], claimed_pins: dict[in
                     f"unit {unit_id}: I2C frequency {freq} out of range "
                     f"({MIN_I2C_FREQUENCY_HZ}-{MAX_I2C_FREQUENCY_HZ})"
                 )
+
+    window_ms = unit.get("bus_arbitration_window_ms")
+    if window_ms is not None:
+        if not isinstance(window_ms, int) or window_ms < 5 or window_ms > 60_000:
+            errors.append(
+                f"unit {unit_id}: bus_arbitration_window_ms must be integer between 5 and 60000"
+            )
 
     if normalized.lower() == "spi" and len(pins) < 2:
         errors.append(f"unit {unit_id}: SPI requires at least MOSI and SCLK pins")

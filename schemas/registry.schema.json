@@ -18,7 +18,20 @@
           "register_map": { "type": "object" },
           "bounty_id": { "type": "string" },
           "semantic_action": { "type": "string" },
-          "type": { "type": "string", "enum": ["raw_gpio", "gpio", "I2C", "i2c", "SPI", "spi", "PWM", "pwm"] },
+          "type": {
+            "type": "string",
+            "enum": [
+              "raw_gpio",
+              "gpio",
+              "I2C",
+              "i2c",
+              "SPI",
+              "spi",
+              "PWM",
+              "pwm",
+              "fast_path_bridge"
+            ]
+          },
           "bus_type": { "type": "string" },
           "pins": { "type": "array", "items": { "type": "integer" } },
           "mode": { "type": "string", "enum": ["INPUT", "INPUT_PULLUP", "OUTPUT"] },
@@ -26,7 +39,20 @@
           "resolution_bits": { "type": "integer" },
           "frequency_hz": { "type": "integer", "maximum": 1000000 },
           "max_power_ma": { "type": "integer", "maximum": 500 },
-          "priority": { "type": "integer", "minimum": 0 }
+          "priority": { "type": "integer", "minimum": 0 },
+          "refresh_sequence_id": { "type": "integer", "minimum": 0 },
+          "depends_on": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "slot_id": { "type": "integer", "minimum": 0, "maximum": 15 },
+          "allocation_handle_id": { "type": "integer", "minimum": 0, "maximum": 31 },
+          "buffer_size_bytes": { "type": "integer", "minimum": 0, "maximum": 512 },
+          "bus_arbitration_window_ms": { "type": "integer", "minimum": 5, "maximum": 60000 },
+          "realtime_critical": { "type": "boolean" },
+          "assigned_priority_tier": { "type": "integer", "minimum": 1, "maximum": 3 },
+          "execution_core_target": { "type": "integer", "enum": [0, 1] },
+          "buffer_allocation_bytes": { "type": "integer", "minimum": 512, "maximum": 8192 }
         },
         "additionalProperties": true
       }

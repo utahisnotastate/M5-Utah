@@ -4,20 +4,55 @@
   "type": "object",
   "required": ["type", "board_id", "ts_us"],
   "properties": {
-    "type": { "const": "telemetry" },
+    "type": { "enum": ["telemetry", "causal_telemetry"] },
     "status": { "enum": ["operational", "degraded", "error"] },
     "board_id": { "type": "integer" },
     "ts_us": { "type": "integer" },
+    "sender_id": { "type": "string" },
+    "unit_id": { "type": "integer" },
     "battery_pct": { "type": "integer" },
     "charging": { "type": "integer" },
+    "vector_clocks": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
     "metrics": {
       "type": "object",
       "properties": {
         "free_heap": { "type": "integer" },
         "latency_budget_ms": { "type": "integer" },
-        "i2c_bandwidth_pct": { "type": "integer", "maximum": 100 }
+        "i2c_bandwidth_pct": { "type": "integer", "maximum": 100 },
+        "handle_pool_top": { "type": "integer", "minimum": 0 },
+        "handle_pool_limit": { "type": "integer", "minimum": 0 },
+        "handle_fragmentation_index": { "type": "number", "minimum": 0 },
+        "handle_active_count": { "type": "integer", "minimum": 0 },
+        "bus_arbitrated_slots": { "type": "integer", "minimum": 0 },
+        "bus_rejected_transactions": { "type": "integer", "minimum": 0 },
+        "gatekeeper_boost_count": { "type": "integer", "minimum": 0 },
+        "gatekeeper_lock_count": { "type": "integer", "minimum": 0 },
+        "kernel_processed_frames": { "type": "integer", "minimum": 0 },
+        "kernel_orchestration_ticks": { "type": "integer", "minimum": 0 },
+        "orchestrator_pressure_level": { "type": "integer", "minimum": 0, "maximum": 2 },
+        "orchestrator_deferred_frames": { "type": "integer", "minimum": 0 },
+        "orchestrator_staged_contexts": { "type": "integer", "minimum": 0 },
+        "task_jitter_ms": { "type": "integer", "minimum": 0 },
+        "active_unit_id": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "active_pin": { "type": "integer", "minimum": 0, "maximum": 255 }
       },
       "additionalProperties": false
+    },
+    "active_pin": { "type": "integer", "minimum": 0, "maximum": 255 },
+    "ecc": {
+      "type": "object",
+      "properties": {
+        "status_word": { "type": "integer", "minimum": 0, "maximum": 127 },
+        "battery_word": { "type": "integer", "minimum": 0, "maximum": 127 },
+        "heap_word": { "type": "integer", "minimum": 0, "maximum": 127 },
+        "status_word_repaired": { "type": "boolean" },
+        "battery_word_repaired": { "type": "boolean" },
+        "heap_word_repaired": { "type": "boolean" }
+      },
+      "additionalProperties": true
     },
     "accel": {
       "type": "object",
@@ -27,6 +62,15 @@
         "z": { "type": "number" }
       },
       "required": ["x", "y", "z"],
+      "additionalProperties": false
+    },
+    "accel_raw": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      },
       "additionalProperties": false
     }
   },

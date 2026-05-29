@@ -20,11 +20,13 @@
 - [compatibility-matrix.md](compatibility-matrix.md)
 - [github-governance-setup.md](github-governance-setup.md)
 
-## Features (v0.3+)
+## Features (v0.7+)
 
 - Visual Lego brick IDE (no CLI for users)
 - Utah-Flux compiler (`.flux.json` projects)
 - Intent-first device control (`display`, `speaker`, `power`, `registry`)
+- Formal typestate enforcement and m5-secure anti-replay wire fences
+- Real-time terminal state dashboard (`enable_dashboard=True`)
 - Safety validation and simulation-in-the-loop
 - Agentic telemetry remediation
 - Hardware Context Protocol (`registry/units.json`)

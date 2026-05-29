@@ -8,6 +8,7 @@ MIN_SPEAKER_FREQUENCY_HZ = 20.0
 MAX_TONE_DURATION_MS = 5000
 MAX_LED_BRIGHTNESS = 255
 MAX_UNIT_FREQUENCY_HZ = 60
+MAX_I2C_BUS_FREQUENCY_HZ = 1_000_000
 MAX_REGISTRY_UNITS = 10
 MAX_ESTIMATED_POWER_MA = 500
 MIN_FREE_HEAP_BYTES = 20000
@@ -69,8 +70,15 @@ def validate_registry_safety(registry: dict[str, Any]) -> list[str]:
 def _validate_unit_record(unit: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     freq = unit.get("frequency_hz")
-    if isinstance(freq, (int, float)) and freq > MAX_UNIT_FREQUENCY_HZ:
-        errors.append(f"unit frequency_hz exceeds safe limit ({MAX_UNIT_FREQUENCY_HZ})")
+    unit_type = str(unit.get("type", "")).upper()
+    if isinstance(freq, (int, float)):
+        if unit_type in ("I2C", "SPI"):
+            if freq > MAX_I2C_BUS_FREQUENCY_HZ:
+                errors.append(
+                    f"unit bus frequency_hz exceeds safe limit ({MAX_I2C_BUS_FREQUENCY_HZ})"
+                )
+        elif freq > MAX_UNIT_FREQUENCY_HZ:
+            errors.append(f"unit frequency_hz exceeds safe limit ({MAX_UNIT_FREQUENCY_HZ})")
     power = unit.get("max_power_ma")
     if isinstance(power, (int, float)) and power > MAX_ESTIMATED_POWER_MA:
         errors.append(f"unit max_power_ma exceeds platform limit ({MAX_ESTIMATED_POWER_MA}mA)")

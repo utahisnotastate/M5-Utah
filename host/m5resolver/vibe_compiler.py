@@ -10,6 +10,24 @@ def compile_vibe_to_intent(prompt: str) -> dict[str, Any]:
     Rule-based compiler (no runtime LLM dependency).
     """
     text = prompt.strip().lower()
+
+    gpio_pin = _extract_gpio_pin(text)
+    if gpio_pin is not None and any(
+        word in text for word in ("blink", "gpio", "pin", "hz", "frequency", "mask")
+    ):
+        return {
+            "intent": {
+                "action": "fast_track_gpio",
+                "parameters": {
+                    "unit_id": _extract_unit_id(text) or 7,
+                    "pin": gpio_pin,
+                    "frequency_hz": min(65535, _extract_hz_value(text) or 50),
+                    "state_mask": _extract_state_mask(text) or 412,
+                },
+            },
+            "fastpath": True,
+        }
+
     intent: dict[str, Any] = {"display": {}, "speaker": {}}
 
     if any(word in text for word in ("clear", "reset screen", "blank")):
@@ -94,11 +112,40 @@ def _extract_message(prompt: str) -> str:
 
 
 def _extract_frequency(text: str) -> int:
-    match = re.search(r"(\d+)\s*hz", text)
-    if match:
-        return min(60, max(1, int(match.group(1))))
+    hz = _extract_hz_value(text)
+    if hz is not None:
+        return min(60, max(1, hz))
     if "fast" in text:
         return 8
     if "slow" in text:
         return 1
     return 2
+
+
+def _extract_hz_value(text: str) -> int | None:
+    match = re.search(r"(\d+)\s*hz", text)
+    if match:
+        return int(match.group(1))
+    return None
+
+
+def _extract_gpio_pin(text: str) -> int | None:
+    for pattern in (r"gpio\s*(?:pin\s*)?(\d+)", r"pin\s*(\d+)"):
+        match = re.search(pattern, text)
+        if match:
+            return min(255, int(match.group(1)))
+    return None
+
+
+def _extract_unit_id(text: str) -> int | None:
+    match = re.search(r"unit\s*(?:id\s*)?(\d+)", text)
+    if match:
+        return min(255, int(match.group(1)))
+    return None
+
+
+def _extract_state_mask(text: str) -> int | None:
+    match = re.search(r"(?:mask|state(?:\s*mask)?)\s*(\d+)", text)
+    if match:
+        return int(match.group(1))
+    return None

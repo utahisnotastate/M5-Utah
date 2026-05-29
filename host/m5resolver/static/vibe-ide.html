@@ -3,117 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>m5-utah Vibe IDE</title>
+  <title>m5-utah // Vibe Gateway</title>
   <style>
-    body { font-family: ui-monospace, monospace; background: #0f1115; color: #9eff9e; margin: 0; padding: 20px; }
-    h1 { font-size: 1.2rem; margin-bottom: 8px; }
-    .panel { border: 1px solid #2f4f2f; border-radius: 8px; padding: 12px; margin-bottom: 12px; background: #12161d; }
-    #console { height: 220px; overflow-y: auto; background: #000; padding: 10px; border-radius: 6px; white-space: pre-wrap; }
-    input[type=text] { width: 72%; padding: 10px; background: #1b1f27; color: #d7ffd7; border: 1px solid #3a5f3a; border-radius: 6px; }
-    button { padding: 10px 14px; border: none; border-radius: 6px; background: #3ecf6e; color: #0b140f; cursor: pointer; font-weight: 700; }
-    button.secondary { background: #2f6fed; color: #fff; }
-    #status { color: #ffd27a; margin-top: 6px; }
-    .hint { color: #8aa; font-size: 0.85rem; }
+    body { background: #0d1117; color: #58a6ff; font-family: 'Courier New', ui-monospace, monospace; padding: 30px; margin: 0; }
+    .container { max-width: 900px; margin: 0 auto; border: 1px solid #30363d; padding: 20px; background: #161b22; border-radius: 6px; }
+    h1 { color: #58a6ff; border-bottom: 1px solid #30363d; padding-bottom: 10px; font-size: 1.15rem; }
+    h3 { color: #79c0ff; margin-bottom: 8px; }
+    button { background: #238636; color: #fff; border: 1px solid #2ea043; padding: 12px 24px; font-weight: bold; cursor: pointer; border-radius: 6px; margin-right: 8px; }
+    button:hover { background: #2ea043; }
+    button.secondary { background: #1f6feb; border-color: #388bfd; }
+    button.secondary:hover { background: #388bfd; }
+    input[type=text] { width: 72%; padding: 12px; background: #0d1117; border: 1px solid #30363d; color: #c9d1d9; border-radius: 6px; }
+    #connection-status { margin-left: 15px; color: #f85149; }
+    #log-stream { background: #0d1117; border: 1px solid #30363d; height: 250px; overflow-y: scroll; padding: 15px; color: #7ee787; margin-top: 12px; border-radius: 6px; white-space: pre-wrap; font-size: 0.9rem; }
+    .hint { color: #8b949e; font-size: 0.85rem; margin-bottom: 16px; }
+    .row { margin-top: 22px; }
   </style>
 </head>
 <body>
-  <h1>m5-utah // Intent-First Silicon Gateway</h1>
-  <p class="hint">Browser WebSerial connects directly to ESP32. Natural language compiles to schema-safe intents on the host.</p>
+  <div class="container">
+    <h1>m5-utah // Intent-First Silicon Framework</h1>
+    <p class="hint">Zero-install WebSerial IDE — natural language compiles to schema-validated intents and zero-allocation binwire frames.</p>
 
-  <div class="panel">
-    <button id="connect" class="secondary">1. Connect via WebSerial</button>
-  <div id="status">Status: Disconnected</div>
-  </div>
+    <div class="row">
+      <button id="connect-btn" class="secondary">1. CONNECT TO SILICON VIA WEBUSB/SERIAL</button>
+      <span id="connection-status">Disconnected</span>
+    </div>
 
-  <div class="panel">
-    <h3>2. Vibe your intent</h3>
-    <input id="prompt" type="text" placeholder="e.g. blink led fast when tilt detected and show red alert text" />
-    <button id="send">Compile + Inject</button>
-    <button id="dryrun">Dry Run</button>
-  </div>
+    <div class="row">
+      <h3>2. VIBE-CODE INTENT INTERFACE</h3>
+      <input id="prompt-input" type="text" placeholder="e.g., Blink GPIO pin 10 at 50Hz frequency mask" />
+      <button id="dispatch-btn">DISPATCH INTENT</button>
+      <button id="dryrun-btn" class="secondary">DRY RUN</button>
+    </div>
 
-  <div class="panel">
-    <h3>3. Telemetry stream</h3>
-    <div id="console"></div>
+    <div class="row">
+      <h3>3. SYSTEM DIAGNOSTIC TELEMETRY LOGGER</h3>
+      <div id="log-stream"></div>
+    </div>
   </div>
 
   <script>
-    let port;
-    let reader;
-    const consoleEl = document.getElementById('console');
+    let serialPort;
+    let readLoopActive = false;
 
-    function log(line, color = '#9eff9e') {
-      const p = document.createElement('div');
-      p.style.color = color;
-      p.textContent = line;
-      consoleEl.appendChild(p);
-      consoleEl.scrollTop = consoleEl.scrollHeight;
+    const logEl = document.getElementById('log-stream');
+    const statusEl = document.getElementById('connection-status');
+
+    function log(line, color = '#7ee787') {
+      const span = document.createElement('div');
+      span.style.color = color;
+      span.textContent = line;
+      logEl.appendChild(span);
+      logEl.scrollTop = logEl.scrollHeight;
     }
 
-    document.getElementById('connect').addEventListener('click', async () => {
+    document.getElementById('connect-btn').addEventListener('click', async () => {
       if (!('serial' in navigator)) {
-        log('WebSerial not supported in this browser. Use Chrome/Edge.', '#ff6b6b');
+        log('[CONNECTION ERROR] WebSerial not supported — use Chrome or Edge.', '#f85149');
         return;
       }
       try {
-        port = await navigator.serial.requestPort();
-        await port.open({ baudRate: 115200 });
-        document.getElementById('status').textContent = 'Status: Connected to device';
-        readStream();
-      } catch (e) {
-        log('Connect error: ' + e, '#ff6b6b');
+        serialPort = await navigator.serial.requestPort();
+        await serialPort.open({ baudRate: 115200 });
+        statusEl.textContent = 'Connected Securely to Core';
+        statusEl.style.color = '#58a6ff';
+        streamIncomingDeviceLogs();
+      } catch (err) {
+        log('[CONNECTION ERROR] ' + err, '#f85149');
       }
     });
 
-    async function readStream() {
-      const decoder = new TextDecoderStream();
-      port.readable.pipeTo(decoder.writable);
-      reader = decoder.readable.getReader();
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        if (value) log(value.trim());
+    async function streamIncomingDeviceLogs() {
+      if (readLoopActive || !serialPort) return;
+      readLoopActive = true;
+      const textDecoder = new TextDecoderStream();
+      serialPort.readable.pipeTo(textDecoder.writable);
+      const reader = textDecoder.readable.getReader();
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          if (value) log(value.trimEnd());
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        reader.releaseLock();
+        readLoopActive = false;
       }
     }
 
-    async function compileIntent(prompt, dryRun) {
-      const res = await fetch('/generate_intent', {
+    async function compileWirePayload(prompt) {
+      const response = await fetch('/compile_vibe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt, dry_run: dryRun })
+        body: JSON.stringify({ prompt })
       });
-      const body = await res.json();
-      if (!res.ok) throw new Error(body.errors?.join('; ') || 'compile failed');
-      return body.intent;
+      if (!response.ok) {
+        const errBody = await response.json();
+        throw new Error((errBody.errors || ['compile failed']).join('; '));
+      }
+      const wireFormat = response.headers.get('X-Wire-Format') || 'json';
+      const intentHeader = response.headers.get('X-Intent-Json');
+      const arrayBufferData = await response.arrayBuffer();
+      return {
+        bytes: new Uint8Array(arrayBufferData),
+        wireFormat,
+        intent: intentHeader ? JSON.parse(intentHeader) : null
+      };
     }
 
-    async function injectIntent(intent) {
-      if (!port || !port.writable) throw new Error('Serial not connected');
-      const writer = port.writable.getWriter();
-      const payload = JSON.stringify(intent) + '\n';
-      await writer.write(new TextEncoder().encode(payload));
-      writer.releaseLock();
-    }
-
-    document.getElementById('send').addEventListener('click', async () => {
-      const prompt = document.getElementById('prompt').value;
+    document.getElementById('dispatch-btn').addEventListener('click', async () => {
+      const descriptionPrompt = document.getElementById('prompt-input').value;
+      if (!descriptionPrompt.trim()) {
+        log('[FLUXWIRE] Empty prompt — type a vibe requirement first.', '#ffd27a');
+        return;
+      }
       try {
-        const intent = await compileIntent(prompt, false);
-        log('Compiled intent: ' + JSON.stringify(intent), '#9ed0ff');
-        await injectIntent(intent);
-        log('Intent injected over WebSerial');
-      } catch (e) {
-        log(String(e), '#ff6b6b');
+        const compiled = await compileWirePayload(descriptionPrompt);
+        log('[FLUXWIRE] Compiled (' + compiled.wireFormat + '): ' + JSON.stringify(compiled.intent), '#79c0ff');
+        if (!serialPort || !serialPort.writable) {
+          log('[FLUXWIRE] Compile OK — connect WebSerial to inject.', '#ffd27a');
+          return;
+        }
+        const writer = serialPort.writable.getWriter();
+        await writer.write(compiled.bytes);
+        writer.releaseLock();
+        if (compiled.wireFormat === 'fastpath') {
+          log('[FLUXWIRE] Zero-allocation binwire token pushed (' + compiled.bytes.length + ' bytes).');
+        } else {
+          log('[FLUXWIRE] JSON intent line pushed over WebSerial.');
+        }
+      } catch (err) {
+        log('[FLUXWIRE ERROR] ' + err, '#f85149');
       }
     });
 
-    document.getElementById('dryrun').addEventListener('click', async () => {
-      const prompt = document.getElementById('prompt').value;
+    document.getElementById('dryrun-btn').addEventListener('click', async () => {
+      const descriptionPrompt = document.getElementById('prompt-input').value;
       try {
-        const intent = await compileIntent(prompt, true);
-        log('Dry-run OK: ' + JSON.stringify(intent), '#ffd27a');
-      } catch (e) {
-        log(String(e), '#ff6b6b');
+        const res = await fetch('/generate_intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: descriptionPrompt, dry_run: true })
+        });
+        const body = await res.json();
+        if (!res.ok) throw new Error((body.errors || ['dry run failed']).join('; '));
+        log('[DRY RUN] wire=' + body.wire_format + ' intent=' + JSON.stringify(body.intent), '#ffd27a');
+      } catch (err) {
+        log('[DRY RUN ERROR] ' + err, '#f85149');
       }
     });
   </script>

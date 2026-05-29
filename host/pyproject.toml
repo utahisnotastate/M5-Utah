@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "utah-flux"
-version = "0.3.3"
+version = "0.7.0"
 description = "Utah Flux Studio — visual Lego IDE for M5Stack (no CLI required)"
 readme = "../README.md"
 requires-python = ">=3.10"
@@ -14,6 +14,7 @@ dependencies = [
 
 [project.scripts]
 utah-flux-studio = "utah_flux.studio:main"
+m5-vibe-server = "m5resolver.vibe_server:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}

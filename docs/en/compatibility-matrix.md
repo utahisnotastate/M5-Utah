@@ -26,6 +26,8 @@
 | Intent schema | 0.1+ | compile gate | execute |
 | Telemetry schema | 0.1+ | Live Log | emit |
 | Registry (HCP) | 0.1 | merge on compile | hot-reload |
+| Secure wire (#A) | 0.7+ | `SecureWireEncoder` | `SecureWireFence` |
+| Typestate graph | 0.6.8+ | preflight | N/A (host) |
 
 ## Browser support
 
