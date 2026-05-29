@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "m5resolver"
-version = "0.2.0"
-description = "Intent-resolution substrate for M5Stack ecosystem consolidation"
+name = "utah-flux"
+version = "0.3.0"
+description = "Utah Flux Studio — visual Lego IDE for M5Stack (no CLI required)"
 readme = "../README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -13,11 +13,14 @@ dependencies = [
 ]
 
 [project.scripts]
-m5resolver = "m5resolver.cli:main"
-m5vibe = "m5resolver.vibe_server:main"
+utah-flux-studio = "utah_flux.studio:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}
 
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["m5resolver*", "utah_flux*"]
+
+[tool.setuptools.package-data]
+utah_flux = ["static/*"]

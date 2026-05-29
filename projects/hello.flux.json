@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "name": "Hello Screen",
+  "bricks": [
+    { "id": "t1", "type": "when_start", "x": 80, "y": 80, "params": {} },
+    {
+      "id": "a1",
+      "type": "show_message",
+      "x": 80,
+      "y": 220,
+      "params": { "text": "Hello from Utah Flux!", "color": "green" }
+    }
+  ],
+  "links": [{ "from": "t1", "to": "a1" }]
+}

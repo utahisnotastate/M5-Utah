@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utah Flux Studio</title>
+  <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🧱</span>
+      <div>
+        <h1>Utah Flux Studio</h1>
+        <p>Build devices like Lego — no typing commands</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="btnConnect" class="btn btn-blue">🔌 Connect Device</button>
+      <button id="btnPlay" class="btn btn-green">▶ Play Project</button>
+      <button id="btnStop" class="btn btn-gray">⏹ Stop</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="palette" aria-label="Brick palette">
+      <h2>Bricks</h2>
+      <p class="hint">Drag a brick onto the board</p>
+      <div id="brickPalette"></div>
+
+      <h2>Starters</h2>
+      <div id="templateList" class="template-list"></div>
+
+      <div class="file-box">
+        <button id="btnSave" class="btn btn-small">💾 Save Project</button>
+        <button id="btnLoad" class="btn btn-small">📂 Open Project</button>
+        <input id="fileInput" type="file" accept=".flux.json,application/json" hidden />
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="workspace-toolbar">
+        <input id="projectName" class="project-name" value="My Awesome Project" />
+        <span id="statusChip" class="chip chip-off">Device: Not connected</span>
+        <span id="compileChip" class="chip chip-ok">Ready</span>
+      </div>
+      <div id="canvas" class="canvas" tabindex="0">
+        <svg id="wireLayer" class="wire-layer"></svg>
+        <div id="brickLayer" class="brick-layer"></div>
+        <p id="emptyHint" class="empty-hint">Drag bricks here and connect the dots ✨</p>
+      </div>
+    </section>
+
+    <aside class="inspector" aria-label="Brick settings">
+      <h2>Brick Settings</h2>
+      <div id="inspectorBody" class="inspector-body">
+        <p class="hint">Click a brick on the board to change its settings.</p>
+      </div>
+      <h2>Live Log</h2>
+      <div id="logPanel" class="log-panel"></div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span>Tip: Connect your M5Stack with USB, then click <strong>Connect Device</strong> (Chrome or Edge).</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

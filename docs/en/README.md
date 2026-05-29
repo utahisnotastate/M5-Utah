@@ -1,5 +1,9 @@
 # English Documentation
 
+## Utah Flux Studio (main app)
+
+- Kids & everyone: double-click `Start Utah Flux Studio.bat` at repo root (no CLI)
+
 ## Audience Guides
 
 - Technical users: `docs/en/technical-users.md`

@@ -1,5 +1,9 @@
 # 中文文档
 
+## Utah Flux Studio（主程序）
+
+- 儿童与所有用户：双击仓库根目录的 `Start Utah Flux Studio.bat`（无需命令行）
+
 ## 受众指南
 
 - 技术用户：`docs/zh/technical-users.md`
