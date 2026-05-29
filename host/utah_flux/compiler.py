@@ -103,6 +103,22 @@ def _compile_action_brick(brick_type: str, params: dict[str, Any]) -> dict[str, 
             "speaker": {"stop": True},
             "power": {"led": 4},
         }
+    if brick_type == "attach_i2c":
+        sda = int(params.get("sda", 21))
+        scl = int(params.get("scl", 22))
+        freq = 400000 if params.get("speed") == "fast" else 100000
+        return {
+            "registry": {
+                "units": {
+                    "dynamic_i2c_bus": {
+                        "type": "I2C",
+                        "pins": [sda, scl],
+                        "frequency_hz": freq,
+                        "priority": 1,
+                    }
+                }
+            }
+        }
     return {}
 
 

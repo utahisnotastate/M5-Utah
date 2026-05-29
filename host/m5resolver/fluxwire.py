@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-
 Transform = Callable[[Any], Any]
 
 
@@ -48,14 +47,27 @@ class MeshBus:
 class FluxGraph:
     """Applies wire mappings from telemetry to intent patches."""
 
-    def __init__(self, mesh: MeshBus | None = None) -> None:
+    def __init__(self, mesh: MeshBus | None = None, gossip_mesh: Any | None = None) -> None:
         self._wires: list[ContinuousWire] = []
         self.mesh = mesh or MeshBus()
+        self.gossip_mesh = gossip_mesh
 
     def add_wire(self, wire: ContinuousWire) -> None:
         self._wires.append(wire)
 
+    def publish_telemetry(self, telemetry: dict[str, Any]) -> None:
+        """Share telemetry status with gossip peers."""
+        if self.gossip_mesh is None:
+            return
+        status = telemetry.get("status", "operational")
+        self.gossip_mesh.update_local_status(str(status))
+        if status in ("degraded", "error"):
+            self.gossip_mesh.broadcast_registry_gossip(
+                {"alert": "degraded_state", "telemetry": telemetry}
+            )
+
     def resolve_intent_patch(self, telemetry: dict[str, Any]) -> dict[str, Any]:
+        self.publish_telemetry(telemetry)
         patch: dict[str, Any] = {}
         for wire in self._wires:
             value = _read_key(telemetry, wire.source_key)

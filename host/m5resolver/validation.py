@@ -2,7 +2,29 @@ from __future__ import annotations
 
 from typing import Any
 
+from .bus_validation import validate_bus_multiplexing
 from .safety import validate_intent_safety
+
+
+class IntentValidator:
+    """Strict validator that raises on first error batch (for tests and gates)."""
+
+    def validate_intent_payload(self, intent: dict[str, Any]) -> None:
+        errors = validate_intent_payload(intent)
+        if errors:
+            raise ValueError("; ".join(errors))
+
+    def validate_registry(self, registry: dict[str, Any]) -> None:
+        errors = validate_registry_payload(registry)
+        if errors:
+            raise ValueError("; ".join(errors))
+
+
+def validate_registry_payload(registry: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    errors.extend(validate_intent_safety({"registry": registry}))
+    errors.extend(validate_bus_multiplexing(registry))
+    return errors
 
 
 def validate_intent_payload(intent: dict[str, Any]) -> list[str]:
@@ -34,6 +56,13 @@ def validate_intent_payload(intent: dict[str, Any]) -> list[str]:
     registry = intent.get("registry")
     if registry is not None and not isinstance(registry, dict):
         errors.append("registry must be an object")
+    elif isinstance(registry, dict):
+        errors.extend(validate_registry_payload(registry))
+
+    # Support legacy/top-level units blocks from vibe payloads
+    units = intent.get("units")
+    if isinstance(units, dict):
+        errors.extend(validate_bus_multiplexing({"units": units}))
 
     if "capability_query" in intent and not isinstance(intent["capability_query"], bool):
         errors.append("capability_query must be a boolean")

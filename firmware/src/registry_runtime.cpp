@@ -1,5 +1,7 @@
 #include "registry_runtime.h"
 
+#include "DynamicMultiplexer.h"
+
 #include <cstring>
 
 #include <M5Unified.h>
@@ -86,6 +88,8 @@ void clearUnitTasks() {
 }
 
 void addUnitFromObject(const char *unitId, JsonObjectConst unit) {
+  DynamicMultiplexer::configureProcessorTopology(unit);
+
   if (g_unitCount >= kMaxUnits) return;
 
   UnitTaskConfig &cfg = g_units[g_unitCount];
@@ -129,6 +133,7 @@ void registryRuntimeInit() {
 
 void registryHotReload(const JsonObjectConst &registryRoot) {
   clearUnitTasks();
+  DynamicMultiplexer::resetAll();
   g_safeguard = registryRoot["safeguard"] | false;
 
   JsonObjectConst units = registryRoot["units"].as<JsonObjectConst>();
@@ -161,5 +166,7 @@ void registryRespondCapabilities(JsonObject out) {
   caps.add("power");
   caps.add("registry_hot_reload");
   caps.add("semantic_actions");
+  caps.add("dynamic_bus_multiplexing");
+  caps.add("gossip_mesh_node");
   if (M5.Imu.isEnabled()) caps.add("accel");
 }

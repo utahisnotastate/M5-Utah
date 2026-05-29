@@ -1,6 +1,10 @@
 {
   "version": 1,
   "protocol": "hardware-context-protocol/0.1",
+  "mesh": {
+    "enabled": true,
+    "gossip_port": 23023
+  },
   "units": [
     {
       "unit_id": "imu_builtin",
@@ -40,6 +44,17 @@
       "max_power_ma": 35,
       "priority": 1,
       "bounty_id": "community-tof4m-v1"
+    },
+    {
+      "unit_id": "port_a_i2c",
+      "bus": "i2c",
+      "type": "I2C",
+      "pins": [21, 22],
+      "frequency_hz": 100000,
+      "capabilities": ["i2c_bus"],
+      "register_map": {},
+      "priority": 1,
+      "max_power_ma": 25
     }
   ]
 }

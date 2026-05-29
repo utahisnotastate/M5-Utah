@@ -23,3 +23,4 @@ Each ADR should include:
 - `adr/0002-thin-firmware-boundary.md`
 - `adr/0003-registry-driven-unit-model.md`
 - `adr/0004-hardware-context-protocol.md`
+- `adr/0005-dynamic-bus-and-gossip-mesh.md`

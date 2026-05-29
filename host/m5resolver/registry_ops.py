@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .bus_validation import validate_bus_multiplexing
 from .registry import DriverRegistry
 from .safety import validate_registry_safety
 from .simulation import HardwareSimulator
@@ -12,9 +13,10 @@ from .simulation import HardwareSimulator
 class RegistryStore:
     """Read/write registry with staged validation (SIL gate)."""
 
-    def __init__(self, registry_file: str | Path) -> None:
+    def __init__(self, registry_file: str | Path, gossip_mesh: Any | None = None) -> None:
         self.registry_file = Path(registry_file)
         self.simulator = HardwareSimulator()
+        self.gossip_mesh = gossip_mesh
 
     def load_raw(self) -> dict[str, Any]:
         return json.loads(self.registry_file.read_text(encoding="utf-8"))
@@ -27,7 +29,13 @@ class RegistryStore:
         safety_errors = validate_registry_safety(payload)
         if safety_errors:
             return safety_errors
+        bus_errors = validate_bus_multiplexing(payload)
+        if bus_errors:
+            return bus_errors
         self.registry_file.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        if self.gossip_mesh:
+            self.gossip_mesh.update_local_registry(payload)
+            self.gossip_mesh.broadcast_registry_gossip(payload)
         return []
 
     def merge_runtime_units(self, runtime_units: dict[str, Any]) -> list[str]:

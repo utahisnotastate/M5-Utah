@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.2 - 2026-05-28
+
+- Dynamic bus multiplexing firmware (`DynamicMultiplexer`) for runtime I2C/SPI/PWM/GPIO
+- UDP gossip mesh (`FluxwireGossipMesh`) for decentralized registry/telemetry verification
+- Bus topology validation and `IntentValidator` strict gate
+- Utah Flux **Attach I2C Sensor** brick
+- ADR 0005 dynamic bus and gossip mesh
+
 ## 0.3.1 - 2026-05-28
 
 - Full documentation refresh for Utah Flux Studio (EN + 中文)

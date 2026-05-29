@@ -93,7 +93,39 @@ make quality
 pytest
 ```
 
-## 8. Architecture references
+## 8. Dynamic bus multiplexing (v0.3.2)
+
+Registry units can declare protocol types without reflashing:
+
+```json
+{
+  "registry": {
+    "units": {
+      "port_a_i2c": {
+        "type": "I2C",
+        "pins": [21, 22],
+        "frequency_hz": 100000
+      }
+    }
+  }
+}
+```
+
+Firmware `DynamicMultiplexer` hot-swaps I2C/SPI/PWM/GPIO. Host `bus_validation` rejects pin conflicts.
+
+## 9. Gossip mesh
+
+```python
+from m5resolver import FluxwireGossipMesh
+
+mesh = FluxwireGossipMesh(node_id="lab_node_1")
+mesh.start_background()
+mesh.update_local_registry({"units": []})
+```
+
+Peers discover each other via UDP broadcast and share registry fingerprints.
+
+## 10. Architecture references
 
 - ADR 0001 — Intent-first
 - ADR 0003 — Registry-driven units

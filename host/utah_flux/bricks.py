@@ -131,6 +131,19 @@ BRICK_CATALOG: list[BrickSpec] = [
         "Slows everything down to protect the device",
         {},
     ),
+    BrickSpec(
+        "attach_i2c",
+        "Attach I2C Sensor",
+        "🔌",
+        "logic",
+        "#3F51B5",
+        "Routes I2C bus to chosen pins without reflashing",
+        {
+            "sda": {"type": "number", "default": 21, "min": 0, "max": 48, "label": "SDA Pin"},
+            "scl": {"type": "number", "default": 22, "min": 0, "max": 48, "label": "SCL Pin"},
+            "speed": {"type": "choice", "default": "standard", "choices": ["standard", "fast"], "label": "Speed"},
+        },
+    ),
 ]
 
 _COLOR_MAP = {
