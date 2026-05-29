@@ -1,39 +1,47 @@
 # Technical User Guide
 
-## What this is
+## Stack overview (v0.3+)
 
-M5 Resolver Substrate consolidates M5Stack development into:
+| Component | Path | Role |
+|-----------|------|------|
+| Utah Flux Studio | `host/utah_flux/studio.py` | Browser GUI, primary UX |
+| Utah-Flux library | `host/utah_flux/` | Bricks, compiler, templates |
+| m5resolver | `host/m5resolver/` | Intents, safety, agent, registry ops |
+| Firmware | `firmware/` | Device runtime + registry supervisor |
+| Schemas | `schemas/` | Hardware Context Protocol contracts |
 
-- one universal firmware runtime
-- one host runtime (`m5resolver`)
-- one registry (`registry/units.json`)
-- one intent-driven control model
+## User vs developer paths
 
-## Quick start
+- **End users:** `Start Utah Flux Studio.bat` only
+- **Developers:** `pip install -e host`, `pytest`, optional `examples/agent_loop.py`
 
-1. Flash firmware in `firmware/`
-2. Install host package from `host/`
-3. Run `python examples/tilt_tone.py --port COM3`
+## Full tutorial
+
+See [Technical Tutorial](tutorials/technical-tutorial.md).
 
 ## Intent model
 
-Supported intent top-level keys:
+Keys: `display`, `speaker`, `power`, `registry`, `capability_query`  
+Schema: `schemas/intent.schema.json`
 
-- `display`
-- `speaker`
-- `power`
+## Safety and simulation
 
-Contracts are defined in `schemas/intent.schema.json`.
+All compiled projects pass:
 
-## Development guidance
+1. `validate_intent_payload`
+2. `validate_intent_safety`
+3. `HardwareSimulator.simulate_intent`
 
-- Keep firmware deterministic and minimal.
-- Move behavior logic into host-side mappings.
-- Add unit metadata to registry rather than creating per-device forks.
+## Agentic loop
 
-## Vibe-IDE and agentic loop
+`AgenticController` watches telemetry and can push corrective intents (thermal throttle, safe mode).
 
-- Start gateway: `m5vibe`
-- Browser compiles natural language via `/generate_intent`
-- `AgenticController` validates, simulates, and can auto-remediate telemetry anomalies
-- Firmware hot-reloads `registry` payloads without reflashing C++ behavior
+## API endpoints (studio)
+
+- `GET /api/bricks` — brick catalog
+- `GET /api/templates` — starters
+- `POST /api/compile` — project → intent + wires
+
+## Legacy CLI tools
+
+`m5resolver` CLI and `examples/*.py` remain for automation; not required for product users.

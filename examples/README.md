@@ -1,32 +1,15 @@
-# Examples
+# Examples (developers)
 
-## `tilt_tone.py`
+End users should use **Utah Flux Studio**, not these scripts.
 
-Maps accelerometer X-axis telemetry to:
+## For automation and testing
 
-- display text update
-- speaker tone frequency
+| File | Purpose |
+|------|---------|
+| `tilt_tone.py` | FluxWire + serial example |
+| `agent_loop.py` | Agentic closed-loop controller |
+| `sample-intent.json` | Raw intent smoke test |
 
-Run:
+## User-facing projects
 
-```bash
-python examples/tilt_tone.py --port COM3
-```
-
-Use this as a template for additional intent-driven applications.
-
-## `agent_loop.py`
-
-Runs closed-loop agentic control with telemetry observation and corrective intents.
-
-```bash
-python examples/agent_loop.py --port COM3
-```
-
-## `sample-intent.json`
-
-Ready-to-send sample intent payload for CLI validation and smoke tests:
-
-```bash
-m5resolver --port COM3 --intent-file examples/sample-intent.json --dry-run
-```
+See `projects/*.flux.json` — open in Studio with **Open Project**.

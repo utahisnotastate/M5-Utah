@@ -1,18 +1,16 @@
 # Migration
 
-## Goal
+## From many M5Stack libraries → Utah Flux
 
-Move from many module-specific repositories to one intent-resolution platform.
+| Old way | Utah Flux way |
+|---------|----------------|
+| Clone per-unit repo | Drag bricks in Studio |
+| Edit C++ and reflash | Press Play (intent update) |
+| Remember driver APIs | Read `registry/units.json` |
+| Debug compile errors | Visual wires + live log |
 
-## Checklist
+## For organizations
 
-1. Inventory legacy repositories and classify retire/reference/bridge/core.
-2. Move new feature work to host runtime and registry-backed flows.
-3. Preserve critical compatibility through bridge adapters.
-4. Track KPIs: lead time, defect rate, onboarding speed.
-
-## Outcome
-
-- lower maintenance overhead
-- faster cross-device delivery
-- clearer onboarding and support
+1. Flash unified firmware once per device line.
+2. Standardize on `.flux.json` project files for curriculum and support.
+3. Classify legacy repos as reference/bridge/retired (see employee playbook).

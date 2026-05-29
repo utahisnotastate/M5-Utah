@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 - 2026-05-28
+
+- Full documentation refresh for Utah Flux Studio (EN + 中文)
+- Per-audience tutorials (children, non-technical, technical, engineers, employees)
+- Updated MkDocs navigation, compatibility matrix, operations runbooks
+
 ## 0.3.0 - 2026-05-28
 
 - Utah-Flux visual library (`host/utah_flux/`) with Lego brick catalog and compiler

@@ -1,21 +1,34 @@
 # Electronics Engineer Guide
 
-## Engineering boundary
+## Role in Utah Flux
 
-- Firmware plane: deterministic IO, telemetry framing, ACK responses
-- Host plane: intent policy, transformations, orchestration
-- Registry plane: unit capabilities and protocol metadata
+You own **physical truth** in the registry: bus, address, capabilities, power budgets, and semantic actions.
+
+## Full tutorial
+
+See [Engineers Tutorial](tutorials/engineers-tutorial.md).
+
+## Firmware responsibilities
+
+- Intent execution and ACK framing
+- Registry hot-reload with FreeRTOS unit supervisor (`registry_runtime.cpp`)
+- Telemetry: `status`, `metrics.free_heap`, IMU, battery
+
+## Host responsibilities (not firmware)
+
+- Policy, composition, safety validation
+- Utah Flux visual compiler
+- Agentic remediation
 
 ## Protocol
 
-- serial transport: 115200
-- newline-delimited JSON frames
-- telemetry: `type=telemetry`
-- acknowledgements: `type=ack`
+- Serial 115200, newline JSON
+- Telemetry `type=telemetry`, ACK `type=ack`
 
-## Migration checklist
+## Registry example
 
-1. Inventory legacy module repos
-2. Map active units into registry
-3. Port golden-path examples to intent flows
-4. Keep legacy repos in bridge/reference mode only
+See `registry/units.json` and `schemas/registry.schema.json`.
+
+## Migration
+
+Port units to registry entries; stop adding per-SKU imperative drivers for new features.

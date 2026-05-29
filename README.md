@@ -67,9 +67,21 @@ After that, children use only Utah Flux Studio.
 | `launch/` | Double-click launchers |
 | `docs/` | Guides (English / 中文) |
 
+## Documentation
+
+| Language | Index |
+|----------|--------|
+| English | [docs/en/README.md](docs/en/README.md) |
+| 中文 | [docs/zh/README.md](docs/zh/README.md) |
+
+Tutorials for children, teachers, developers, engineers, and M5Stack staff are in `docs/*/tutorials/`.
+
+Online docs: enable GitHub Pages from the `docs` workflow, or read Markdown in the repo.
+
 ## For developers
 
-Advanced tooling (optional, not required for users) lives under `host/m5resolver/` and `Makefile`.
+Optional: `pytest`, `make quality`, `host/m5resolver/` APIs, `examples/` scripts.  
+**Not required for end users.**
 
 ## License
 

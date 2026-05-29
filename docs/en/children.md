@@ -1,24 +1,24 @@
 # Kids Guide
 
-## Build with Utah Flux Studio
+Utah Flux Studio lets you build M5Stack projects like **Lego bricks** — no typing commands.
 
-You do **not** need to type commands.
+## Quick steps
 
-1. Ask a grown-up to double-click **Start Utah Flux Studio**.
-2. Drag bricks from the left side onto the big board.
-3. Connect the white dots between bricks (like Lego).
-4. Plug in your M5Stack with USB.
-5. Click **Connect Device**, then **Play Project**.
+1. Double-click **Start Utah Flux Studio**
+2. Drag bricks onto the board
+3. Connect the white dots
+4. **Connect Device** → **Play Project**
 
-## Try a starter project
+## Full tutorial
 
-Click a starter on the left, like **Hello Screen** or **Party Mode**, then press Play.
+See [Children's Tutorial](tutorials/children-tutorial.md) for a 15-minute walkthrough with pictures in text.
 
-## Save your work
+## Starters to try
 
-Click **Save Project** to keep your creation on the computer.
+- 👋 Hello Screen
+- 📐 Tilt Alarm
+- 🎉 Party Mode
 
 ## Safety
 
-- Ask an adult to help with USB and the first firmware flash.
-- Keep liquids away from electronics.
+Ask an adult for USB and the first firmware flash. Keep liquids away from electronics.

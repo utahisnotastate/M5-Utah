@@ -1,24 +1,24 @@
 # 儿童指南
 
-## 用 Utah Flux Studio 搭建
+Utah Flux Studio 让你像搭 **乐高** 一样做 M5Stack 项目，**不用输入命令**。
 
-你**不需要**输入命令。
+## 快速步骤
 
-1. 请大人双击 **Start Utah Flux Studio**。
-2. 从左边拖积木到大画布上。
-3. 用白点把积木连起来（像乐高一样）。
-4. 用 USB 连接 M5Stack。
-5. 点击 **Connect Device**，再点 **Play Project**。
+1. 双击 **Start Utah Flux Studio**
+2. 拖积木到画布
+3. 连接白点
+4. **Connect Device** → **Play Project**
 
-## 试试模板
+## 完整教程
 
-点击左边的入门模板，比如 **Hello Screen** 或 **Party Mode**，然后按 Play。
+[儿童教程](tutorials/children-tutorial.md)（约 15 分钟）
 
-## 保存作品
+## 推荐入门
 
-点击 **Save Project** 把项目保存到电脑。
+- 👋 Hello Screen
+- 📐 Tilt Alarm
+- 🎉 Party Mode
 
 ## 安全
 
-- 接线和第一次烧录固件请在大人帮助下进行。
-- 电子设备远离液体。
+接线和第一次烧录请大人帮忙。设备远离水。

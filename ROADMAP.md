@@ -1,21 +1,30 @@
 # Roadmap
 
-## Near-term (v0.2)
+## Shipped (v0.3)
 
-- Multi-board profile catalog (CoreS3/Core2/StickC/Cardputer/Nano)
-- I2C auto-discovery handshake and unit attachment events
-- Intent schema versioning and compatibility matrix
-- Host runtime plugin interface for third-party units
+- Utah Flux Studio visual IDE (no CLI for users)
+- Utah-Flux brick compiler and `.flux.json` projects
+- WebSerial connect / play / stop
+- Starter templates and save/open
+- m5resolver safety, simulation, agentic remediation
+- Registry hot-reload firmware with semantic actions
+- Bilingual docs and per-audience tutorials
 
-## Mid-term (v0.3-v0.5)
+## Near-term (v0.4)
 
-- WebSocket transport in addition to serial
-- Hosted telemetry capture and replay tooling
-- Performance profiler for intent loop latency
-- Rich examples for education, industrial, and robotics use cases
+- Undo/redo in Studio
+- More bricks (touch, timer, color picker)
+- macOS/Linux double-click launchers
+- Board profiles for Core2 and StickC in compatibility matrix
+
+## Mid-term (v0.5)
+
+- Cloud project gallery (optional, privacy-safe)
+- Plugin brick packs for community `bounty_id` units
+- Offline PWA mode for Studio
 
 ## Long-term (v1.0)
 
-- Stable protocol contract and semantic version guarantees
-- Hardware certification suite
-- Public package releases and production support policy
+- Stable Hardware Context Protocol semver
+- Certified board pack per M5Stack product line
+- Classroom admin dashboard (no student CLI)

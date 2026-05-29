@@ -1,52 +1,42 @@
 # Contributing
 
-Thanks for helping improve M5 Resolver Substrate.
+Thank you for improving Utah Flux Studio and the M5 Resolver platform.
 
-## Development workflow
+## Product-first workflow
 
-1. Fork and create a feature branch.
-2. Keep firmware changes minimal and protocol-safe.
-3. Add/extend tests for host runtime changes.
-4. Update documentation for user-visible behavior.
-5. Open a pull request with test evidence.
+- **Users** should only need the GUI (`Start Utah Flux Studio.bat`).
+- **Contributors** may use `make quality` and `pytest` for validation.
 
-## Local setup
-
-### Host runtime
+## Setup
 
 ```bash
 cd host
-python -m venv .venv
-. .venv/bin/activate  # PowerShell: .venv\Scripts\Activate.ps1
 pip install -e .
-pip install pytest
+pip install pytest ruff mypy
 ```
 
-### Run tests
+## Common tasks
 
-```bash
-cd ..
-pytest
-```
+| Task | Location |
+|------|----------|
+| Add a Lego brick | `host/utah_flux/bricks.py` + `compiler.py` |
+| Change Studio UI | `host/utah_flux/static/` |
+| Intent / safety rules | `host/m5resolver/` |
+| Firmware behavior | `firmware/src/` |
+| Unit definitions | `registry/units.json` |
+| User docs | `docs/en/`, `docs/zh/` |
 
-### Common quality commands
+## Quality checklist
 
-```bash
-make quality
-make docs-build
-```
+- [ ] `pytest` passes
+- [ ] New bricks have EN/ZH tutorial mention if user-facing
+- [ ] Schema changes update `schemas/` and `schema-check` CI
+- [ ] No requirement for end users to use CLI
 
-### Optional pre-commit setup
+## Docs
 
-```bash
-pip install pre-commit
-pre-commit install
-pre-commit run --all-files
-```
+Update both English and Chinese docs when changing user-visible behavior.
 
-## Commit quality checklist
+## Pull requests
 
-- [ ] Intent protocol changes are documented.
-- [ ] No breaking API changes without migration notes.
-- [ ] New registry entries validated.
-- [ ] Readability and naming are clear.
+Use the PR template. Include screenshots of Utah Flux Studio for UI changes.

@@ -1,18 +1,29 @@
 # 兼容性矩阵
 
-## 板卡状态
+## Utah Flux Studio
 
-| 板卡 | 状态 | 说明 |
-|---|---|---|
-| CoreS3 | 主支持 | 当前默认固件目标 |
-| Core2 v1.1 | 规划中 | 待添加板卡配置 |
-| StickC Plus2 | 规划中 | 能力验证待完成 |
-| Cardputer | 规划中 | 键盘契约待定义 |
-| NanoC6 | 规划中 | 低功耗配置待完成 |
+| 功能 | 状态 |
+|------|------|
+| 可视化积木 IDE | ✅ |
+| WebSerial Play/Stop | ✅ Chrome/Edge |
+| 保存/打开 `.flux.json` | ✅ |
+| 入门模板 | ✅ 4 个 |
 
-## 契约状态
+## 板卡
 
-| 契约 | 版本 | 状态 |
-|---|---|---|
-| Intent schema | 0.1 | pre-1.0 稳定 |
-| Telemetry schema | 0.1 | pre-1.0 稳定 |
+| 板卡 | 固件 | Studio | 说明 |
+|------|------|--------|------|
+| CoreS3 | 主支持 | ✅ | 默认目标 |
+| Core2 v1.1 | 规划中 | 🔜 | |
+| StickC Plus2 | 规划中 | 🔜 | |
+| Cardputer | 规划中 | 🔜 | |
+| NanoC6 | 规划中 | 🔜 | |
+
+## 浏览器
+
+| 浏览器 | WebSerial | 推荐 |
+|--------|-----------|------|
+| Chrome | ✅ | 是 |
+| Edge | ✅ | 是 |
+| Firefox | ❌ | 请用 Chrome 连接 |
+| Safari | ❌ | 请用 Chrome 连接 |

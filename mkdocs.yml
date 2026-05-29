@@ -1,5 +1,5 @@
-site_name: M5 Resolver Substrate
-site_description: Unified M5Stack intent-resolution platform
+site_name: Utah Flux Studio
+site_description: Visual Lego IDE for M5Stack — intent-first hardware platform
 repo_url: https://github.com/utahisnotastate/M5-Utah
 theme:
   name: material
@@ -10,26 +10,42 @@ theme:
 
 nav:
   - Home: docs-site/index.md
-  - Architecture: docs-site/architecture.md
   - Quickstart: docs-site/quickstart.md
+  - Architecture: docs-site/architecture.md
   - Migration: docs-site/migration.md
-  - English Docs:
+  - English:
       - Index: docs/en/README.md
-      - Technical Users: docs/en/technical-users.md
-      - Non-Technical Users: docs/en/non-technical-users.md
-      - Children: docs/en/children.md
-      - Electronics Engineers: docs/en/electronics-engineers.md
-      - Employee Playbook: docs/en/m5stack-employee-migration-playbook.md
-      - Operations Runbook: docs/en/operations-runbook.md
-      - Compatibility Matrix: docs/en/compatibility-matrix.md
-      - Governance Setup: docs/en/github-governance-setup.md
-  - 中文文档:
+      - Tutorials:
+          - Children: docs/en/tutorials/children-tutorial.md
+          - Non-Technical: docs/en/tutorials/non-technical-tutorial.md
+          - Technical: docs/en/tutorials/technical-tutorial.md
+          - Engineers: docs/en/tutorials/engineers-tutorial.md
+          - Employees: docs/en/tutorials/employee-tutorial.md
+      - Guides:
+          - Children: docs/en/children.md
+          - Non-Technical: docs/en/non-technical-users.md
+          - Technical: docs/en/technical-users.md
+          - Engineers: docs/en/electronics-engineers.md
+          - Employee Playbook: docs/en/m5stack-employee-migration-playbook.md
+      - Operations:
+          - Runbook: docs/en/operations-runbook.md
+          - Compatibility: docs/en/compatibility-matrix.md
+          - Governance: docs/en/github-governance-setup.md
+  - 中文:
       - 索引: docs/zh/README.md
-      - 技术用户: docs/zh/technical-users.md
-      - 非技术用户: docs/zh/non-technical-users.md
-      - 儿童: docs/zh/children.md
-      - 电子工程师: docs/zh/electronics-engineers.md
-      - 员工迁移手册: docs/zh/m5stack-employee-migration-playbook.md
-      - 运维手册: docs/zh/operations-runbook.md
-      - 兼容性矩阵: docs/zh/compatibility-matrix.md
-      - GitHub治理配置: docs/zh/github-governance-setup.md
+      - 教程:
+          - 儿童: docs/zh/tutorials/children-tutorial.md
+          - 非技术: docs/zh/tutorials/non-technical-tutorial.md
+          - 技术: docs/zh/tutorials/technical-tutorial.md
+          - 工程师: docs/zh/tutorials/engineers-tutorial.md
+          - 员工: docs/zh/tutorials/employee-tutorial.md
+      - 指南:
+          - 儿童: docs/zh/children.md
+          - 非技术: docs/zh/non-technical-users.md
+          - 技术: docs/zh/technical-users.md
+          - 工程师: docs/zh/electronics-engineers.md
+          - 员工手册: docs/zh/m5stack-employee-migration-playbook.md
+      - 运维:
+          - 手册: docs/zh/operations-runbook.md
+          - 兼容性: docs/zh/compatibility-matrix.md
+          - 治理: docs/zh/github-governance-setup.md

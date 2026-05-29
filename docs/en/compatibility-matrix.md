@@ -1,18 +1,37 @@
 # Compatibility Matrix
 
-## Board status
+## Utah Flux Studio
 
-| Board | Status | Notes |
-|---|---|---|
-| CoreS3 | Primary | Current default firmware target |
-| Core2 v1.1 | Planned | Profile to be added |
-| StickC Plus2 | Planned | Capability validation pending |
-| Cardputer | Planned | Keyboard contract pending |
-| NanoC6 | Planned | Low-power profile pending |
+| Feature | Status |
+|---------|--------|
+| Visual brick IDE | ✅ Shipping |
+| WebSerial Play/Stop | ✅ Chrome, Edge |
+| Save/Open `.flux.json` | ✅ |
+| Starter templates | ✅ 4 built-in |
 
-## Contract status
+## Boards
 
-| Contract | Version | State |
-|---|---|---|
-| Intent schema | 0.1 | stable pre-1.0 |
-| Telemetry schema | 0.1 | stable pre-1.0 |
+| Board | Firmware | Utah Flux | Notes |
+|-------|----------|-----------|-------|
+| CoreS3 | Primary | ✅ | Default `platformio.ini` target |
+| Core2 v1.1 | Planned | 🔜 | Add env + profile |
+| StickC Plus2 | Planned | 🔜 | Validate speaker/display |
+| Cardputer | Planned | 🔜 | Keyboard bricks TBD |
+| NanoC6 | Planned | 🔜 | Low-power profile |
+
+## Protocol versions
+
+| Contract | Version | Studio | Firmware |
+|----------|---------|--------|----------|
+| Intent schema | 0.1+ | compile gate | execute |
+| Telemetry schema | 0.1+ | Live Log | emit |
+| Registry (HCP) | 0.1 | merge on compile | hot-reload |
+
+## Browser support
+
+| Browser | WebSerial | Recommended |
+|---------|-----------|-------------|
+| Chrome | ✅ | Yes |
+| Edge | ✅ | Yes |
+| Firefox | ❌ | Use Chrome for connect |
+| Safari | ❌ | Use Chrome for connect |

@@ -1,39 +1,39 @@
 # 技术用户指南
 
-## 项目定位
+## 技术栈（v0.3+）
 
-M5 Resolver Substrate 将 M5Stack 开发统一为：
+| 组件 | 路径 | 作用 |
+|------|------|------|
+| Utah Flux Studio | `host/utah_flux/studio.py` | 浏览器 GUI |
+| Utah-Flux | `host/utah_flux/` | 积木、编译器、模板 |
+| m5resolver | `host/m5resolver/` | 意图、安全、Agent |
+| 固件 | `firmware/` | 设备运行时 |
+| 模式 | `schemas/` | 硬件上下文协议 |
 
-- 一个通用固件运行时
-- 一个主机运行时（`m5resolver`）
-- 一个注册表（`registry/units.json`）
-- 一套意图驱动控制模型
+## 用户与开发者
 
-## 快速开始
+- **终端用户：** 仅双击 `Start Utah Flux Studio.bat`
+- **开发者：** `pip install -e host`、`pytest`、可选 `examples/agent_loop.py`
 
-1. 在 `firmware/` 中烧录固件
-2. 在 `host/` 中安装 Python 包
-3. 运行 `python examples/tilt_tone.py --port COM3`
+## 完整教程
+
+[技术用户教程](tutorials/technical-tutorial.md)
 
 ## 意图模型
 
-当前支持的意图顶层键：
+键：`display`、`speaker`、`power`、`registry`、`capability_query`  
+见 `schemas/intent.schema.json`
 
-- `display`
-- `speaker`
-- `power`
+## 安全与仿真
 
-协议定义位于 `schemas/intent.schema.json`。
+编译前经过 validation、safety、simulation。
 
-## 开发建议
+## Studio API
 
-- 固件保持确定性和最小化。
-- 行为逻辑放在主机侧映射层。
-- 通过注册表扩展设备，而不是复制分叉仓库。
+- `GET /api/bricks`
+- `GET /api/templates`
+- `POST /api/compile`
 
-## Vibe-IDE 与 Agent 闭环
+## 遗留 CLI
 
-- 启动网关：`m5vibe`
-- 浏览器通过 `/generate_intent` 将自然语言编译为意图 JSON
-- `AgenticController` 负责校验、仿真，并可在异常时自动修复
-- 固件支持 `registry` 热更新，无需重编译 C++ 行为逻辑
+`m5resolver` CLI 与 `examples/` 供自动化使用，产品用户不需要。
