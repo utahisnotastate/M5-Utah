@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "m5resolver"
-version = "0.1.0"
+version = "0.2.0"
 description = "Intent-resolution substrate for M5Stack ecosystem consolidation"
 readme = "../README.md"
 requires-python = ">=3.10"
@@ -14,6 +14,7 @@ dependencies = [
 
 [project.scripts]
 m5resolver = "m5resolver.cli:main"
+m5vibe = "m5resolver.vibe_server:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}

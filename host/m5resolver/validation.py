@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
+from .safety import validate_intent_safety
+
 
 def validate_intent_payload(intent: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    allowed_top = {"display", "speaker", "power"}
+    allowed_top = {"display", "speaker", "power", "registry", "capability_query"}
 
     for key in intent:
         if key not in allowed_top:
@@ -29,6 +31,14 @@ def validate_intent_payload(intent: dict[str, Any]) -> list[str]:
     elif power is not None:
         errors.append("power must be an object")
 
+    registry = intent.get("registry")
+    if registry is not None and not isinstance(registry, dict):
+        errors.append("registry must be an object")
+
+    if "capability_query" in intent and not isinstance(intent["capability_query"], bool):
+        errors.append("capability_query must be a boolean")
+
+    errors.extend(validate_intent_safety(intent))
     return errors
 
 

@@ -14,6 +14,14 @@ Enable:
 
 This removes the GitHub warning banner about unprotected `main`.
 
+### Optional automation (GitHub CLI)
+
+If `gh` is installed and authenticated:
+
+```powershell
+./scripts/enable_branch_protection.ps1
+```
+
 ## Security settings
 
 - Enable Dependabot alerts

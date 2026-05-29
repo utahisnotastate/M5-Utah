@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>m5-utah Vibe IDE</title>
+  <style>
+    body { font-family: ui-monospace, monospace; background: #0f1115; color: #9eff9e; margin: 0; padding: 20px; }
+    h1 { font-size: 1.2rem; margin-bottom: 8px; }
+    .panel { border: 1px solid #2f4f2f; border-radius: 8px; padding: 12px; margin-bottom: 12px; background: #12161d; }
+    #console { height: 220px; overflow-y: auto; background: #000; padding: 10px; border-radius: 6px; white-space: pre-wrap; }
+    input[type=text] { width: 72%; padding: 10px; background: #1b1f27; color: #d7ffd7; border: 1px solid #3a5f3a; border-radius: 6px; }
+    button { padding: 10px 14px; border: none; border-radius: 6px; background: #3ecf6e; color: #0b140f; cursor: pointer; font-weight: 700; }
+    button.secondary { background: #2f6fed; color: #fff; }
+    #status { color: #ffd27a; margin-top: 6px; }
+    .hint { color: #8aa; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>m5-utah // Intent-First Silicon Gateway</h1>
+  <p class="hint">Browser WebSerial connects directly to ESP32. Natural language compiles to schema-safe intents on the host.</p>
+
+  <div class="panel">
+    <button id="connect" class="secondary">1. Connect via WebSerial</button>
+  <div id="status">Status: Disconnected</div>
+  </div>
+
+  <div class="panel">
+    <h3>2. Vibe your intent</h3>
+    <input id="prompt" type="text" placeholder="e.g. blink led fast when tilt detected and show red alert text" />
+    <button id="send">Compile + Inject</button>
+    <button id="dryrun">Dry Run</button>
+  </div>
+
+  <div class="panel">
+    <h3>3. Telemetry stream</h3>
+    <div id="console"></div>
+  </div>
+
+  <script>
+    let port;
+    let reader;
+    const consoleEl = document.getElementById('console');
+
+    function log(line, color = '#9eff9e') {
+      const p = document.createElement('div');
+      p.style.color = color;
+      p.textContent = line;
+      consoleEl.appendChild(p);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    document.getElementById('connect').addEventListener('click', async () => {
+      if (!('serial' in navigator)) {
+        log('WebSerial not supported in this browser. Use Chrome/Edge.', '#ff6b6b');
+        return;
+      }
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 115200 });
+        document.getElementById('status').textContent = 'Status: Connected to device';
+        readStream();
+      } catch (e) {
+        log('Connect error: ' + e, '#ff6b6b');
+      }
+    });
+
+    async function readStream() {
+      const decoder = new TextDecoderStream();
+      port.readable.pipeTo(decoder.writable);
+      reader = decoder.readable.getReader();
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        if (value) log(value.trim());
+      }
+    }
+
+    async function compileIntent(prompt, dryRun) {
+      const res = await fetch('/generate_intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, dry_run: dryRun })
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.errors?.join('; ') || 'compile failed');
+      return body.intent;
+    }
+
+    async function injectIntent(intent) {
+      if (!port || !port.writable) throw new Error('Serial not connected');
+      const writer = port.writable.getWriter();
+      const payload = JSON.stringify(intent) + '\n';
+      await writer.write(new TextEncoder().encode(payload));
+      writer.releaseLock();
+    }
+
+    document.getElementById('send').addEventListener('click', async () => {
+      const prompt = document.getElementById('prompt').value;
+      try {
+        const intent = await compileIntent(prompt, false);
+        log('Compiled intent: ' + JSON.stringify(intent), '#9ed0ff');
+        await injectIntent(intent);
+        log('Intent injected over WebSerial');
+      } catch (e) {
+        log(String(e), '#ff6b6b');
+      }
+    });
+
+    document.getElementById('dryrun').addEventListener('click', async () => {
+      const prompt = document.getElementById('prompt').value;
+      try {
+        const intent = await compileIntent(prompt, true);
+        log('Dry-run OK: ' + JSON.stringify(intent), '#ffd27a');
+      } catch (e) {
+        log(String(e), '#ff6b6b');
+      }
+    });
+  </script>
+</body>
+</html>

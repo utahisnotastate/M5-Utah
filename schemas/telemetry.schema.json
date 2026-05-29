@@ -5,10 +5,20 @@
   "required": ["type", "board_id", "ts_us"],
   "properties": {
     "type": { "const": "telemetry" },
+    "status": { "enum": ["operational", "degraded", "error"] },
     "board_id": { "type": "integer" },
     "ts_us": { "type": "integer" },
     "battery_pct": { "type": "integer" },
     "charging": { "type": "integer" },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "free_heap": { "type": "integer" },
+        "latency_budget_ms": { "type": "integer" },
+        "i2c_bandwidth_pct": { "type": "integer", "maximum": 100 }
+      },
+      "additionalProperties": false
+    },
     "accel": {
       "type": "object",
       "properties": {

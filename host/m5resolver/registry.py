@@ -13,6 +13,10 @@ class UnitSpec:
     address: int | None
     capabilities: list[str]
     register_map: dict[str, Any]
+    bounty_id: str | None = None
+    semantic_action: str | None = None
+    frequency_hz: int | None = None
+    max_power_ma: int | None = None
 
 
 class DriverRegistry:
@@ -32,6 +36,10 @@ class DriverRegistry:
                 address=record.get("address"),
                 capabilities=list(record.get("capabilities", [])),
                 register_map=dict(record.get("register_map", {})),
+                bounty_id=record.get("bounty_id"),
+                semantic_action=record.get("semantic_action"),
+                frequency_hz=record.get("frequency_hz"),
+                max_power_ma=record.get("max_power_ma"),
             )
             units[spec.unit_id] = spec
         self._units = units

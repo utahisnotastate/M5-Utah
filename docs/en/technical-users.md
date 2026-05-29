@@ -30,3 +30,10 @@ Contracts are defined in `schemas/intent.schema.json`.
 - Keep firmware deterministic and minimal.
 - Move behavior logic into host-side mappings.
 - Add unit metadata to registry rather than creating per-device forks.
+
+## Vibe-IDE and agentic loop
+
+- Start gateway: `m5vibe`
+- Browser compiles natural language via `/generate_intent`
+- `AgenticController` validates, simulates, and can auto-remediate telemetry anomalies
+- Firmware hot-reloads `registry` payloads without reflashing C++ behavior

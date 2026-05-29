@@ -39,6 +39,18 @@ The M5Stack ecosystem has many independent repositories and drivers. This projec
 - `.github/` CI pipeline and contribution templates
 - `schemas/` JSON protocol contracts
 
+## Vibe-IDE (Browser-to-Silicon)
+
+Run the zero-install web gateway:
+
+```bash
+cd host
+pip install -e .
+m5vibe --port 8023
+```
+
+Open `http://127.0.0.1:8023` in Chrome/Edge, connect via WebSerial, and inject natural-language intents compiled to schema-safe JSON.
+
 ## Quick start
 
 ### 1) Flash firmware
@@ -62,6 +74,7 @@ pip install -e .
 ```bash
 cd ..
 python examples/tilt_tone.py --port COM3
+python examples/agent_loop.py --port COM3
 ```
 
 ## Design principles

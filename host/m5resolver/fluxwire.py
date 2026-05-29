@@ -22,11 +22,35 @@ class ContinuousWire:
         return None, False
 
 
+class MeshBus:
+    """Lightweight gossip bus for sharing registry/intent state across peers."""
+
+    def __init__(self) -> None:
+        self._peers: dict[str, dict[str, Any]] = {}
+        self._state: dict[str, Any] = {}
+
+    def announce(self, peer_id: str, payload: dict[str, Any]) -> None:
+        self._peers[peer_id] = payload
+        self._state.update(payload)
+
+    def gossip_merge(self) -> dict[str, Any]:
+        merged: dict[str, Any] = {}
+        for peer_payload in self._peers.values():
+            merged.update(peer_payload)
+        self._state = merged
+        return merged
+
+    @property
+    def state(self) -> dict[str, Any]:
+        return dict(self._state)
+
+
 class FluxGraph:
     """Applies wire mappings from telemetry to intent patches."""
 
-    def __init__(self) -> None:
+    def __init__(self, mesh: MeshBus | None = None) -> None:
         self._wires: list[ContinuousWire] = []
+        self.mesh = mesh or MeshBus()
 
     def add_wire(self, wire: ContinuousWire) -> None:
         self._wires.append(wire)

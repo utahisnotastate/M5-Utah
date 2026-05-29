@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M5 Hardware Context Protocol Registry",
+  "type": "object",
+  "required": ["version", "units"],
+  "properties": {
+    "version": { "type": "integer" },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["unit_id", "bus", "capabilities"],
+        "properties": {
+          "unit_id": { "type": "string" },
+          "bus": { "type": "string" },
+          "address": { "type": ["integer", "null"] },
+          "capabilities": { "type": "array", "items": { "type": "string" } },
+          "register_map": { "type": "object" },
+          "bounty_id": { "type": "string" },
+          "semantic_action": { "type": "string" },
+          "frequency_hz": { "type": "integer", "maximum": 60 },
+          "max_power_ma": { "type": "integer", "maximum": 500 },
+          "priority": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

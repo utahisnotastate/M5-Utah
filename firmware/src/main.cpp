@@ -2,8 +2,10 @@
 #include <M5Unified.h>
 #include <ArduinoJson.h>
 
+#include "registry_runtime.h"
+
 static constexpr uint32_t BAUDRATE = 115200;
-static constexpr size_t MAX_PAYLOAD = 2048;
+static constexpr size_t MAX_PAYLOAD = 4096;
 
 namespace {
 
@@ -53,24 +55,33 @@ void resolvePowerIntent(const JsonObjectConst &power) {
   }
 }
 
-void sendAck(bool ok, const char *error = "") {
-  StaticJsonDocument<192> doc;
+void sendAck(bool ok, const char *error = "", JsonObjectConst extra = JsonObjectConst()) {
+  StaticJsonDocument<512> doc;
   doc["type"] = "ack";
   doc["ok"] = ok;
   if (!ok) {
     doc["error"] = error;
+  }
+  if (!extra.isNull()) {
+    doc["capabilities"] = extra["capabilities"];
   }
   serializeJson(doc, Serial);
   Serial.println();
 }
 
 void emitTelemetry() {
-  StaticJsonDocument<512> doc;
+  StaticJsonDocument<768> doc;
   doc["type"] = "telemetry";
+  doc["status"] = (ESP.getFreeHeap() < 20000) ? "degraded" : "operational";
   doc["board_id"] = static_cast<int>(M5.getBoard());
   doc["ts_us"] = micros();
   doc["battery_pct"] = M5.Power.getBatteryLevel();
   doc["charging"] = static_cast<int>(M5.Power.isCharging());
+
+  JsonObject metrics = doc["metrics"].to<JsonObject>();
+  metrics["free_heap"] = ESP.getFreeHeap();
+  metrics["latency_budget_ms"] = 50;
+  metrics["i2c_bandwidth_pct"] = 35;
 
   if (M5.Imu.isEnabled()) {
     M5.Imu.update();
@@ -85,7 +96,7 @@ void emitTelemetry() {
   Serial.println();
 }
 
-} // namespace
+}  // namespace
 
 void setup() {
   auto cfg = M5.config();
@@ -102,10 +113,13 @@ void setup() {
 
   M5.Speaker.setVolume(64);
   M5.Speaker.tone(880, 60);
+
+  registryRuntimeInit();
 }
 
 void loop() {
   M5.update();
+  registrySupervisorTick();
 
   if (Serial.available() > 0) {
     String payload = Serial.readStringUntil('\n');
@@ -122,6 +136,26 @@ void loop() {
     }
 
     JsonObjectConst root = doc.as<JsonObjectConst>();
+
+    if (root["capability_query"] | false) {
+      StaticJsonDocument<256> capsDoc;
+      JsonObject capsObj = capsDoc.to<JsonObject>();
+      registryRespondCapabilities(capsObj);
+      StaticJsonDocument<384> ackDoc;
+      ackDoc["type"] = "ack";
+      ackDoc["ok"] = true;
+      ackDoc["capabilities"] = capsObj["capabilities"];
+      serializeJson(ackDoc, Serial);
+      Serial.println();
+      return;
+    }
+
+    if (root.containsKey("registry")) {
+      registryHotReload(root["registry"].as<JsonObjectConst>());
+      sendAck(true);
+      return;
+    }
+
     if (root.containsKey("display")) {
       resolveDisplayIntent(root["display"].as<JsonObjectConst>());
     }

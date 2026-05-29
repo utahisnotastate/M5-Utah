@@ -1,12 +1,17 @@
 {
   "version": 1,
+  "protocol": "hardware-context-protocol/0.1",
   "units": [
     {
       "unit_id": "imu_builtin",
       "bus": "internal",
       "address": null,
       "capabilities": ["accel", "gyro"],
-      "register_map": {}
+      "register_map": {},
+      "semantic_action": "ACTION_REACT_TO_MOTION",
+      "frequency_hz": 10,
+      "max_power_ma": 60,
+      "priority": 2
     },
     {
       "unit_id": "env4",
@@ -18,7 +23,10 @@
         "temperature_c": "computed",
         "humidity_pct": "computed",
         "pressure_pa": "computed"
-      }
+      },
+      "max_power_ma": 40,
+      "priority": 1,
+      "bounty_id": "community-env4-v1"
     },
     {
       "unit_id": "tof4m",
@@ -28,7 +36,10 @@
       "register_map": {
         "chip": "VL53L1X",
         "distance_mm": "0x0096"
-      }
+      },
+      "max_power_ma": 35,
+      "priority": 1,
+      "bounty_id": "community-tof4m-v1"
     }
   ]
 }

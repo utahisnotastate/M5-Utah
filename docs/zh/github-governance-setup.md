@@ -14,6 +14,14 @@
 
 启用后即可移除 GitHub 上 “your main branch isn't protected” 的提示横幅。
 
+### 可选自动化（GitHub CLI）
+
+如果已安装并登录 `gh`：
+
+```powershell
+./scripts/enable_branch_protection.ps1
+```
+
 ## 安全设置
 
 - 开启 Dependabot alerts

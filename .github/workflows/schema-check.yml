@@ -17,7 +17,7 @@ jobs:
           import json
           from pathlib import Path
 
-          targets = list(Path("schemas").glob("*.json")) + list(Path("registry").glob("*.json"))
+          targets = list(Path("schemas").glob("*.json")) + list(Path("registry").glob("*.json")) + list(Path("examples").glob("*.json"))
           if not targets:
               raise SystemExit("No JSON files found for validation.")
           for p in targets:

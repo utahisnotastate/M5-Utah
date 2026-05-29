@@ -30,3 +30,10 @@ M5 Resolver Substrate 将 M5Stack 开发统一为：
 - 固件保持确定性和最小化。
 - 行为逻辑放在主机侧映射层。
 - 通过注册表扩展设备，而不是复制分叉仓库。
+
+## Vibe-IDE 与 Agent 闭环
+
+- 启动网关：`m5vibe`
+- 浏览器通过 `/generate_intent` 将自然语言编译为意图 JSON
+- `AgenticController` 负责校验、仿真，并可在异常时自动修复
+- 固件支持 `registry` 热更新，无需重编译 C++ 行为逻辑
