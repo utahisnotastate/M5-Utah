@@ -1,6 +1,7 @@
 #include "registry_runtime.h"
 
 #include "DynamicMultiplexer.h"
+#include "TimeTravelJournal.h"
 
 #include <cstring>
 
@@ -135,6 +136,7 @@ void registryHotReload(const JsonObjectConst &registryRoot) {
   clearUnitTasks();
   DynamicMultiplexer::resetAll();
   g_safeguard = registryRoot["safeguard"] | false;
+  timeTravelRecord("registry_hot_reload");
 
   JsonObjectConst units = registryRoot["units"].as<JsonObjectConst>();
   if (!units.isNull()) {
@@ -168,5 +170,6 @@ void registryRespondCapabilities(JsonObject out) {
   caps.add("semantic_actions");
   caps.add("dynamic_bus_multiplexing");
   caps.add("gossip_mesh_node");
+  caps.add("time_travel_journal");
   if (M5.Imu.isEnabled()) caps.add("accel");
 }

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
@@ -10,12 +10,20 @@ import serial
 
 from .agent import AgenticController, DeviceState
 from .fluxwire import FluxGraph
+from .replay_engine import HostReplayEngine, ReplayResult, TIME_TRAVEL_PREFIX
 
 
 @dataclass
 class TelemetryFrame:
     payload: dict[str, Any]
     raw: str
+
+
+@dataclass
+class TimeTravelFrame:
+    payload: dict[str, Any]
+    raw: str
+    replay: ReplayResult
 
 
 class IntentController:
@@ -30,6 +38,8 @@ class IntentController:
         registry_path: str | Path | None = None,
         telemetry_schema_path: str | Path | None = None,
         enable_agent: bool = True,
+        enable_time_travel: bool = True,
+        on_replay_fault: Callable[[ReplayResult], None] | None = None,
     ) -> None:
         self.port = port
         self.baud = baud
@@ -38,6 +48,12 @@ class IntentController:
         self.device_state = DeviceState()
         self.flux = FluxGraph()
         self._agent: AgenticController | None = None
+        self._replay_engine: HostReplayEngine | None = None
+        self._on_replay_fault = on_replay_fault
+        self.last_replay: ReplayResult | None = None
+        if enable_time_travel:
+            schema = telemetry_schema_path or "schemas/telemetry.schema.json"
+            self._replay_engine = HostReplayEngine(telemetry_schema_path=schema)
         if enable_agent and registry_path:
             self._agent = AgenticController(
                 registry_path=registry_path,
@@ -74,12 +90,20 @@ class IntentController:
         self._link.flush()
         return []
 
-    def read_frame(self) -> TelemetryFrame | None:
+    def read_frame(self) -> TelemetryFrame | TimeTravelFrame | None:
         if not self.is_open or self._link is None:
             raise RuntimeError("Serial link is not open")
 
         line = self._link.readline().decode("utf-8", errors="replace").strip()
-        if not line or not line.startswith("{"):
+        if not line:
+            return None
+
+        if line.startswith(TIME_TRAVEL_PREFIX) or (
+            line.startswith("{") and "time_travel_journal_dump" in line
+        ):
+            return self._handle_time_travel_line(line)
+
+        if not line.startswith("{"):
             return None
 
         try:
@@ -87,9 +111,31 @@ class IntentController:
         except json.JSONDecodeError:
             return None
 
+        if payload.get("type") == "time_travel_journal_dump":
+            return self._handle_time_travel_line(line)
+
         frame = TelemetryFrame(payload=payload, raw=line)
         self._process_frame(frame)
         return frame
+
+    def _handle_time_travel_line(self, line: str) -> TimeTravelFrame | None:
+        if not self._replay_engine:
+            return None
+        replay = self._replay_engine.replay_from_serial_line(line)
+        if replay is None:
+            return None
+        self.last_replay = replay
+        if not replay.ok and self._on_replay_fault:
+            self._on_replay_fault(replay)
+        try:
+            payload = json.loads(
+                line[len(TIME_TRAVEL_PREFIX) :].strip()
+                if line.startswith(TIME_TRAVEL_PREFIX)
+                else line
+            )
+        except json.JSONDecodeError:
+            payload = {"type": "time_travel_journal_dump", "raw": line}
+        return TimeTravelFrame(payload=payload, raw=line, replay=replay)
 
     def _process_frame(self, frame: TelemetryFrame) -> None:
         if frame.payload.get("type") != "telemetry":
@@ -111,6 +157,5 @@ class IntentController:
     ) -> None:
         stop = should_stop or (lambda: False)
         while not stop():
-            frame = self.read_frame()
-            if frame is None:
-                time.sleep(tick_s)
+            self.read_frame()
+            time.sleep(tick_s)

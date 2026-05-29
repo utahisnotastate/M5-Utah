@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.3 - 2026-05-28
+
+- Time-travel state journal in firmware (`TimeTravelJournal`)
+- Host replay engine (`HostReplayEngine`) with automatic controller interception
+- `schemas/time_travel.schema.json` contract
+- CI schema-check workflow runs full pytest suite
+- Utah Flux Live Log displays time-travel dumps
+- ADR 0006 time-travel replay
+
 ## 0.3.2 - 2026-05-28
 
 - Dynamic bus multiplexing firmware (`DynamicMultiplexer`) for runtime I2C/SPI/PWM/GPIO

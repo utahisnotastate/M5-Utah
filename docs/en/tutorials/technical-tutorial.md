@@ -125,7 +125,29 @@ mesh.update_local_registry({"units": []})
 
 Peers discover each other via UDP broadcast and share registry fingerprints.
 
-## 10. Architecture references
+## 11. Time-travel debugging (v0.3.3)
+
+Firmware journals intent fingerprints + heap on every registry/intent change.  
+On low heap, it emits:
+
+```text
+[FLUXWIRE_TIME_TRAVEL_STREAM]:{"type":"time_travel_journal_dump",...}
+```
+
+Host replay:
+
+```python
+from m5resolver import HostReplayEngine
+
+engine = HostReplayEngine()
+result = engine.reconstruct_hardware_crash_timeline(journal_json)
+if not result.ok:
+    print("Fault at", result.fault_fingerprint)
+```
+
+`IntentController` intercepts journal lines automatically when `enable_time_travel=True`.
+
+## 12. Architecture references
 
 - ADR 0001 — Intent-first
 - ADR 0003 — Registry-driven units

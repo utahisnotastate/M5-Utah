@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M5 Time Travel Journal Dump",
+  "type": "object",
+  "required": ["type", "journal_records"],
+  "properties": {
+    "type": { "const": "time_travel_journal_dump" },
+    "trigger_heap": { "type": "integer" },
+    "trigger_ms": { "type": "integer" },
+    "journal_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relative_ms", "allocated_heap_remaining", "intent_fingerprint"],
+        "properties": {
+          "relative_ms": { "type": "integer" },
+          "allocated_heap_remaining": { "type": "integer" },
+          "intent_fingerprint": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -359,12 +359,19 @@ async function readSerialLoop() {
     if (!value) continue;
     value.split("\n").forEach(async (line) => {
       line = line.trim();
+      if (line.includes("[FLUXWIRE_TIME_TRAVEL_STREAM]:")) {
+        log(line.replace("[FLUXWIRE_TIME_TRAVEL_STREAM]:", "⏪ "), "ok");
+        return;
+      }
       if (!line.startsWith("{")) return;
       try {
         const frame = JSON.parse(line);
         if (frame.type === "telemetry" && state.compiled?.wires?.length) {
           const patch = applyWireTransforms(frame, state.compiled.wires);
           if (Object.keys(patch).length) await injectIntent(patch);
+        }
+        if (frame.type === "time_travel_journal_dump") {
+          log("Time-travel journal received — check device timeline", "ok");
         }
       } catch (_) {}
     });

@@ -3,11 +3,27 @@
 #include <ArduinoJson.h>
 
 #include "registry_runtime.h"
+#include "TimeTravelJournal.h"
 
 static constexpr uint32_t BAUDRATE = 115200;
 static constexpr size_t MAX_PAYLOAD = 4096;
 
 namespace {
+
+void recordIntentSummary(JsonObjectConst root) {
+  if (root.containsKey("registry")) {
+    timeTravelRecord("intent:registry");
+    return;
+  }
+  if (root["capability_query"] | false) {
+    timeTravelRecord("intent:capability_query");
+    return;
+  }
+  if (root.containsKey("display")) timeTravelRecord("intent:display");
+  else if (root.containsKey("speaker")) timeTravelRecord("intent:speaker");
+  else if (root.containsKey("power")) timeTravelRecord("intent:power");
+  else timeTravelRecord("intent:unknown");
+}
 
 void resolveDisplayIntent(const JsonObjectConst &display) {
   if (display["clear"] | false) {
@@ -55,31 +71,39 @@ void resolvePowerIntent(const JsonObjectConst &power) {
   }
 }
 
-void sendAck(bool ok, const char *error = "", JsonObjectConst extra = JsonObjectConst()) {
+void sendAck(bool ok, const char *error = "") {
   StaticJsonDocument<512> doc;
   doc["type"] = "ack";
   doc["ok"] = ok;
   if (!ok) {
     doc["error"] = error;
-  }
-  if (!extra.isNull()) {
-    doc["capabilities"] = extra["capabilities"];
+    timeTravelRecord("ack:error");
+    timeTravelDump();
   }
   serializeJson(doc, Serial);
   Serial.println();
 }
 
 void emitTelemetry() {
+  uint32_t freeHeap = ESP.getFreeHeap();
+  timeTravelMaybeDump(freeHeap);
+
   StaticJsonDocument<768> doc;
   doc["type"] = "telemetry";
-  doc["status"] = (ESP.getFreeHeap() < 20000) ? "degraded" : "operational";
+  if (freeHeap < 20000) {
+    doc["status"] = "error";
+  } else if (freeHeap < 30000) {
+    doc["status"] = "degraded";
+  } else {
+    doc["status"] = "operational";
+  }
   doc["board_id"] = static_cast<int>(M5.getBoard());
   doc["ts_us"] = micros();
   doc["battery_pct"] = M5.Power.getBatteryLevel();
   doc["charging"] = static_cast<int>(M5.Power.isCharging());
 
   JsonObject metrics = doc["metrics"].to<JsonObject>();
-  metrics["free_heap"] = ESP.getFreeHeap();
+  metrics["free_heap"] = freeHeap;
   metrics["latency_budget_ms"] = 50;
   metrics["i2c_bandwidth_pct"] = 35;
 
@@ -114,6 +138,7 @@ void setup() {
   M5.Speaker.setVolume(64);
   M5.Speaker.tone(880, 60);
 
+  timeTravelRecord("boot");
   registryRuntimeInit();
 }
 
@@ -136,6 +161,7 @@ void loop() {
     }
 
     JsonObjectConst root = doc.as<JsonObjectConst>();
+    recordIntentSummary(root);
 
     if (root["capability_query"] | false) {
       StaticJsonDocument<256> capsDoc;
