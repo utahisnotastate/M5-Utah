@@ -1,0 +1,2335 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Visual Lego IDE for M5Stack — intent-first hardware platform">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>m5-utah Architecture - Utah Flux Studio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#m5-utah-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Utah Flux Studio" class="md-header__button md-logo" aria-label="Utah Flux Studio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Utah Flux Studio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              m5-utah Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/utahisnotastate/M5-Utah" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Utah Flux Studio" class="md-nav__button md-logo" aria-label="Utah Flux Studio" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Utah Flux Studio
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/utahisnotastate/M5-Utah" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs-site/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs-site/quickstart.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs-site/architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs-site/migration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    English
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/tutorials/children-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Children
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/tutorials/non-technical-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-Technical
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/tutorials/technical-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/tutorials/engineers-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/tutorials/employee-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Employees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/children.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Children
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/non-technical-users.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-Technical
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/technical-users.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/electronics-engineers.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/m5stack-employee-migration-playbook.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Employee Playbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/operations-runbook.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/compatibility-matrix.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/en/github-governance-setup.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    中文
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    中文
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/tutorials/children-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    儿童
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/tutorials/non-technical-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    非技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/tutorials/technical-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/tutorials/engineers-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程师
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/tutorials/employee-tutorial.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    员工
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/children.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    儿童
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/non-technical-users.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    非技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/technical-users.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/electronics-engineers.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程师
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/m5stack-employee-migration-playbook.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    员工手册
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/operations-runbook.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    手册
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/compatibility-matrix.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    兼容性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/zh/github-governance-setup.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m5-kernel-dual-core-runtime-features-4849" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        m5-kernel: dual-core runtime (Features 48–49)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="m5-kernel: dual-core runtime (Features 48–49)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource-aware-orchestration-feature-49" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource-aware orchestration (Feature 49)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secure-wire-anti-replay-fences-m5-secure-feature-67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secure wire anti-replay fences (m5-secure, Feature 67)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webusb-vibe-gateway-feature-50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebUSB vibe gateway (Feature 50)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-core-non-blocking-harness-feature-52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dual-core non-blocking harness (Feature 52)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telemetry-self-healing-loop-feature-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry self-healing loop (Feature 53)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-remote-procedure-piping-features-5456" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asymmetric Remote Procedure Piping (Features 54–56)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android-host-integration-features-5758" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Android Host Integration (Features 57–58)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrated-asymmetric-m5-kernel-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrated asymmetric m5-kernel (completion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m5-jit-native-assembly-hot-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        m5-jit — native assembly hot-loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boot-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unified-development-lifecycle-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unified development lifecycle entry point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unified development lifecycle entry point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firmware-m5integratedkernelboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firmware: m5IntegratedKernelBoot()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host-intentcontroller-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host: IntentController lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-layers-cumulative-sota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization layers (cumulative SOTA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization layers (cumulative SOTA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cross-core-lock-free-pipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-core lock-free pipe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-place-tokenizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-place tokenizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-handle-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual handle memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdma-bus-arbitrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDMA bus arbitrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-gatekeeper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority gatekeeper
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assembly-trampolines-memory-overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assembly trampolines &amp; memory overlays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telemetry-hamming-ecc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry Hamming ECC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-integration-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host integration lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-firmware-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key firmware modules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-host-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key host modules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related ADRs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="m5-utah-architecture">m5-utah Architecture</h1>
+<p>Utah Flux Studio / <strong>m5-utah</strong> implements an intent-first control plane for M5Stack devices. Host-side Python orchestration compiles conversational and declarative intents into wire formats; firmware on the ESP32 executes them through a thin boundary (see <a href="../adr/0001-intent-first-architecture.md">ADR 0001</a> and <a href="../adr/0002-thin-firmware-boundary.md">ADR 0002</a>).</p>
+<h2 id="system-overview">System overview</h2>
+<pre><code>Host (Python)                    Serial / Fluxwire              Firmware (ESP32)
+─────────────────                ─────────────────              ─────────────────
+IntentController  ──JSON/binary──►  Cross-core pipe  ──►  Registry + units
+FluxGraph         ◄──telemetry────   Hamming ECC       ◄──  Telemetry + events
+DriverRegistry                     Scheduler compiler
+</code></pre>
+<h2 id="m5-kernel-dual-core-runtime-features-4849">m5-kernel: dual-core runtime (Features 48–49)</h2>
+<p>The <strong>Central Processing Registry Core</strong> (<code>M5Kernel</code>) partitions work across ESP32 cores:</p>
+<table>
+<thead>
+<tr>
+<th>Core</th>
+<th>Role</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core 0</strong></td>
+<td>Protocol engine</td>
+<td>Serial ingest, binary frame assembly, <code>#M</code>/<code>##</code>/<code>0xDE</code> demux, lock-free ring push</td>
+</tr>
+<tr>
+<td><strong>Core 1</strong></td>
+<td>Orchestration engine</td>
+<td>Pipe drain, intent dispatch, registry hot-reload, telemetry, UI events</td>
+</tr>
+</tbody>
+</table>
+<p><code>setup()</code> initializes M5 hardware, registry runtime, and calls <code>M5Kernel::start()</code>. The Arduino <code>loop()</code> task suspends; all application work runs in the pinned Core 1 orchestration task.</p>
+<h3 id="resource-aware-orchestration-feature-49">Resource-aware orchestration (Feature 49)</h3>
+<p><code>ResourceOrchestrator</code> evaluates heap, handle-pool, and bus pressure each orchestration tick:</p>
+<table>
+<thead>
+<tr>
+<th>Pressure</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nominal</strong></td>
+<td>All intents processed normally</td>
+</tr>
+<tr>
+<td><strong>Elevated</strong></td>
+<td>Compaction triggers earlier; telemetry reports pressure level</td>
+</tr>
+<tr>
+<td><strong>Critical</strong></td>
+<td>Non-critical JSON intents deferred; registry, JIT, and binary fast-paths still allowed</td>
+</tr>
+</tbody>
+</table>
+<p>Host-side <code>HostResourceOrchestrator</code> mirrors firmware pressure and can defer non-critical transmits before they hit the wire.</p>
+<h3 id="secure-wire-anti-replay-fences-m5-secure-feature-67">Secure wire anti-replay fences (m5-secure, Feature 67)</h3>
+<pre><code>[Intent compile] → [typestate.py validate] → [secure_wire.py sequence token]
+        → Core 0 CrossCorePipe (#A demux) → SecureWireFence monotonic check
+        → ring buffer → Core 1 SecureWireDecoder apply
+</code></pre>
+<ul>
+<li>Host <code>SecureWireEncoder</code> assigns monotonic sequence IDs to outbound <code>##</code> / <code>#P</code> fast-path frames</li>
+<li>Wire magic <code>#A</code> (<code>0x23 0x41</code>) — distinct from <code>#S</code> stream frames (<code>0x23 0x53</code>)</li>
+<li>Firmware drops replayed or out-of-order packets before Core 1 dispatch; emits <code>security_alarm</code> JSON</li>
+</ul>
+<h3 id="webusb-vibe-gateway-feature-50">WebUSB vibe gateway (Feature 50)</h3>
+<p>The zero-install browser IDE (<code>vibe_server.py</code> on port <strong>8023</strong>) closes the end-user loop:</p>
+<pre><code>Browser WebSerial  ──►  /compile_vibe  ──►  vibe_pipeline  ──►  ## binwire or JSON line  ──►  device
+Natural language         validate +            FastPathSerializer              CrossCorePipe demux
+                         resource preflight
+</code></pre>
+<p>GPIO prompts (e.g. "blink pin 10 at 50Hz") compile to <code>fast_track_gpio</code> intents and emit fixed-width <code>##</code> frames without ArduinoJson on the device.</p>
+<h3 id="dual-core-non-blocking-harness-feature-52">Dual-core non-blocking harness (Feature 52)</h3>
+<p>Production firmware runs a <strong>strictly partitioned</strong> FreeRTOS layout — not a single-threaded <code>Serial.readStringUntil</code> loop:</p>
+<table>
+<thead>
+<tr>
+<th>Core</th>
+<th>Task</th>
+<th>Blocking I/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><code>protocolCoreIngestTask</code></td>
+<td>Reads Serial; pushes typed frames to ring (non-blocking <code>xRingbufferSend</code>)</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td><code>m5KernelApplicationCoreTask</code></td>
+<td>Drains ring; applies binwire/JSON; never blocks on Serial</td>
+</tr>
+</tbody>
+</table>
+<p>See <code>firmware/src/DualCoreHarness.h</code> and <a href="../adr/0023-dual-core-execution-harness.md">ADR 0023</a>.</p>
+<p>Registry units of type <code>fast_path_bridge</code> declare <code>execution_core_target</code> (0 or 1) and <code>buffer_allocation_bytes</code> (≥512).</p>
+<h3 id="telemetry-self-healing-loop-feature-53">Telemetry self-healing loop (Feature 53)</h3>
+<p>When firmware reports low heap or elevated scheduling jitter, the host <code>AutonomousMitigationEngine</code>
+automatically validates and injects a binwire throttle patch — closing the loop without manual intervention.</p>
+<p>See <a href="../adr/0024-telemetry-self-healing-loop.md">ADR 0024</a>.</p>
+<h3 id="asymmetric-remote-procedure-piping-features-5456">Asymmetric Remote Procedure Piping (Features 54–56)</h3>
+<p>Host <code>HostRPPCompiler</code> emits 10-byte <code>#P</code> frames (<code>!BBHI</code> layout). Core 0 ingests without blocking;
+Core 1 <code>MicroExecutionKernel</code> applies opcodes (pin HIGH/LOW) without ArduinoJson allocation.</p>
+<p>See <a href="../adr/0025-asymmetric-rpp-piping.md">ADR 0025</a>.</p>
+<h3 id="android-host-integration-features-5758">Android Host Integration (Features 57–58)</h3>
+<p>Companion apps under <code>android/</code> use the USB Host API (<code>FastPathUsbBridge</code>) to emit the same
+10-byte <code>##</code> / <code>#P</code> frames as the Python host. <code>FluxwireMeshNode</code> joins the UDP gossip mesh
+as <code>android_host_node</code>.</p>
+<p>See <a href="../adr/0026-android-host-integration.md">ADR 0026</a> and <a href="../../android/README.md">android/README.md</a>.</p>
+<h3 id="integrated-asymmetric-m5-kernel-completion">Integrated asymmetric m5-kernel (completion)</h3>
+<p>Production firmware implements the full dual-core stack via <code>M5IntegratedKernel.h</code>:</p>
+<pre><code>Core 0: CrossCorePipe (ring ingest, no JSON heap)
+Core 1: M5Kernel → PriorityGatekeeper → BusArbitrator → HandleMemory → ResourceOrchestrator
+Host:   HostSchedulerCompiler.apply_to_intent() before transmit
+</code></pre>
+<p>RPP and registry mutations on Core 1 pass through proactive priority-inheritance gates.
+<strong>Do not</strong> replace <code>M5Kernel::start()</code> with ad-hoc FreeRTOS ring tasks in <code>main.cpp</code>.</p>
+<p>See <a href="../adr/0027-integrated-m5-kernel.md">ADR 0027</a>.</p>
+<h3 id="m5-jit-native-assembly-hot-loading">m5-jit — native assembly hot-loading</h3>
+<p><code>HostJitCompiler</code> cross-compiles vibe C snippets to IRAM-safe <code>.text</code> bytes; <code>M5JitPipeline</code>
+validates against <code>native_jit</code> schema and can pair with <code>DeltaEncoder</code> registry patches.</p>
+<p>Firmware <code>RuntimeLinker</code> allocates <code>MALLOC_CAP_EXEC</code> and executes hooks without reboot.</p>
+<p>See <a href="../adr/0011-runtime-jit-hot-loading.md">ADR 0011</a> and <a href="../adr/0029-m5-jit-pipeline.md">ADR 0029</a>.</p>
+<h3 id="boot-sequence">Boot sequence</h3>
+<ol>
+<li><code>registryRuntimeInit()</code> — heartbeat unit, handle pool, bus arbitrator, gatekeeper assets</li>
+<li><code>M5Kernel::start()</code> — ring buffer, Core 0 ingest task, Core 1 application task</li>
+<li>Capabilities advertised include <code>m5_central_kernel</code></li>
+</ol>
+<h2 id="unified-development-lifecycle-entry-point">Unified development lifecycle entry point</h2>
+<p>The repository exposes a <strong>single firmware boot path</strong> and a <strong>host transmit/observe loop</strong> that
+implements ADR 0001 (Intent-First) and ADR 0002 (Thin Firmware Boundary):</p>
+<pre><code class="language-mermaid">flowchart TB
+  subgraph Host[&quot;Host plane (Python / Android)&quot;]
+    A[Vibe / IDE / Mesh] --&gt; B[HostSchedulerCompiler]
+    B --&gt; C[validate_intent_payload]
+    C --&gt; D[IntentController.send_intent / binwire]
+  end
+  subgraph FW0[&quot;Core 0 — Protocol Engine&quot;]
+    D --&gt; E[CrossCorePipe.protocolCoreIngestTask]
+    E --&gt; F[Demux ## #P #M #D #F #S #A #R #I 0xDE]
+    F --&gt; G[Lock-free ring push]
+  end
+  subgraph FW1[&quot;Core 1 — Orchestration Engine&quot;]
+    G --&gt; H[M5Kernel.dispatchPipeFrame]
+    H --&gt; I[PriorityGatekeeper]
+    I --&gt; J[BusArbitrator + HandleMemory]
+    J --&gt; K[registry_runtime / units]
+    K --&gt; L[Telemetry + events uplink]
+  end
+  L --&gt; A
+</code></pre>
+<h3 id="firmware-m5integratedkernelboot">Firmware: <code>m5IntegratedKernelBoot()</code></h3>
+<p>Call once from <code>setup()</code> after M5 hardware init (<code>firmware/src/M5IntegratedKernel.cpp</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Module</th>
+<th>Core</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry + handle pool</td>
+<td><code>registryRuntimeInit()</code></td>
+<td>prep</td>
+</tr>
+<tr>
+<td>Jump / vector / health subsystems</td>
+<td><code>jumpKernelInitDefaults()</code> …</td>
+<td>prep</td>
+</tr>
+<tr>
+<td>Dual-core harness</td>
+<td><code>M5Kernel::start()</code></td>
+<td>0 + 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do not</strong> replace this with ad-hoc <code>Serial.readBytes()</code> tasks or bulk ring pushes in <code>main.cpp</code>.
+Production ingest lives in <code>CrossCorePipe.cpp</code> (<code>protocolCoreIngestTask</code> on Core 0).</p>
+<h3 id="host-intentcontroller-lifecycle">Host: <code>IntentController</code> lifecycle</h3>
+<ol>
+<li><strong>Compile</strong> — scheduler, delta, binwire, RPP, JIT pipelines</li>
+<li><strong>Validate</strong> — schema, bus, graph, handles, optional 2PC mesh sync</li>
+<li><strong>Transmit</strong> — JSON, <code>##</code>, <code>#P</code>, <code>#M</code>, <code>#D</code>, etc.</li>
+<li><strong>Observe</strong> — telemetry ECC repair, autofence, agent remediation</li>
+</ol>
+<p>See <code>host/m5resolver/kernel_runtime.py</code> (<code>INTEGRATED_BOOT_SEQUENCE</code>, <code>UNIFIED_LIFECYCLE_STAGES</code>).</p>
+<h2 id="optimization-layers-cumulative-sota">Optimization layers (cumulative SOTA)</h2>
+<h3 id="cross-core-lock-free-pipe">Cross-core lock-free pipe</h3>
+<ul>
+<li><code>CrossCorePipe</code> — <code>RINGBUF_TYPE_NOSPLIT</code> ring between cores</li>
+<li>Typed frames: <code>0x01</code> JSON line, <code>0x02</code> binary blob</li>
+<li>See <a href="../adr/0016-cross-core-ring-pipe-and-zero-copy-tokenizer.md">ADR 0016</a></li>
+</ul>
+<h3 id="in-place-tokenizer">In-place tokenizer</h3>
+<ul>
+<li>Non-JSON declarative payloads (<code>key:value</code>) parsed without heap allocation</li>
+<li>JSON intents still use ArduinoJson on the Core 1 orchestration path</li>
+</ul>
+<h3 id="virtual-handle-memory">Virtual handle memory</h3>
+<ul>
+<li>32-slot handle table over a 2 KB static pool</li>
+<li>Compaction via <code>memory_compact</code> intent or supervisor pressure</li>
+<li>See <a href="../adr/0017-virtual-handle-memory-and-heap-compaction.md">ADR 0017</a></li>
+</ul>
+<h3 id="tdma-bus-arbitrator">TDMA bus arbitrator</h3>
+<ul>
+<li>Shared I2C/SPI hot-swap gated by time windows per unit</li>
+<li><code>bus_arbitration_window_ms</code> in registry units</li>
+</ul>
+<h3 id="priority-gatekeeper">Priority gatekeeper</h3>
+<ul>
+<li>Proactive FreeRTOS priority boost before mutex acquisition</li>
+<li>Registry mutations routed through <code>kGateLockRegistry</code> in the kernel dispatch path</li>
+<li>See <a href="../adr/0019-priority-gatekeeper-and-scheduler-compiler.md">ADR 0019</a></li>
+</ul>
+<h3 id="assembly-trampolines-memory-overlays">Assembly trampolines &amp; memory overlays</h3>
+<ul>
+<li>IRAM <code>#M</code> overlay frames with trampoline hooks</li>
+<li>See <a href="../adr/0015-assembly-trampoline-and-memory-overlays.md">ADR 0015</a></li>
+</ul>
+<h3 id="telemetry-hamming-ecc">Telemetry Hamming ECC</h3>
+<ul>
+<li>Firmware encodes <code>ecc.status_word</code>, <code>ecc.battery_word</code>, <code>ecc.heap_word</code></li>
+<li>Host <code>TelemetryECC</code> repairs single-bit corruption before fluxwire patches</li>
+<li>See <a href="../adr/0018-tdma-bus-arbitrator-and-telemetry-ecc.md">ADR 0018</a></li>
+</ul>
+<h2 id="host-integration-lifecycle">Host integration lifecycle</h2>
+<ol>
+<li><strong>Compile</strong> — <code>HostSchedulerCompiler</code> injects priority tiers; <code>HostMemoryProfiler</code> preflights pool usage</li>
+<li><strong>Validate</strong> — <code>validate_intent_payload()</code> schema + bus + graph + handle checks</li>
+<li><strong>Transmit</strong> — JSON newline, binwire <code>##</code>, delta <code>0xDE 0xDA</code>, overlay <code>#M</code></li>
+<li><strong>Observe</strong> — telemetry with kernel metrics (<code>kernel_processed_frames</code>, <code>kernel_orchestration_ticks</code>)</li>
+</ol>
+<h2 id="key-firmware-modules">Key firmware modules</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M5Kernel</td>
+<td><code>firmware/src/M5Kernel.*</code></td>
+<td>Dual-core orchestration</td>
+</tr>
+<tr>
+<td>ResourceOrchestrator</td>
+<td><code>firmware/src/ResourceOrchestrator.*</code></td>
+<td>Pressure-aware staging</td>
+</tr>
+<tr>
+<td>CrossCorePipe</td>
+<td><code>firmware/src/CrossCorePipe.*</code></td>
+<td>Core 0 ingest → ring</td>
+</tr>
+<tr>
+<td>HandleMemory</td>
+<td><code>firmware/src/HandleMemory.*</code></td>
+<td>Virtual handle pool</td>
+</tr>
+<tr>
+<td>PriorityGatekeeper</td>
+<td><code>firmware/src/PriorityGatekeeper.*</code></td>
+<td>Priority inheritance gates</td>
+</tr>
+<tr>
+<td>BusArbitrator</td>
+<td><code>firmware/src/BusArbitrator.*</code></td>
+<td>TDMA bus windows</td>
+</tr>
+<tr>
+<td>registry_runtime</td>
+<td><code>firmware/src/registry_runtime.cpp</code></td>
+<td>Unit fork + capabilities</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-host-modules">Key host modules</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IntentController</td>
+<td><code>host/m5resolver/controller.py</code></td>
+<td>Serial bridge + agent loop</td>
+</tr>
+<tr>
+<td>FluxGraph</td>
+<td><code>host/m5resolver/fluxwire.py</code></td>
+<td>Telemetry → intent patches</td>
+</tr>
+<tr>
+<td>HostSchedulerCompiler</td>
+<td><code>host/m5resolver/scheduler_compiler.py</code></td>
+<td>Pin contention → priority tiers</td>
+</tr>
+<tr>
+<td>HostMemoryProfiler</td>
+<td><code>host/m5resolver/memory_profiler.py</code></td>
+<td>Handle pool preflight</td>
+</tr>
+<tr>
+<td>HostResourceOrchestrator</td>
+<td><code>host/m5resolver/resource_orchestrator.py</code></td>
+<td>Transmit deferral under pressure</td>
+</tr>
+<tr>
+<td>TelemetryECC</td>
+<td><code>host/m5resolver/ecc_codec.py</code></td>
+<td>Hamming repair</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-adrs">Related ADRs</h2>
+<ul>
+<li><a href="../adr/0014-dag-state-graph-and-delta-compression.md">0014 — DAG state graph and delta compression</a></li>
+<li><a href="../adr/0020-m5-central-processing-kernel.md">0020 — m5 central processing kernel</a></li>
+<li><a href="../adr/0043-secure-wire-anti-replay-fence.md">0043 — Secure wire anti-replay fence</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
