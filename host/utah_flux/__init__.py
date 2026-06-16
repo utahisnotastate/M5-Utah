@@ -4,7 +4,7 @@ from .bricks import BRICK_CATALOG, get_brick
 from .compiler import compile_project
 from .project import FluxProject
 
-__version__ = "0.3.0"
+__version__ = "0.8.1"
 
 __all__ = [
     "BRICK_CATALOG",

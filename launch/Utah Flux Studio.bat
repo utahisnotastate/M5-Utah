@@ -1,3 +1,3 @@
 @echo off
 cd /d "%~dp0.."
-start "" pythonw "%~dp0studio_launcher.pyw"
+start "" ".venv\Scripts\pythonw.exe" "%~dp0studio_launcher.pyw"

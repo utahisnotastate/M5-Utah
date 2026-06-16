@@ -20,12 +20,23 @@
 - [compatibility-matrix.md](compatibility-matrix.md)
 - [github-governance-setup.md](github-governance-setup.md)
 
-## 功能（v0.3+）
+## 工作室（v0.8+）
 
-- 可视化乐高积木 IDE（用户无需命令行）
-- Utah-Flux 编译器（`.flux.json` 项目）
+| 工作室 | 指南 |
+|--------|------|
+| Utah Flux 乐高 IDE | 双击 `Start Utah Flux Studio.bat` |
+| 全知发现甲板 | [omniscient-studio.md](omniscient-studio.md) |
+| UtahClaw 意图画布 | [utah-claw-studio.md](utah-claw-studio.md) · [intent-resolution-canvas.md](intent-resolution-canvas.md) |
+| 系统架构 | [architecture.md](architecture.md) |
+
+## 功能（v0.8+）
+
+- 可视化乐高 IDE（终端用户无需命令行）
+- **不朽引导程序** — 固件只刷一次，I2C 永久自动发现
+- **UtahClaw 画布** — 离线 Llama-3 氛围编程 + 串口自动修复
+- **全知甲板** — 免驱动 Espressif USB 扫描 + 实时传感器卡片
+- 形式类型态校验与 m5-secure 防重放安全线
+- 实时终端状态仪表板（`enable_dashboard=True`）
 - 意图驱动控制（`display`、`speaker`、`power`、`registry`）
-- 安全校验与仿真门禁
-- Agent 遥测自修复
-- 硬件上下文协议（`registry/units.json`）
-- 入门模板与保存/打开项目
+- 安全校验、Agent 自愈、HCP 注册表
+- 入门模板与 `.flux.json` 项目保存/打开

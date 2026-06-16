@@ -1,5 +1,20 @@
 # Operations Runbook
 
+## UtahClaw Omniscient Studio health checks
+
+1. `ollama run llama3` running locally
+2. Double-click `launch/Start UtahClaw Studio.bat` — browser opens `http://127.0.0.1:8024`
+3. Status chip shows **NEURAL LINK STABLE**
+4. Plug CoreS3 USB — agent panel shows `Linked: COMx`
+5. Attach ENV III on Grove A — hardware deck shows auto-detected unit
+6. Type intent → **MANIFEST** — agent panel shows deployed JSON/code
+
+## Omniscient discovery deck
+
+1. `pip install -e "host[daemon]"`
+2. `launch/Start Omniscient Studio.bat` → `http://127.0.0.1:8000`
+3. Discovery cards appear when I2C devices respond on Port A
+
 ## Utah Flux Studio health checks
 
 1. Double-click `Start Utah Flux Studio.bat` — browser opens `http://127.0.0.1:8765`

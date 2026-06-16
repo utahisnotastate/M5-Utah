@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Utah-Flux Studio · UtahClaw</title>
+  <style>
+    :root { --bg: #0b0d12; --panel: #12151c; --accent: #3d9eff; --green: #39d98a; --text: #e8ecf4; --muted: #8b95a8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+    header { padding: 16px 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { margin: 0; font-size: 1rem; letter-spacing: 0.06em; }
+    main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; min-height: 0; }
+    .panel { background: var(--panel); border: 1px solid #222; border-radius: 8px; display: flex; flex-direction: column; min-height: 0; }
+    .panel h2 { margin: 0; padding: 12px 14px; font-size: 0.8rem; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid #222; }
+    #log, #agent { flex: 1; overflow-y: auto; padding: 12px 14px; font-family: "JetBrains Mono", monospace; font-size: 0.78rem; line-height: 1.45; white-space: pre-wrap; }
+    #log { color: var(--green); }
+    #agent { color: var(--accent); }
+    footer { grid-column: 1 / -1; display: flex; gap: 8px; padding: 0 12px 12px; }
+    input { flex: 1; background: #0a0c10; border: 1px solid #333; color: var(--text); padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; }
+    button { background: var(--accent); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>UTAH-FLUX STUDIO · UTAHCLAW</h1>
+    <span id="link-status" style="color: var(--muted); font-size: 0.85rem;">Connecting...</span>
+  </header>
+  <main>
+    <section class="panel">
+      <h2>Live device output</h2>
+      <div id="log"></div>
+    </section>
+    <section class="panel">
+      <h2>UtahClaw agent</h2>
+      <div id="agent"></div>
+    </section>
+    <footer>
+      <input id="intent" type="text" placeholder="Vibe-code intent: Make IMU shake trigger red flash..." />
+      <button id="send">Deploy</button>
+    </footer>
+  </main>
+
+  <script>
+    const ws = new WebSocket(`ws://${location.host}/ws/studio`);
+    const logEl = document.getElementById("log");
+    const agentEl = document.getElementById("agent");
+    const statusEl = document.getElementById("link-status");
+    const intentEl = document.getElementById("intent");
+    const sendBtn = document.getElementById("send");
+
+    function append(el, text) {
+      el.textContent += text + "\n";
+      el.scrollTop = el.scrollHeight;
+    }
+
+    ws.onopen = () => { statusEl.textContent = "Studio linked"; };
+    ws.onclose = () => { statusEl.textContent = "Disconnected"; };
+
+    ws.onmessage = (e) => {
+      let msg;
+      try { msg = JSON.parse(e.data); } catch { return; }
+      if (msg.type === "log") append(logEl, msg.data);
+      if (msg.type === "agent") append(agentEl, msg.data);
+      if (msg.type === "discovery") append(agentEl, "[DISCOVERY] " + JSON.stringify(msg.data));
+    };
+
+    function sendIntent() {
+      const intent = intentEl.value.trim();
+      if (!intent) return;
+      ws.send(JSON.stringify({ type: "vibe_request", intent }));
+      intentEl.value = "";
+    }
+
+    sendBtn.addEventListener("click", sendIntent);
+    intentEl.addEventListener("keydown", (e) => { if (e.key === "Enter") sendIntent(); });
+  </script>
+</body>
+</html>

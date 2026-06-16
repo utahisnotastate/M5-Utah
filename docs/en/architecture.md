@@ -47,6 +47,23 @@ Host-side `HostResourceOrchestrator` mirrors firmware pressure and can defer non
 - Wire magic `#A` (`0x23 0x41`) — distinct from `#S` stream frames (`0x23 0x53`)
 - Firmware drops replayed or out-of-order packets before Core 1 dispatch; emits `security_alarm` JSON
 
+### Immortal Bootloader and autonomic discovery (v0.8)
+
+Flash firmware **once**. The device becomes a permanent intent VM:
+
+- Core 0 `ImmortalDiscovery` sweeps Grove Port A I2C and emits JSON discovery events
+- `utah-flux-omniscient` auto-locks Espressif USB (VID `303A`) and streams units to the GUI
+- `utah-claw-studio` runs UtahClaw locally via Ollama for vibe-coding and error auto-heal
+
+```text
+pip install -e "host[daemon]"    # Omniscient OS
+pip install -e "host[claw]"      # UtahClaw + Ollama
+utah-flux-omniscient             # http://127.0.0.1:8000
+utah-claw-studio                 # http://127.0.0.1:8024  (utah_studio.html)
+```
+
+See [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) and [docs/en/intent-resolution-canvas.md](docs/en/intent-resolution-canvas.md).
+
 ### WebUSB vibe gateway (Feature 50)
 
 The zero-install browser IDE (`vibe_server.py` on port **8023**) closes the end-user loop:

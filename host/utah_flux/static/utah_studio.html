@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utah-Flux // Omniscient Studio</title>
+  <style>
+    :root {
+      --bg-color: #0a0a0b;
+      --panel-bg: #141416;
+      --accent-green: #00ff41;
+      --accent-blue: #00b8ff;
+      --text-main: #e0e0e0;
+      --text-dim: #888888;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-color);
+      color: var(--text-main);
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .header-title { font-size: 0.95rem; letter-spacing: 0.04em; }
+    .status-indicator {
+      color: var(--accent-green);
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    #hardware-deck {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      min-height: 0;
+    }
+    .unit-card {
+      border: 1px solid var(--accent-green);
+      background: #0d0d0f;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+    }
+    .unit-card h4 { margin: 0 0 4px; color: var(--accent-blue); font-size: 0.85rem; }
+    .unit-card p { margin: 0; color: var(--text-dim); }
+    .main-canvas {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+    }
+    .panel {
+      flex: 1;
+      background: var(--panel-bg);
+      border: 1px solid #333;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      min-width: 0;
+    }
+    .panel-title {
+      color: var(--accent-blue);
+      margin: 0 0 10px;
+      border-bottom: 1px dashed #444;
+      padding-bottom: 5px;
+      font-size: 0.85rem;
+    }
+    .log-window {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 13px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #000;
+      border: 1px inset #222;
+      min-height: 120px;
+    }
+    .log-entry { margin-bottom: 6px; white-space: pre-wrap; word-break: break-word; }
+    .log-entry.hardware { color: var(--text-main); }
+    .log-entry.agent { color: var(--accent-green); }
+    .log-entry.error { color: #ff3333; }
+    .input-area { display: flex; gap: 10px; }
+    input[type="text"] {
+      flex: 1;
+      background: #000;
+      border: 1px solid var(--accent-blue);
+      color: #fff;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    button {
+      background: var(--accent-blue);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    button:hover { background: #fff; }
+    .hint { color: var(--text-dim); font-size: 0.75rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">[UTAH-FLUX // OMNISCIENT STUDIO] — INTENT-RESOLUTION CANVAS</div>
+    <div class="status-indicator" id="conn-status">WAITING FOR DAEMON...</div>
+  </div>
+
+  <div id="hardware-deck"></div>
+
+  <div class="main-canvas">
+    <div class="panel">
+      <h3 class="panel-title">SILICON TELEMETRY (M5STACK)</h3>
+      <div class="log-window" id="hw-log">
+        <div class="log-entry hardware">Awaiting physical electron flow...</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 class="panel-title">UTAHCLAW AGENTIC CONSOLE</h3>
+      <div class="log-window" id="agent-log">
+        <div class="log-entry agent">Local Llama-3 ready. State your intent.</div>
+      </div>
+      <div class="input-area">
+        <input
+          type="text"
+          id="intent-input"
+          placeholder="e.g. Make the screen red and print Hello General 23"
+          autocomplete="off"
+        />
+        <button type="button" id="manifest-btn">MANIFEST</button>
+      </div>
+      <p class="hint">Offline · zero cloud · WebSocket to local UtahClaw daemon</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const defaultHost = window.location.host || "127.0.0.1:8024";
+      const wsHost = params.get("ws") || defaultHost;
+      const wsUrl = (wsHost.startsWith("ws") ? wsHost : `ws://${wsHost}/ws/studio`);
+
+      const hwLog = document.getElementById("hw-log");
+      const agentLog = document.getElementById("agent-log");
+      const input = document.getElementById("intent-input");
+      const status = document.getElementById("conn-status");
+      const deck = document.getElementById("hardware-deck");
+      const manifestBtn = document.getElementById("manifest-btn");
+      const discovered = new Map();
+
+      let ws;
+
+      function renderDeck() {
+        if (discovered.size === 0) {
+          deck.innerHTML = "";
+          return;
+        }
+        deck.innerHTML = "";
+        for (const item of discovered.values()) {
+          const card = document.createElement("div");
+          card.className = "unit-card";
+          card.innerHTML =
+            `<h4>${item.unit}</h4>` +
+            `<p>Port ${item.port} · ${item.hex_address_str || "0x" + item.hex_address.toString(16)}</p>`;
+          deck.appendChild(card);
+        }
+      }
+
+      function appendLog(element, text, className) {
+        const div = document.createElement("div");
+        div.className = "log-entry " + className;
+        if (/Traceback|SyntaxError|Exception|ERROR|panic/i.test(text)) {
+          div.className += " error";
+        }
+        div.textContent = "> " + text;
+        element.appendChild(div);
+        element.scrollTop = element.scrollHeight;
+      }
+
+      function handleDiscovery(data) {
+        if (!data || !data.hex_address) return;
+        if (data.event === "disconnect") {
+          discovered.delete(data.hex_address);
+        } else {
+          discovered.set(data.hex_address, data);
+        }
+        renderDeck();
+        const label = data.unit || "UNKNOWN";
+        const addr = data.hex_address_str || ("0x" + Number(data.hex_address).toString(16));
+        appendLog(hwLog, `AUTO-DETECTED: ${label} @ ${addr}`, "hardware");
+      }
+
+      function connect() {
+        ws = new WebSocket(wsUrl);
+
+        ws.onopen = function () {
+          status.textContent = "NEURAL LINK STABLE";
+          status.style.color = "var(--accent-green)";
+        };
+
+        ws.onclose = function () {
+          status.textContent = "LINK SEVERED — START utah-claw-studio";
+          status.style.color = "#ff3333";
+          setTimeout(connect, 3000);
+        };
+
+        ws.onerror = function () {
+          status.textContent = "CONNECTION ERROR";
+          status.style.color = "#ff3333";
+        };
+
+        ws.onmessage = function (event) {
+          try {
+            const payload = JSON.parse(event.data);
+            if (payload.type === "log") {
+              appendLog(hwLog, payload.data, "hardware");
+            } else if (payload.type === "agent") {
+              appendLog(agentLog, payload.data, "agent");
+            } else if (payload.type === "discovery") {
+              handleDiscovery(payload.data);
+            } else if (payload.event === "discovery" || payload.event === "disconnect") {
+              handleDiscovery(payload);
+            }
+          } catch (e) {
+            console.error("Non-JSON packet:", event.data);
+          }
+        };
+      }
+
+      function sendIntent() {
+        const intentText = input.value.trim();
+        if (!intentText || !ws || ws.readyState !== WebSocket.OPEN) return;
+        appendLog(agentLog, "[USER INTENT]: " + intentText, "hardware");
+        ws.send(JSON.stringify({ type: "vibe_request", intent: intentText }));
+        input.value = "";
+      }
+
+      manifestBtn.addEventListener("click", sendIntent);
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendIntent();
+        }
+      });
+
+      connect();
+    })();
+  </script>
+</body>
+</html>

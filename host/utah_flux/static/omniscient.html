@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Utah-Flux Omniscient OS</title>
+  <style>
+    :root { --bg: #0a0a0a; --fg: #00ff41; --panel: #111; --border: #333; }
+    * { box-sizing: border-box; }
+    body { background: var(--bg); color: var(--fg); font-family: "JetBrains Mono", monospace; margin: 0; padding: 20px; }
+    h1 { font-size: 1.25rem; letter-spacing: 0.08em; margin: 0 0 8px; }
+    .subtitle { color: #6f6; font-size: 0.85rem; margin-bottom: 20px; }
+    #hardware-deck { min-height: 120px; margin-bottom: 16px; }
+    .unit-card { border: 1px solid var(--fg); display: inline-block; padding: 15px; margin: 10px 10px 0 0; background: var(--panel); }
+    .console { border: 1px solid var(--border); padding: 10px; height: 420px; overflow-y: auto; background: #050505; font-size: 0.8rem; line-height: 1.4; }
+    .status { padding: 8px 12px; border: 1px solid var(--border); margin-bottom: 12px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>[UTAH-FLUX // OMNISCIENT STUDIO]</h1>
+  <p class="subtitle">Driverless auto-discovery · Immortal Bootloader telemetry · WebSocket live deck</p>
+  <div id="status" class="status">Connecting...</div>
+  <div id="hardware-deck">Waiting for auto-discovery...</div>
+  <div class="console" id="log"></div>
+
+  <script>
+    const wsUrl = `ws://${location.host}/ws/telemetry`;
+    const ws = new WebSocket(wsUrl);
+    const log = document.getElementById("log");
+    const deck = document.getElementById("hardware-deck");
+    const status = document.getElementById("status");
+    const cards = new Map();
+
+    function appendLog(text) {
+      log.innerHTML += "> " + text + "<br>";
+      log.scrollTop = log.scrollHeight;
+    }
+
+    ws.onopen = () => { status.textContent = "WebSocket linked"; };
+    ws.onclose = () => { status.textContent = "WebSocket severed"; };
+
+    ws.onmessage = (event) => {
+      appendLog(event.data);
+      let data;
+      try { data = JSON.parse(event.data); } catch { return; }
+
+      if (data.status === "IMMORTAL_KERNEL_LINKED") {
+        status.textContent = `Immortal kernel linked on ${data.port || "serial"}`;
+      } else if (data.status === "AWAITING_HARDWARE") {
+        status.textContent = "Awaiting M5Stack CoreS3 USB connection";
+      }
+
+      if (data.event === "discovery") {
+        const key = data.hex_address;
+        cards.set(key, data);
+        renderDeck();
+      } else if (data.event === "disconnect") {
+        cards.delete(data.hex_address);
+        renderDeck();
+      }
+    };
+
+    function renderDeck() {
+      if (cards.size === 0) {
+        deck.innerHTML = "No Grove units detected on Port A.";
+        return;
+      }
+      deck.innerHTML = "";
+      for (const data of cards.values()) {
+        const el = document.createElement("div");
+        el.className = "unit-card";
+        el.innerHTML = `<h3>Auto-Detected: ${data.unit}</h3>
+          <p>Port: ${data.port} · Address: ${data.hex_address_str || data.hex_address}</p>
+          <p>Status: UI nodes ready</p>`;
+        deck.appendChild(el);
+      }
+    }
+  </script>
+</body>
+</html>

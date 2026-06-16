@@ -41,4 +41,8 @@ Each ADR should include:
 - `adr/0011-runtime-jit-hot-loading.md`
 - `adr/0012-vectorwire-causal-sync.md`
 - `adr/0013-resource-pruning-and-speculative-staging.md`
-- `adr/0014-dag-state-graph-and-delta-compression.md`
+- `adr/0040-unified-m5-kernel-entry-point.md`
+- `adr/0041-typestate-enforcement-ota-rollback-fence.md`
+- `adr/0042-terminal-state-dashboard.md`
+- `adr/0043-secure-wire-anti-replay-fence.md`
+- `adr/0044-immortal-bootloader-autonomic-discovery.md`

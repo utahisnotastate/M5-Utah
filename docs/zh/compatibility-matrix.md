@@ -8,6 +8,9 @@
 | WebSerial Play/Stop | ✅ Chrome/Edge |
 | 保存/打开 `.flux.json` | ✅ |
 | 入门模板 | ✅ 4 个 |
+| UtahClaw 意图画布 | ✅ 端口 8024 |
+| 全知自动发现甲板 | ✅ 端口 8000 |
+| 不朽 I2C 发现固件 | ✅ CoreS3 |
 
 ## 板卡
 

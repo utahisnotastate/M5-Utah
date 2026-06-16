@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "utah-flux"
-version = "0.7.0"
+version = "0.8.1"
 description = "Utah Flux Studio — visual Lego IDE for M5Stack (no CLI required)"
 readme = "../README.md"
 requires-python = ">=3.10"
@@ -12,8 +12,23 @@ dependencies = [
   "pyserial>=3.5",
 ]
 
+[project.optional-dependencies]
+daemon = [
+  "fastapi>=0.100",
+  "uvicorn[standard]>=0.23",
+  "websockets>=11",
+]
+claw = [
+  "fastapi>=0.100",
+  "uvicorn[standard]>=0.23",
+  "websockets>=11",
+  "ollama>=0.3",
+]
+
 [project.scripts]
 utah-flux-studio = "utah_flux.studio:main"
+utah-flux-omniscient = "utah_flux.omniscient_daemon:main"
+utah-claw-studio = "utah_flux.utahclaw_daemon:main"
 m5-vibe-server = "m5resolver.vibe_server:main"
 
 [tool.setuptools]

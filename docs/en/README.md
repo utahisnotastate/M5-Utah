@@ -20,14 +20,23 @@
 - [compatibility-matrix.md](compatibility-matrix.md)
 - [github-governance-setup.md](github-governance-setup.md)
 
-## Features (v0.7+)
+## Studios (v0.8+)
 
-- Visual Lego brick IDE (no CLI for users)
-- Utah-Flux compiler (`.flux.json` projects)
-- Intent-first device control (`display`, `speaker`, `power`, `registry`)
+| Studio | Guide |
+|--------|-------|
+| Utah Flux Lego IDE | Double-click `Start Utah Flux Studio.bat` |
+| Omniscient discovery deck | [omniscient-studio.md](omniscient-studio.md) |
+| UtahClaw intent canvas | [utah-claw-studio.md](utah-claw-studio.md) · [intent-resolution-canvas.md](intent-resolution-canvas.md) |
+| System architecture | [architecture.md](architecture.md) |
+
+## Features (v0.8+)
+
+- Visual Lego brick IDE (no CLI for end users)
+- **Immortal Bootloader** — flash firmware once, I2C auto-discovery forever
+- **UtahClaw canvas** — offline Llama-3 vibe-coding + serial auto-heal
+- **Omniscient deck** — driverless Espressif USB scan + live sensor cards
 - Formal typestate enforcement and m5-secure anti-replay wire fences
 - Real-time terminal state dashboard (`enable_dashboard=True`)
-- Safety validation and simulation-in-the-loop
-- Agentic telemetry remediation
-- Hardware Context Protocol (`registry/units.json`)
-- Starter templates and save/open projects
+- Intent-first device control (`display`, `speaker`, `power`, `registry`)
+- Safety validation, agentic remediation, HCP registry
+- Starter templates and save/open `.flux.json` projects

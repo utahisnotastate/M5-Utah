@@ -29,6 +29,7 @@ TYPESTATE_ENFORCEMENT_CAPABILITY = "formal_typestate_enforcement"
 OTA_ROLLBACK_FENCE_CAPABILITY = "ota_rollback_fence"
 TERMINAL_DASHBOARD_CAPABILITY = "terminal_state_dashboard"
 SECURE_WIRE_CAPABILITY = "secure_wire_anti_replay_fence"
+IMMORTAL_DISCOVERY_CAPABILITY = "immortal_i2c_autonomic_discovery"
 
 ORCHESTRATOR_CAPABILITY = "resource_aware_orchestrator"
 
@@ -63,6 +64,7 @@ INTEGRATED_BOOT_SEQUENCE = (
     "jumpKernelInitDefaults",
     "vectorFenceInit",
     "systemHealthHarvesterInit",
+    "immortalDiscoveryInit",
     "M5Kernel.start",
     "protocolCoreIngestTask",
     "m5KernelApplicationCoreTask",

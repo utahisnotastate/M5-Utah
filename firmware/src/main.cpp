@@ -473,6 +473,7 @@ void setup() {
   Serial.println("[STREAM] Zero-copy cross-core stream piping online.");
   Serial.println("[MESH SYNC] Transactional 2PC core manager online.");
   Serial.println("[ASSEMBLY] Virtual trampoline hook engine armed.");
+  Serial.println("[IMMORTAL] Autonomic Grove I2C discovery online (flash once, vibe forever).");
   Serial.println("[M5-KERNEL] Integrated asymmetric dual-core runtime online.");
   Serial.println("[HARNESS] Dual-core execution harness online (512+ byte ring, Core 0/1 pinned).");
   Serial.println("[PIPE] Cross-core lock-free ring buffer online (Core 0 ingest / Core 1 exec).");

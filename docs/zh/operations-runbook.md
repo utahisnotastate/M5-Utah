@@ -1,6 +1,21 @@
 # 运维手册
 
-## Studio 健康检查
+## UtahClaw 全知工作室健康检查
+
+1. 本地已运行 `ollama run llama3`
+2. 双击 `launch/Start UtahClaw Studio.bat` → `http://127.0.0.1:8024`
+3. 状态显示 **NEURAL LINK STABLE**
+4. 插入 CoreS3 USB — 代理面板显示 `Linked: COMx`
+5. Grove A 口接 ENV III — 硬件甲板显示自动识别
+6. 输入意图 → **MANIFEST** — 代理面板显示已部署 JSON/代码
+
+## 全知发现甲板
+
+1. `pip install -e "host[daemon]"`
+2. `launch/Start Omniscient Studio.bat` → `http://127.0.0.1:8000`
+3. I2C 设备响应后显示发现卡片
+
+## Utah Flux Studio 健康检查
 
 1. 双击 `Start Utah Flux Studio.bat` → 打开 `http://127.0.0.1:8765`
 2. Hello 模板 → 编译状态 **Ready to play**

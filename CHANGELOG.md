@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.1 - 2026-05-29
+
+- **Intent-Resolution Canvas**: polished `utah_studio.html` (silicon + UtahClaw panels)
+- Windows launchers: `Start UtahClaw Studio.bat`, `Start Omniscient Studio.bat`
+- Bilingual docs: UtahClaw, Omniscient, architecture (zh), intent canvas guides
+
+## 0.8.0 - 2026-05-29
+
+- **Immortal Bootloader**: `ImmortalDiscovery` Core 0 I2C autonomic discovery (flash once)
+- **Omniscient OS**: `utah-flux-omniscient` FastAPI daemon + WebSocket auto-discovery GUI
+- **UtahClaw**: `utah-claw-studio` local Ollama vibe-coding + auto-heal serial loop
+- Shared `HardwareMatrix` Espressif USB scan (VID 303A); ADR 0044
+
 ## 0.7.0 - 2026-05-29
 
 - **m5-secure**: `SecureWireEncoder` monotonic anti-replay attestation on fast-path frames

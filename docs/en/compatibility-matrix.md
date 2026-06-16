@@ -8,6 +8,9 @@
 | WebSerial Play/Stop | ✅ Chrome, Edge |
 | Save/Open `.flux.json` | ✅ |
 | Starter templates | ✅ 4 built-in |
+| UtahClaw intent canvas | ✅ port 8024 |
+| Omniscient discovery deck | ✅ port 8000 |
+| Immortal I2C discovery firmware | ✅ CoreS3 |
 
 ## Boards
 
@@ -27,6 +30,7 @@
 | Telemetry schema | 0.1+ | Live Log | emit |
 | Registry (HCP) | 0.1 | merge on compile | hot-reload |
 | Secure wire (#A) | 0.7+ | `SecureWireEncoder` | `SecureWireFence` |
+| Immortal discovery | 0.8+ | `HardwareMatrix` | `ImmortalDiscovery` |
 | Typestate graph | 0.6.8+ | preflight | N/A (host) |
 
 ## Browser support

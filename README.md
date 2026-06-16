@@ -71,7 +71,7 @@ The M5Stack ecosystem offers many entry points. **m5-utah** is the only stack th
 
 **Summary:** Arduino and ESP-IDF give you raw control but no unified intent pipeline, no typestate guards, and no kid-friendly IDE. UIFlow and EZData optimize for beginners or cloud dashboards but hide the wire protocol and lack formal verification, anti-replay fences, and dual-core orchestration. **m5-utah** targets both audiences: Lego-simple UX up front, bulletproof engineering underneath.
 
-## Production architecture (v0.7)
+## Production architecture (v0.8)
 
 ```
 [Human intent / Utah Flux / vibe IDE]
@@ -91,6 +91,26 @@ The M5Stack ecosystem offers many entry points. **m5-utah** is the only stack th
 
 See [docs/en/architecture.md](docs/en/architecture.md) and ADRs `0041`–`0043` for typestate, OTA rollback, dashboard, and secure wire details.
 
+## Intent-Resolution Canvas (UtahClaw)
+
+**Vibe-code hardware in plain English — 100% offline.**
+
+```text
+pip install -e "host[claw]"
+ollama run llama3
+launch/Start UtahClaw Studio.bat
+```
+
+Or open `utah_studio.html` after starting `utah-claw-studio` (http://127.0.0.1:8024).
+
+| Studio | Launcher | Port |
+|--------|----------|------|
+| Lego IDE (kids) | `Start Utah Flux Studio.bat` | 8765 |
+| Omniscient discovery | `Start Omniscient Studio.bat` | 8000 |
+| UtahClaw canvas | `Start UtahClaw Studio.bat` | 8024 |
+
+Docs: [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) · [中文](docs/zh/utah-claw-studio.md)
+
 ## One-time firmware flash (adult helper)
 
 An adult only needs to flash firmware **once**:
@@ -106,7 +126,9 @@ After that, children use only Utah Flux Studio.
 
 | Tool | Purpose |
 |------|---------|
-| `pytest tests/` | Host contract + validation suite (154+ tests) |
+| `pytest tests/` | Host contract + validation suite (159+ tests) |
+| `utah-flux-omniscient` | Auto-scan CoreS3 + live discovery deck (`:8000`) |
+| `utah-claw-studio` | Local Ollama vibe-coding + auto-heal (`:8024`) |
 | `enable_dashboard=True` | Live terminal system matrix from health vitals |
 | `enable_secure_wire=True` (default) | Anti-replay wrapping on `send_fastpath()` |
 | `make quality` | Lint / type checks (optional) |
@@ -127,7 +149,7 @@ After that, children use only Utah Flux Studio.
 | `registry/` | Hardware unit catalog |
 | `android/` | Mesh participant + USB fast-path bridge |
 | `projects/` | Example `.flux.json` projects |
-| `launch/` | Double-click launchers |
+| `launch/` | Double-click launchers (Flux, UtahClaw, Omniscient) |
 | `adr/` | Architecture decision records |
 | `docs/` | Guides (English / 中文) |
 
