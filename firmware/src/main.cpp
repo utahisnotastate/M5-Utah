@@ -39,6 +39,9 @@
 #include "ChronoScheduler.h"
 #include "LazarusDaemon.h"
 #include "MeshStateMirror.h"
+#include "MatrixCompute.h"
+#include "AcousticMask.h"
+#include "SwarmSoul.h"
 #include "TensorVoidLinkage.h"
 
 static constexpr uint32_t BAUDRATE = 115200;
@@ -309,6 +312,10 @@ void emitTelemetry() {
   metrics["omega_lazarus_boot_count"] = static_cast<int>(LazarusDaemon::bootCount());
   metrics["omega_amnesia_payload_bytes"] =
       static_cast<int>(AmnesiaKernel::instance().payloadLength());
+  metrics["sovereign_matrix_score"] = MatrixCompute::lastScore();
+  metrics["sovereign_swarm_adoptions"] = static_cast<int>(SwarmSoul::peerAdoptions());
+  metrics["sovereign_phonon_frames"] = static_cast<int>(AcousticMask::framesWritten());
+  metrics["sovereign_phonon_active"] = AcousticMask::isActive() ? 1 : 0;
 
   const char *statusStr = doc["status"].as<const char *>();
   const uint8_t batteryPct = static_cast<uint8_t>(M5.Power.getBatteryLevel());

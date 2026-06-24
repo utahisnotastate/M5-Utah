@@ -29,15 +29,17 @@
 | UtahClaw intent canvas | `Start UtahClaw Studio.bat` | [utah-claw-studio.md](utah-claw-studio.md) · [intent-resolution-canvas.md](intent-resolution-canvas.md) |
 | System architecture | — | [architecture.md](architecture.md) |
 | Omega defense (firmware) | flash once | [omega-defense-stack.md](omega-defense-stack.md) |
+| Sovereign edge tier | flash once | [sovereign-edge-tier.md](sovereign-edge-tier.md) |
 | Field graph / Sanctum | `field_compiler.py` | [field-graph-compiler.md](field-graph-compiler.md) |
 
-## Features (v0.8.2)
+## Features (v0.8.3)
 
 - Visual Lego brick IDE (no CLI for end users)
 - **Immortal Bootloader** — flash firmware once, I2C auto-discovery forever
 - **UtahClaw canvas** — offline Llama-3 vibe-coding + serial auto-heal
 - **Omniscient deck** — driverless Espressif USB scan + live sensor cards
 - **Omega defense stack** — jitter, mesh mirror, PSRAM vault, chrono/tensor/lazarus modules
+- **Sovereign edge tier** — phonon mask, IRAM matrix compute, swarm conslation frames
 - **Field graph compiler** — `nodes`/`bindings` sanctum projects → display intents
 - Formal typestate enforcement and m5-secure anti-replay wire fences
 - Real-time terminal state dashboard (`enable_dashboard=True`)

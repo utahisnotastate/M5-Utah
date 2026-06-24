@@ -74,3 +74,4 @@ IMU 篡改或地理漂移时，失忆内核对 PSRAM 熵擦除并重启。
 - [固件 README](../../firmware/README.md)
 - [架构](architecture.md)
 - ADR [0045](../adr/0045-omega-defense-edge-stack.md)
+- [主权边缘层](sovereign-edge-tier.md)

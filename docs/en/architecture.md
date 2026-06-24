@@ -83,6 +83,16 @@ Integrated via `omegaDefenseInit()` / `omegaDefenseTick()`. Telemetry includes `
 
 Sanctum-style projects (`nodes`, `bindings`) compile through `host/utah_flux/field_compiler.py` — bindings stay host-side; display elements ship to firmware. See [field-graph-compiler.md](field-graph-compiler.md).
 
+### Sovereign edge tier (v0.8.3)
+
+| Module | Role |
+|--------|------|
+| `AcousticMask` | Core 0 I2S Brownian phonon DMA mask |
+| `MatrixCompute` | IRAM cache-bounded telematic scoring |
+| `SwarmSoul` | `ExecutionFrame` ESP-NOW conslation (shared mesh) |
+
+See [sovereign-edge-tier.md](sovereign-edge-tier.md) and ADR [0046](../adr/0046-sovereign-edge-tier.md).
+
 ### WebUSB vibe gateway (Feature 50)
 
 The zero-install browser IDE (`vibe_server.py` on port **8023**) closes the end-user loop:

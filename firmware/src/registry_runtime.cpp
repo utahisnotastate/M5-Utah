@@ -300,6 +300,9 @@ void registryRespondCapabilities(JsonObject out) {
   caps.add("chrono_predictive_scheduler");
   caps.add("tensor_void_linkage");
   caps.add("lazarus_rtc_resurrection");
+  caps.add("declarative_phonon_routing");
+  caps.add("memristive_matrix_compute");
+  caps.add("swarm_soul_conslation");
   caps.add("asymmetric_rpp_piping");
   caps.add("android_usb_host_bridge");
   if (M5.Imu.isEnabled()) caps.add("accel");

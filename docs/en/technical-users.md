@@ -11,6 +11,7 @@
 | Field graph compiler | `host/utah_flux/field_compiler.py` | Sanctum `nodes`/`bindings` → display intents |
 | m5resolver | `host/m5resolver/` | Intents, typestate, secure wire, agent |
 | Omega defense | `firmware/src/OmegaDefense.*` + six modules | Edge resiliency stack |
+| Sovereign edge | `firmware/src/SovereignEdge.*` + Acoustic/Matrix/Swarm | Declarative runtime tier |
 | Immortal firmware | `firmware/src/ImmortalDiscovery.*` | I2C scan on Core 0 |
 | Firmware kernel | `firmware/` | Dual-core M5Kernel runtime |
 

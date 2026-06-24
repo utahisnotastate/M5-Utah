@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.3 - 2026-05-29
+
+- **Sovereign edge tier**: `AcousticMask`, `MatrixCompute`, `SwarmSoul` via `SovereignEdge` coordinator
+- ESP-NOW demux: `MeshStateVector` + `ExecutionFrame` on shared mesh bus
+- Telemetry `sovereign_*` metrics; capabilities for phonon routing, matrix compute, swarm conslation
+- Bilingual docs + ADR 0046
+
 ## 0.8.2 - 2026-05-29
 
 - **Omega defense stack**: `StochasticShield`, `MeshStateMirror`, `AmnesiaKernel`, `ChronoScheduler`, `TensorVoidLinkage`, `LazarusDaemon` via `OmegaDefense` coordinator

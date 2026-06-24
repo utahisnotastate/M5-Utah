@@ -12,6 +12,7 @@
 | Omniscient discovery deck | ✅ port 8000 |
 | Immortal I2C discovery firmware | ✅ CoreS3 |
 | Omega defense stack | ✅ v0.8.2 |
+| Sovereign edge tier | ✅ v0.8.3 |
 | Field graph compiler (Sanctum) | ✅ `field_compiler.py` |
 | `Install UtahClaw.bat` / root launcher | ✅ Windows |
 

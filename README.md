@@ -119,7 +119,7 @@ Docs: [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) · [中文](doc
 
 ## Omega defense stack (firmware)
 
-Six edge-resiliency modules run on every CoreS3 boot: Brownian timing jitter, ESP-NOW mesh state mirror, PSRAM ephemeral vault, chrono scheduler, tensor scoring, and Lazarus RTC recovery. See [docs/en/omega-defense-stack.md](docs/en/omega-defense-stack.md).
+Six edge-resiliency modules run on every CoreS3 boot: Brownian timing jitter, ESP-NOW mesh state mirror, PSRAM ephemeral vault, chrono scheduler, tensor scoring, and Lazarus RTC recovery. **Sovereign edge tier** (v0.8.3) adds phonon acoustic masking, IRAM matrix telematics, and swarm conslation frames. See [docs/en/omega-defense-stack.md](docs/en/omega-defense-stack.md) and [docs/en/sovereign-edge-tier.md](docs/en/sovereign-edge-tier.md).
 
 ## One-time firmware flash (adult helper)
 

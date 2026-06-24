@@ -7,6 +7,7 @@
 #include "LazarusDaemon.h"
 #include "MeshStateMirror.h"
 #include "StochasticShield.h"
+#include "SovereignEdge.h"
 #include "TensorVoidLinkage.h"
 
 void omegaDefenseInit() {
@@ -39,4 +40,5 @@ void omegaDefenseTick(uint32_t orchestrationTick, uint32_t processedFrames) {
 
   const float sensor[3] = {imuX, imuY, imuZ};
   tensorVoidScore(sensor, 3);
+  sovereignEdgeTick(orchestrationTick, processedFrames);
 }

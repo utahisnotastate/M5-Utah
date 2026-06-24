@@ -78,3 +78,4 @@ On IMU tamper or geographic drift, the Amnesia kernel entropy-scrubs PSRAM and r
 - [firmware/README.md](../../firmware/README.md)
 - [Architecture](architecture.md)
 - ADR [0045](../adr/0045-omega-defense-edge-stack.md)
+- [Sovereign edge tier](sovereign-edge-tier.md)

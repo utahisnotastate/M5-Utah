@@ -47,3 +47,4 @@ Each ADR should include:
 - `adr/0043-secure-wire-anti-replay-fence.md`
 - `adr/0044-immortal-bootloader-autonomic-discovery.md`
 - `adr/0045-omega-defense-edge-stack.md`
+- `adr/0046-sovereign-edge-tier.md`

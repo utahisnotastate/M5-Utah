@@ -1,5 +1,6 @@
 #include "MeshStateMirror.h"
 
+#include "SwarmSoul.h"
 #include "TimeTravelJournal.h"
 
 #include <M5Unified.h>
@@ -17,8 +18,14 @@ constexpr uint8_t kBroadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 MeshStateMirror *g_mirror = nullptr;
 
 void onEspNowReceive(const uint8_t *mac, const uint8_t *data, int len) {
-  (void)mac;
-  if (g_mirror != nullptr) {
+  if (data == nullptr || len <= 0) {
+    return;
+  }
+  if (len == static_cast<int>(sizeof(SwarmSoul::ExecutionFrame))) {
+    SwarmSoul::onPeerSynchronizeEvent(mac, data, len);
+    return;
+  }
+  if (g_mirror != nullptr && len == static_cast<int>(sizeof(MeshStateVector))) {
     g_mirror->receivePeerState(data, len);
   }
 }

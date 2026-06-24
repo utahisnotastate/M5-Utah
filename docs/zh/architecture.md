@@ -63,6 +63,16 @@ UtahClaw 画布     ◄──  JSON 发现 / 遥测        ◄──  不朽 I2C
 
 `nodes`/`bindings` 格式项目由 `host/utah_flux/field_compiler.py` 编译；绑定保留在主机侧。见 [field-graph-compiler.md](field-graph-compiler.md)。
 
+## 主权边缘层（v0.8.3）
+
+| 模块 | 作用 |
+|------|------|
+| `AcousticMask` | Core 0 I2S 布朗声子 DMA 掩蔽 |
+| `MatrixCompute` | IRAM 缓存边界遥测评分 |
+| `SwarmSoul` | `ExecutionFrame` ESP-NOW 群魂同步 |
+
+详见 [sovereign-edge-tier.md](sovereign-edge-tier.md) · ADR [0046](../adr/0046-sovereign-edge-tier.md)
+
 ## 统一生命周期
 
 ```

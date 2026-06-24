@@ -62,3 +62,15 @@ Boot integrates six modules via `omegaDefenseInit()` in `M5IntegratedKernel.cpp`
 Telemetry exposes `omega_*` metrics. Capability query includes `stochastic_execution_obfuscation`, `mesh_state_mirror`, `amnesia_ephemeral_vault`, `chrono_predictive_scheduler`, `tensor_void_linkage`, and `lazarus_rtc_resurrection`.
 
 Optional intent flag `ephemeral_store: true` with an `ephemeral` field stores bytes in the Amnesia vault (never written to flash).
+
+## Sovereign edge tier (v0.8.3)
+
+Declarative runtime modules via `sovereignEdgeInit()`:
+
+| Module | Role |
+|--------|------|
+| `AcousticMask` | Core 0 I2S Brownian phonon mask (graceful disable if unavailable) |
+| `MatrixCompute` | IRAM cache-bounded telematic matrix scoring |
+| `SwarmSoul` | `ExecutionFrame` ESP-NOW conslation (shared mesh bus) |
+
+Telemetry: `sovereign_*` metrics. See [docs/en/sovereign-edge-tier.md](../docs/en/sovereign-edge-tier.md).
