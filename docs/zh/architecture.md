@@ -46,6 +46,23 @@ UtahClaw 画布     ◄──  JSON 发现 / 遥测        ◄──  不朽 I2C
 | UtahClaw 画布 | 8024 | 离线氛围编程 + 自动修复 |
 | Vibe 网关 | 8023 | WebUSB 浏览器 IDE |
 
+## Omega 防御栈（v0.8.2）
+
+| 模块 | 作用 |
+|------|------|
+| `StochasticShield` | 注册表分发路径上的 ADC + TRNG 抖动 |
+| `MeshStateMirror` | ESP-NOW 10ms 拜占庭向量 + DeepSleep 交接 |
+| `AmnesiaKernel` | PSRAM 易失保险库 + IMU 篡改擦除 |
+| `ChronoScheduler` | 100µs 推测任务提交 |
+| `TensorVoidLinkage` | IRAM 2-bit 潜向量评分 |
+| `LazarusDaemon` | RTC 复活遥测 |
+
+详见 [omega-defense-stack.md](omega-defense-stack.md) · ADR [0045](../adr/0045-omega-defense-edge-stack.md)
+
+## 场图编译器（v0.8.2）
+
+`nodes`/`bindings` 格式项目由 `host/utah_flux/field_compiler.py` 编译；绑定保留在主机侧。见 [field-graph-compiler.md](field-graph-compiler.md)。
+
 ## 统一生命周期
 
 ```

@@ -4,14 +4,23 @@
 
 ## 快速开始（推荐）
 
-1. 一次性安装：
+1. 一次性安装（在仓库根目录）：
    ```text
-   pip install -e "host[claw]"
-   ollama run llama3
+   Install UtahClaw.bat
    ```
-2. 固件只需刷写一次「不朽引导程序」（见 [architecture.md](architecture.md)）。
-3. 双击 **`launch/Start UtahClaw Studio.bat`**（或运行 `utah-claw-studio`）。
-4. 浏览器打开 **http://127.0.0.1:8024** 进入实时画布。
+   或手动：`pip install -e "./host[claw]"`（Windows 请从仓库根目录执行）。
+2. 启动 Ollama：`ollama run llama3`
+3. 固件只需刷写一次（含 Omega 防御栈，见 [firmware/README.md](../../firmware/README.md)）。
+4. 双击仓库根目录 **`Start UtahClaw Studio.bat`**（或 `launch/Start UtahClaw Studio.bat`）。
+5. 浏览器打开 **http://127.0.0.1:8024** — 保持 **UtahClaw Daemon** 控制台窗口运行。
+
+## 故障排除
+
+| 现象 | 处理 |
+|------|------|
+| `:8024` 显示 `ERR_CONNECTION_REFUSED` | 守护进程未启动 — 运行 `Install UtahClaw.bat` 后 `Start UtahClaw Studio.bat`；检查窗口是否有 `fastapi` 缺失错误 |
+| 页面能开但 vibe 失败 | 另开终端运行 `ollama run llama3` |
+| 无 `Linked: COMx` | 插入 CoreS3 USB；关闭占用串口的其他程序 |
 
 ## 界面说明
 

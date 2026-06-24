@@ -29,7 +29,11 @@ bool SpeculativeStagingBuffer::testSpeculativeTask(
   }
 
   TaskHandle_t shadowHandle = nullptr;
-  if (!spawnSandboxedUnit("speculative_shadow", static_cast<UnitTaskConfig *>(parameters), 4,
+  const char *taskName = "spec_shadow";
+  if (parameters != nullptr) {
+    taskName = static_cast<UnitTaskConfig *>(parameters)->name;
+  }
+  if (!spawnSandboxedUnit(taskName, static_cast<UnitTaskConfig *>(parameters), 4,
                           &shadowHandle)) {
     return false;
   }

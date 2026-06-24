@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.2 - 2026-05-29
+
+- **Omega defense stack**: `StochasticShield`, `MeshStateMirror`, `AmnesiaKernel`, `ChronoScheduler`, `TensorVoidLinkage`, `LazarusDaemon` via `OmegaDefense` coordinator
+- **Field graph compiler**: `host/utah_flux/field_compiler.py` for sanctum-style `nodes`/`bindings` projects; RGB565 hex color fix
+- **UtahClaw launchers**: root `Start UtahClaw Studio.bat`, `Install UtahClaw.bat`, auto-install `host[claw]` deps, visible daemon window on errors
+- **Firmware flash helper**: `firmware/flash-cores3.ps1`; CoreS3 upload troubleshooting in `firmware/README.md`
+- **Tests**: `tests/test_field_compiler.py`
+- **Docs**: bilingual Omega defense + field graph guides; ADR 0045
+
 ## 0.8.1 - 2026-05-29
 
 - **Intent-Resolution Canvas**: polished `utah_studio.html` (silicon + UtahClaw panels)

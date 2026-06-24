@@ -9,7 +9,7 @@
 
 namespace {
 
-constexpr int kMaxSandboxSlots = 10;
+constexpr int kMaxSandboxSlots = 4;
 constexpr uint32_t kMinFreeHeap = 20000;
 
 struct SandboxSlot {
@@ -75,6 +75,10 @@ SandboxSlot *findSlotByHandle(TaskHandle_t handle) {
 
 void sandboxedUnitWorker(void *param) {
   UnitTaskConfig *cfg = static_cast<UnitTaskConfig *>(param);
+  if (cfg == nullptr) {
+    vTaskDelete(nullptr);
+    return;
+  }
   Serial.printf("[SANDBOX] Memory boundary active for unit %s\n", cfg->name);
 
   const uint32_t intervalMs = cfg->frequencyHz > 0 ? (1000 / cfg->frequencyHz) : 1000;

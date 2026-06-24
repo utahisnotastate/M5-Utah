@@ -1,0 +1,52 @@
+{
+  "project_name": "Sanctum_Voxel_Alpha",
+  "target_hardware": "CoreS3",
+  "intent": "Stabilize local kinetic energy into visual coherence.",
+  "layout": {
+    "type": "GravitationalField",
+    "background_color": "#000000"
+  },
+  "nodes": [
+    {
+      "id": "status_label",
+      "type": "FieldLabel",
+      "properties": {
+        "text": "AWAITING COHERENCE...",
+        "color": "#FF0000",
+        "font_size": 24,
+        "x": 160,
+        "y": 60
+      }
+    },
+    {
+      "id": "voxel_core",
+      "type": "FieldButton",
+      "properties": {
+        "text": "CHAOS",
+        "color": "#FFFFFF",
+        "background_color": "#333333",
+        "width": 100,
+        "height": 100,
+        "x": 160,
+        "y": 160
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "source": "sensor.imu.movement_delta",
+      "target": "voxel_core.properties.background_color",
+      "logic": "if (value < 0.05) return '#FFD700'; else return '#333333';"
+    },
+    {
+      "source": "sensor.imu.movement_delta",
+      "target": "status_label.properties.text",
+      "logic": "if (value < 0.05) return 'TIMELINE STABILIZED'; else return 'KINETIC INTERFERENCE DETECTED';"
+    },
+    {
+      "source": "sensor.imu.movement_delta",
+      "target": "status_label.properties.color",
+      "logic": "if (value < 0.05) return '#00FF00'; else return '#FF0000';"
+    }
+  ]
+}

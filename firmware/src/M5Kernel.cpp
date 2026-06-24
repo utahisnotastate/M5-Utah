@@ -4,8 +4,10 @@
 #include "CrossCorePipe.h"
 #include "DualCoreHarness.h"
 #include "HandleMemory.h"
+#include "OmegaDefense.h"
 #include "PriorityGatekeeper.h"
 #include "ResourceOrchestrator.h"
+#include "StochasticShield.h"
 #include "SystemHealthHarvester.h"
 #include "TelemetryHealth.h"
 #include "VirtualEventGrid.h"
@@ -42,11 +44,15 @@ struct JsonDispatchContext {
   size_t length;
 };
 
-void jsonDispatchTrampoline(void *context) {
+void jsonDispatchBody(void *context) {
   auto *ctx = static_cast<JsonDispatchContext *>(context);
   if (ctx != nullptr && ctx->payload != nullptr) {
     processInboundJsonPayload(ctx->payload, ctx->length);
   }
+}
+
+void jsonDispatchTrampoline(void *context) {
+  StochasticShield::executeWithBrownianJitter(jsonDispatchBody, context);
 }
 
 bool payloadReferencesRegistry(const char *payload, size_t length) {
@@ -76,6 +82,7 @@ void applicationCoreLoop(void *param) {
     globalResourceOrchestrator().orchestrateTick(freeHeap);
     M5.update();
     registrySupervisorTick();
+    omegaDefenseTick(g_orchestrationTicks, g_processedFrameCount);
 
     while (M5Kernel::dispatchPipeFrame(0, nullptr, 0)) {
     }

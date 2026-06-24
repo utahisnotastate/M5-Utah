@@ -11,6 +11,9 @@
 | UtahClaw intent canvas | ✅ port 8024 |
 | Omniscient discovery deck | ✅ port 8000 |
 | Immortal I2C discovery firmware | ✅ CoreS3 |
+| Omega defense stack | ✅ v0.8.2 |
+| Field graph compiler (Sanctum) | ✅ `field_compiler.py` |
+| `Install UtahClaw.bat` / root launcher | ✅ Windows |
 
 ## Boards
 
@@ -31,6 +34,9 @@
 | Registry (HCP) | 0.1 | merge on compile | hot-reload |
 | Secure wire (#A) | 0.7+ | `SecureWireEncoder` | `SecureWireFence` |
 | Immortal discovery | 0.8+ | `HardwareMatrix` | `ImmortalDiscovery` |
+| Omega defense | 0.8.2+ | N/A | `OmegaDefense` + six modules |
+| Ephemeral vault intent | 0.8.2+ | optional inject | `AmnesiaKernel` |
+| Field graph compile | 0.8.2+ | `field_compiler.py` | display intents only |
 | Typestate graph | 0.6.8+ | preflight | N/A (host) |
 
 ## Browser support

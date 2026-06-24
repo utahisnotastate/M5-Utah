@@ -46,3 +46,4 @@ Each ADR should include:
 - `adr/0042-terminal-state-dashboard.md`
 - `adr/0043-secure-wire-anti-replay-fence.md`
 - `adr/0044-immortal-bootloader-autonomic-discovery.md`
+- `adr/0045-omega-defense-edge-stack.md`

@@ -7,6 +7,7 @@ from m5resolver.simulation import HardwareSimulator
 from m5resolver.validation import validate_intent_payload
 
 from .bricks import color_hex, pitch_hz
+from .field_compiler import compile_field_graph, is_field_graph_flux
 from .project import FluxProject
 
 
@@ -122,6 +123,16 @@ def _compile_action_brick(brick_type: str, params: dict[str, Any]) -> dict[str, 
     return {}
 
 
+def compile_flux_document(data: dict[str, Any]) -> dict[str, Any]:
+    """Route brick/link or field-graph .flux.json to the correct compiler."""
+    if is_field_graph_flux(data):
+        return compile_field_graph(data)
+    if "wires" in data and "links" not in data:
+        data = dict(data)
+        data["links"] = data["wires"]
+    return compile_project(FluxProject.from_dict(data))
+
+
 def compile_project(project: FluxProject | dict[str, Any]) -> dict[str, Any]:
     """Compile Lego bricks + links into intents, wires, and registry patches."""
     if isinstance(project, dict):
@@ -227,6 +238,16 @@ def _is_trigger(brick_type: str) -> bool:
 
 
 def apply_wire_transform(transform: str, value: Any, params: dict[str, Any]) -> Any:
+    if transform == "binding_logic":
+        from .field_compiler import eval_binding_logic, parse_hex_color
+
+        logic = str(params.get("logic", ""))
+        result = eval_binding_logic(logic, float(value))
+        if result is None:
+            return value
+        if params.get("value_type") == "color":
+            return parse_hex_color(result)
+        return result
     if transform == "const_true":
         return True
     if transform == "const_duration":

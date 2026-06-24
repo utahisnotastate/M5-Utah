@@ -4,9 +4,11 @@ Python host plane for **m5-utah** — install from this directory:
 
 ```text
 pip install -e .
-pip install -e ".[daemon]"   # Omniscient auto-discovery deck
-pip install -e ".[claw]"       # UtahClaw + Ollama vibe-coding
+pip install -e "./host[daemon]"   # Omniscient auto-discovery deck
+pip install -e "./host[claw]"     # UtahClaw + Ollama vibe-coding
 ```
+
+From repository root on Windows, double-click `Install UtahClaw.bat` for the claw extras.
 
 ## Entry points
 
@@ -17,7 +19,7 @@ pip install -e ".[claw]"       # UtahClaw + Ollama vibe-coding
 | `utah-claw-studio` | 8024 | Intent-Resolution Canvas + offline Llama-3 |
 | `m5-vibe-server` | 8023 | WebUSB vibe gateway |
 
-Windows launchers live in `../launch/` at the repository root.
+Windows launchers live in `../launch/` and at the repository root (`Start UtahClaw Studio.bat`, `Install UtahClaw.bat`).
 
 ## Packages
 
@@ -43,4 +45,4 @@ Full project docs: [../docs/en/README.md](../docs/en/README.md) · [../docs/zh/R
 
 ## Version
 
-See `pyproject.toml` (currently **0.8.1**).
+See `pyproject.toml` (currently **0.8.2**).

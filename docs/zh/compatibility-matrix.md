@@ -11,6 +11,9 @@
 | UtahClaw 意图画布 | ✅ 端口 8024 |
 | 全知自动发现甲板 | ✅ 端口 8000 |
 | 不朽 I2C 发现固件 | ✅ CoreS3 |
+| Omega 防御栈 | ✅ v0.8.2 |
+| 场图编译器（Sanctum） | ✅ `field_compiler.py` |
+| `Install UtahClaw.bat` / 根目录启动器 | ✅ Windows |
 
 ## 板卡
 

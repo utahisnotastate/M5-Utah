@@ -2,6 +2,7 @@
 
 #include "ImmortalDiscovery.h"
 #include "JumpKernel.h"
+#include "OmegaDefense.h"
 #include "OtaRollbackFence.h"
 #include "SystemHealthHarvester.h"
 #include "VectorFence.h"
@@ -20,6 +21,7 @@ void m5IntegratedKernelBoot() {
   jumpKernelInitDefaults();
   vectorFenceInit();
   systemHealthHarvesterInit();
+  omegaDefenseInit();
   immortalDiscoveryInit();
   M5Kernel::start();
 }

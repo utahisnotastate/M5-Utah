@@ -5,8 +5,8 @@
 
 #include "StateForker.h"
 
-constexpr size_t kSandboxStackWords = 256;
-constexpr UBaseType_t kSandboxStackHighWaterMin = 100;
+constexpr size_t kSandboxStackWords = 8192;
+constexpr UBaseType_t kSandboxStackHighWaterMin = 1024;
 
 void sandboxedUnitWorker(void *param);
 

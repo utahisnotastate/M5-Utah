@@ -6,8 +6,9 @@
 
 | Method | Command |
 |--------|---------|
-| Windows launcher | `launch/Start UtahClaw Studio.bat` |
-| CLI | `utah-claw-studio` → http://127.0.0.1:8024 |
+| One-time install | `Install UtahClaw.bat` |
+| Windows launcher | `Start UtahClaw Studio.bat` (root) or `launch/Start UtahClaw Studio.bat` |
+| CLI | `utah-claw-studio` or `py -m utah_flux.utahclaw_daemon` → http://127.0.0.1:8024 |
 | Standalone HTML | Run daemon first, then open `utah_studio.html` |
 
 ## Requirements

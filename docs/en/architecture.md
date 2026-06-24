@@ -64,6 +64,25 @@ utah-claw-studio                 # http://127.0.0.1:8024  (utah_studio.html)
 
 See [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) and [docs/en/intent-resolution-canvas.md](docs/en/intent-resolution-canvas.md).
 
+### Omega defense stack (v0.8.2)
+
+Six firmware modules harden CoreS3 against timing side-channels, single-node failure, and flash forensics:
+
+| Module | Role |
+|--------|------|
+| `StochasticShield` | ADC + TRNG jitter on registry dispatch |
+| `MeshStateMirror` | ESP-NOW 10ms Byzantine vectors + DeepSleep handoff |
+| `AmnesiaKernel` | PSRAM ephemeral vault + IMU tamper wipe |
+| `ChronoScheduler` | 100µs speculative task commits |
+| `TensorVoidLinkage` | IRAM 2-bit latent scoring |
+| `LazarusDaemon` | RTC resurrection telemetry |
+
+Integrated via `omegaDefenseInit()` / `omegaDefenseTick()`. Telemetry includes `omega_*` metrics. See [omega-defense-stack.md](omega-defense-stack.md) and ADR [0045](../adr/0045-omega-defense-edge-stack.md).
+
+### Field graph compiler (v0.8.2)
+
+Sanctum-style projects (`nodes`, `bindings`) compile through `host/utah_flux/field_compiler.py` — bindings stay host-side; display elements ship to firmware. See [field-graph-compiler.md](field-graph-compiler.md).
+
 ### WebUSB vibe gateway (Feature 50)
 
 The zero-install browser IDE (`vibe_server.py` on port **8023**) closes the end-user loop:

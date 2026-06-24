@@ -31,6 +31,10 @@ nav:
           - Runbook: docs/en/operations-runbook.md
           - Compatibility: docs/en/compatibility-matrix.md
           - Governance: docs/en/github-governance-setup.md
+          - Omega Defense: docs/en/omega-defense-stack.md
+          - Field Graph: docs/en/field-graph-compiler.md
+          - UtahClaw: docs/en/utah-claw-studio.md
+          - Omniscient: docs/en/omniscient-studio.md
   - 中文:
       - 索引: docs/zh/README.md
       - 教程:
@@ -49,3 +53,7 @@ nav:
           - 手册: docs/zh/operations-runbook.md
           - 兼容性: docs/zh/compatibility-matrix.md
           - 治理: docs/zh/github-governance-setup.md
+          - Omega 防御: docs/zh/omega-defense-stack.md
+          - 场图编译: docs/zh/field-graph-compiler.md
+          - UtahClaw: docs/zh/utah-claw-studio.md
+          - 全知甲板: docs/zh/omniscient-studio.md

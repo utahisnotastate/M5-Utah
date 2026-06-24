@@ -71,7 +71,7 @@ The M5Stack ecosystem offers many entry points. **m5-utah** is the only stack th
 
 **Summary:** Arduino and ESP-IDF give you raw control but no unified intent pipeline, no typestate guards, and no kid-friendly IDE. UIFlow and EZData optimize for beginners or cloud dashboards but hide the wire protocol and lack formal verification, anti-replay fences, and dual-core orchestration. **m5-utah** targets both audiences: Lego-simple UX up front, bulletproof engineering underneath.
 
-## Production architecture (v0.8)
+## Production architecture (v0.8.2)
 
 ```
 [Human intent / Utah Flux / vibe IDE]
@@ -96,24 +96,41 @@ See [docs/en/architecture.md](docs/en/architecture.md) and ADRs `0041`–`0043` 
 **Vibe-code hardware in plain English — 100% offline.**
 
 ```text
-pip install -e "host[claw]"
+Install UtahClaw.bat          REM one-time (or pip install -e "./host[claw]")
 ollama run llama3
-launch/Start UtahClaw Studio.bat
+Start UtahClaw Studio.bat     REM root shortcut (also in launch/)
 ```
 
-Or open `utah_studio.html` after starting `utah-claw-studio` (http://127.0.0.1:8024).
+Or from a terminal after install:
+
+```text
+py -m utah_flux.utahclaw_daemon
+```
+
+Browser: http://127.0.0.1:8024
 
 | Studio | Launcher | Port |
 |--------|----------|------|
 | Lego IDE (kids) | `Start Utah Flux Studio.bat` | 8765 |
-| Omniscient discovery | `Start Omniscient Studio.bat` | 8000 |
+| Omniscient discovery | `launch/Start Omniscient Studio.bat` | 8000 |
 | UtahClaw canvas | `Start UtahClaw Studio.bat` | 8024 |
 
 Docs: [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) · [中文](docs/zh/utah-claw-studio.md)
 
+## Omega defense stack (firmware)
+
+Six edge-resiliency modules run on every CoreS3 boot: Brownian timing jitter, ESP-NOW mesh state mirror, PSRAM ephemeral vault, chrono scheduler, tensor scoring, and Lazarus RTC recovery. See [docs/en/omega-defense-stack.md](docs/en/omega-defense-stack.md).
+
 ## One-time firmware flash (adult helper)
 
 An adult only needs to flash firmware **once**:
+
+```powershell
+cd firmware
+.\flash-cores3.ps1
+```
+
+Or manually:
 
 ```text
 cd firmware
@@ -150,6 +167,7 @@ After that, children use only Utah Flux Studio.
 | `android/` | Mesh participant + USB fast-path bridge |
 | `projects/` | Example `.flux.json` projects |
 | `launch/` | Double-click launchers (Flux, UtahClaw, Omniscient) |
+| `Install UtahClaw.bat` | One-time UtahClaw + Ollama deps |
 | `adr/` | Architecture decision records |
 | `docs/` | Guides (English / 中文) |
 

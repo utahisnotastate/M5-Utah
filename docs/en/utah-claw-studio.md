@@ -4,14 +4,23 @@ The **Intent-Resolution Canvas** is a zero-dependency HTML interface that connec
 
 ## Quick start (recommended)
 
-1. Install once:
+1. Install once (from repository root):
    ```text
-   pip install -e "host[claw]"
-   ollama run llama3
+   Install UtahClaw.bat
    ```
-2. Flash the Immortal Bootloader firmware once (see [architecture.md](architecture.md)).
-3. Double-click **`launch/Start UtahClaw Studio.bat`** (or run `utah-claw-studio`).
-4. Browser opens **http://127.0.0.1:8024** with the live canvas.
+   Or manually: `pip install -e "./host[claw]"` (use repo root path on Windows).
+2. Start Ollama: `ollama run llama3`
+3. Flash Immortal Bootloader + Omega defense firmware once (see [firmware/README.md](../../firmware/README.md)).
+4. Double-click **`Start UtahClaw Studio.bat`** at repo root (or `launch/Start UtahClaw Studio.bat`).
+5. Browser opens **http://127.0.0.1:8024** — keep the **UtahClaw Daemon** console window open.
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `ERR_CONNECTION_REFUSED` on :8024 | Daemon not running — run `Install UtahClaw.bat`, then `Start UtahClaw Studio.bat`; check daemon window for `ModuleNotFoundError: fastapi` |
+| Page loads but vibe fails | Start `ollama run llama3` in another terminal |
+| `Linked: COMx` missing | Plug CoreS3 USB; close other serial monitors (only one app per COM port) |
 
 ## What you see
 

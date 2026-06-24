@@ -2,12 +2,22 @@
 
 ## UtahClaw Omniscient Studio health checks
 
-1. `ollama run llama3` running locally
-2. Double-click `launch/Start UtahClaw Studio.bat` — browser opens `http://127.0.0.1:8024`
-3. Status chip shows **NEURAL LINK STABLE**
-4. Plug CoreS3 USB — agent panel shows `Linked: COMx`
-5. Attach ENV III on Grove A — hardware deck shows auto-detected unit
-6. Type intent → **MANIFEST** — agent panel shows deployed JSON/code
+1. Run `Install UtahClaw.bat` once (installs `host[claw]`: FastAPI, Uvicorn, Ollama client).
+2. `ollama run llama3` running locally.
+3. Double-click `Start UtahClaw Studio.bat` — browser opens `http://127.0.0.1:8024`.
+4. **UtahClaw Daemon** console window stays open (do not close — server runs there).
+5. Status chip shows **NEURAL LINK STABLE** (or agent panel connected).
+6. Plug CoreS3 USB — agent panel shows `Linked: COMx` (close Ghost Forge / serial monitor first).
+7. Attach ENV III on Grove A — hardware deck shows auto-detected unit.
+8. Type intent → **MANIFEST** — agent panel shows deployed JSON/code.
+
+### UtahClaw incidents
+
+| Issue | Action |
+|-------|--------|
+| `ERR_CONNECTION_REFUSED` | Daemon crashed — read UtahClaw Daemon window; re-run `Install UtahClaw.bat` |
+| `fastapi` / `uvicorn` missing | `pip install -e "./host[claw]"` from repo root |
+| Port conflict on COM | Only one app (UtahClaw, Ghost Forge, PlatformIO monitor) per port |
 
 ## Omniscient discovery deck
 
@@ -34,7 +44,7 @@
 
 1. Export Live Log text from browser
 2. Save customer `.flux.json`
-3. Note firmware version (git commit) and `host` package version (`0.3.0`)
+3. Note firmware version (git commit) and `host` package version (`0.8.2`)
 4. Reproduce with same starter template
 5. File issue with logs + project file
 

@@ -170,6 +170,34 @@ def validate_intent_payload(
 
 
 def _validate_display(display: dict[str, Any], errors: list[str]) -> None:
+    forge = display.get("forge_overlay")
+    if forge is not None:
+        if not isinstance(forge, dict):
+            errors.append("display.forge_overlay must be an object")
+        elif "pct" in forge and not isinstance(forge["pct"], int):
+            errors.append("display.forge_overlay.pct must be an integer")
+
+    elements = display.get("elements")
+    if elements is not None:
+        if isinstance(elements, list):
+            for idx, el in enumerate(elements):
+                if not isinstance(el, dict):
+                    errors.append(f"display.elements[{idx}] must be an object")
+                    continue
+                for int_field in ("x", "y", "w", "h", "size", "color", "fill"):
+                    if int_field in el and not isinstance(el[int_field], int):
+                        errors.append(f"display.elements[{idx}].{int_field} must be an integer")
+        elif isinstance(elements, dict):
+            for key, el in elements.items():
+                if not isinstance(el, dict):
+                    errors.append(f"display.elements.{key} must be an object")
+                    continue
+                for int_field in ("x", "y", "w", "h", "size", "color", "fill"):
+                    if int_field in el and not isinstance(el[int_field], int):
+                        errors.append(f"display.elements.{key}.{int_field} must be an integer")
+        else:
+            errors.append("display.elements must be an object or array")
+
     text = display.get("text")
     if text is None:
         return

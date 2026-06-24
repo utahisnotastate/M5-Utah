@@ -1,5 +1,6 @@
 #include "VirtualEventGrid.h"
 
+#include "ChronoScheduler.h"
 #include "VectorTelemetry.h"
 
 #include <M5Unified.h>
@@ -11,6 +12,12 @@ namespace {
 
 StochasticTelemetryFilter g_imuFilter(kImuFilterProcessVariance, kImuFilterMeasurementVariance);
 uint32_t g_lastImuVirtualEventMs = 0;
+
+void chronoSpeculativeAlert() {
+  if (M5.Speaker.isEnabled()) {
+    M5.Speaker.tone(720, 35);
+  }
+}
 
 }  // namespace
 
@@ -58,5 +65,6 @@ void scanFilteredImuVirtualEvents() {
   obj["pin_source"] = 34;
   emitHardwareEvent("motion_spike_event", static_cast<JsonObjectConst>(obj));
   broadcastPristineEvent("imu_tilt_event", pristine, 34);
+  ChronoScheduler::instance().injectFutureState(chronoSpeculativeAlert, 2500);
   g_lastImuVirtualEventMs = now;
 }

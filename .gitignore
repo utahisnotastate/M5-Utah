@@ -25,3 +25,7 @@ Thumbs.db
 *.bak
 host/*.egg-info/
 .junie/
+
+# Sovereign Ghost Forge — LOCAL ONLY, never push to cloud/GitHub
+ghost_forge.py
+.sovereign/

@@ -183,8 +183,8 @@ void registryRuntimeInit() {
   globalGatekeeper().initializeGatekeeper();
   StaticJsonDocument<256> doc;
   JsonObject unit = doc.to<JsonObject>();
-  unit["frequency_hz"] = 2;
-  unit["semantic_action"] = "ACTION_INDICATE_STATUS_SUCCESS";
+  unit["frequency_hz"] = 1;
+  unit["semantic_action"] = "";
   unit["priority"] = 1;
   unit["refresh_sequence_id"] = 1;
 
@@ -294,6 +294,12 @@ void registryRespondCapabilities(JsonObject out) {
   caps.add("resource_aware_orchestrator");
   caps.add("dual_core_execution_harness");
   caps.add("telemetry_self_healing_loop");
+  caps.add("stochastic_execution_obfuscation");
+  caps.add("mesh_state_mirror");
+  caps.add("amnesia_ephemeral_vault");
+  caps.add("chrono_predictive_scheduler");
+  caps.add("tensor_void_linkage");
+  caps.add("lazarus_rtc_resurrection");
   caps.add("asymmetric_rpp_piping");
   caps.add("android_usb_host_bridge");
   if (M5.Imu.isEnabled()) caps.add("accel");
