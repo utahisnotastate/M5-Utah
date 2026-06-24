@@ -57,4 +57,5 @@ Capabilities: `declarative_phonon_routing`, `memristive_matrix_compute`, `swarm_
 
 - [Omega defense stack](omega-defense-stack.md)
 - [firmware/README.md](../../firmware/README.md)
+- [Reality substrate](reality-substrate.md)
 - ADR [0046](../adr/0046-sovereign-edge-tier.md)

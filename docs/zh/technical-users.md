@@ -12,6 +12,7 @@
 | m5resolver | `host/m5resolver/` | 意图、类型态、安全线 |
 | Omega 防御栈 | `firmware/src/OmegaDefense.*` 等 | 边缘韧性模块 |
 | 主权边缘层 | `firmware/src/SovereignEdge.*` 等 | 声明式运行时 |
+| 现实基底 | `firmware/src/RealitySubstrate.*` 等 | Class-1 Omega |
 | 不朽发现固件 | `firmware/src/ImmortalDiscovery.*` | Core 0 I2C 扫描 |
 | 双核内核 | `firmware/` | M5Kernel 运行时 |
 

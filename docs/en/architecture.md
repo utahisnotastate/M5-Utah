@@ -93,6 +93,10 @@ Sanctum-style projects (`nodes`, `bindings`) compile through `host/utah_flux/fie
 
 See [sovereign-edge-tier.md](sovereign-edge-tier.md) and ADR [0046](../adr/0046-sovereign-edge-tier.md).
 
+### Reality substrate (v0.8.4)
+
+Eight Class-1 modules: Akashic RF storage, ChronoKinetic actuation, MnemonicProxy hive, BiosymmetricBus, SpatialUI, CausalDebugger, EigenStateCompiler, GenesisProtocol. See [reality-substrate.md](reality-substrate.md) and ADR [0047](../adr/0047-reality-substrate-class1.md).
+
 ### WebUSB vibe gateway (Feature 50)
 
 The zero-install browser IDE (`vibe_server.py` on port **8023**) closes the end-user loop:

@@ -33,6 +33,7 @@ nav:
           - Governance: docs/en/github-governance-setup.md
           - Omega Defense: docs/en/omega-defense-stack.md
           - Sovereign Edge: docs/en/sovereign-edge-tier.md
+          - Reality Substrate: docs/en/reality-substrate.md
           - Field Graph: docs/en/field-graph-compiler.md
           - UtahClaw: docs/en/utah-claw-studio.md
           - Omniscient: docs/en/omniscient-studio.md
@@ -56,6 +57,7 @@ nav:
           - 治理: docs/zh/github-governance-setup.md
           - Omega 防御: docs/zh/omega-defense-stack.md
           - 主权边缘: docs/zh/sovereign-edge-tier.md
+          - 现实基底: docs/zh/reality-substrate.md
           - 场图编译: docs/zh/field-graph-compiler.md
           - UtahClaw: docs/zh/utah-claw-studio.md
           - 全知甲板: docs/zh/omniscient-studio.md

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.4 - 2026-05-29
+
+- **Reality substrate (Class-1)**: AkashicFileSystem, ChronoKinetic, MnemonicProxy, BiosymmetricBus, SpatialUI, CausalDebugger, EigenStateCompiler, GenesisProtocol
+- `RealitySubstrate` coordinator; ESP-NOW demux for Akashic `0xAF` fragments
+- Intent keys: `akashic_inject`, `eigen_collapse`, `spatial_ui`, `chrono_kinetic`
+- Telemetry `substrate_*` metrics; bilingual docs + ADR 0047
+
 ## 0.8.3 - 2026-05-29
 
 - **Sovereign edge tier**: `AcousticMask`, `MatrixCompute`, `SwarmSoul` via `SovereignEdge` coordinator

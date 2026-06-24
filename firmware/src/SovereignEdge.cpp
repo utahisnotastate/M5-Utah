@@ -5,6 +5,7 @@
 #include "AcousticMask.h"
 #include "MatrixCompute.h"
 #include "MeshStateMirror.h"
+#include "RealitySubstrate.h"
 #include "SwarmSoul.h"
 
 namespace {
@@ -44,4 +45,5 @@ void sovereignEdgeTick(uint32_t orchestrationTick, uint32_t processedFrames) {
                                        static_cast<uint32_t>(tensorScore * 1000.0f), tensorScore);
     }
   }
+  realitySubstrateTick(orchestrationTick, processedFrames);
 }

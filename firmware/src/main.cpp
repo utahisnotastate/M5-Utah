@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <M5Unified.h>
 #include <ArduinoJson.h>
+#include <esp_random.h>
 
 #include "registry_runtime.h"
 #include "TimeTravelJournal.h"
@@ -42,6 +43,14 @@
 #include "MatrixCompute.h"
 #include "AcousticMask.h"
 #include "SwarmSoul.h"
+#include "AkashicFileSystem.h"
+#include "BiosymmetricBus.h"
+#include "CausalDebugger.h"
+#include "ChronoKinetic.h"
+#include "EigenStateCompiler.h"
+#include "GenesisProtocol.h"
+#include "MnemonicProxy.h"
+#include "SpatialUI.h"
 #include "TensorVoidLinkage.h"
 
 static constexpr uint32_t BAUDRATE = 115200;
@@ -316,6 +325,18 @@ void emitTelemetry() {
   metrics["sovereign_swarm_adoptions"] = static_cast<int>(SwarmSoul::peerAdoptions());
   metrics["sovereign_phonon_frames"] = static_cast<int>(AcousticMask::framesWritten());
   metrics["sovereign_phonon_active"] = AcousticMask::isActive() ? 1 : 0;
+  metrics["substrate_akashic_fragments"] =
+      static_cast<int>(AkashicFileSystem::fragmentsInFlight());
+  metrics["substrate_akashic_rebroadcasts"] =
+      static_cast<int>(AkashicFileSystem::rebroadcastCount());
+  metrics["substrate_mnemonic_nodes"] = MnemonicProxy::discoveredNodes();
+  metrics["substrate_mnemonic_dispatches"] = static_cast<int>(MnemonicProxy::dispatchCount());
+  metrics["substrate_biosymmetric_active"] = BiosymmetricBus::isActive() ? 1 : 0;
+  metrics["substrate_spatial_frames"] = static_cast<int>(SpatialUI::framesProjected());
+  metrics["substrate_causal_avoided"] = static_cast<int>(CausalDebugger::avoidedCrashCount());
+  metrics["substrate_eigen_collapses"] = static_cast<int>(EigenStateCompiler::collapseCount());
+  metrics["substrate_genesis_generation"] = static_cast<int>(GenesisProtocol::generation());
+  metrics["substrate_chrono_pwm"] = ChronoKinetic::lastPwm();
 
   const char *statusStr = doc["status"].as<const char *>();
   const uint8_t batteryPct = static_cast<uint8_t>(M5.Power.getBatteryLevel());
@@ -495,6 +516,50 @@ bool processInboundJsonPayload(char *payload, size_t len) {
       sendAck(false, "ephemeral_store_failed");
       return true;
     }
+  }
+
+  if (root["akashic_inject"] | false) {
+    const uint32_t fileId = root["akashic_file_id"] | static_cast<uint32_t>(esp_random());
+    String blob;
+    if (root["akashic"].is<const char *>()) {
+      blob = root["akashic"].as<const char *>();
+    } else if (root.containsKey("akashic")) {
+      serializeJson(root["akashic"], blob);
+    } else {
+      serializeJson(root, blob);
+    }
+    if (!AkashicFileSystem::injectToVoid(fileId, reinterpret_cast<const uint8_t *>(blob.c_str()),
+                                         blob.length())) {
+      sendAck(false, "akashic_inject_failed");
+      return true;
+    }
+  }
+
+  if (root["eigen_collapse"] | false) {
+    String blob;
+    if (root["flux_intent"].is<const char *>()) {
+      blob = root["flux_intent"].as<const char *>();
+    } else {
+      serializeJson(root, blob);
+    }
+    if (!EigenStateCompiler::collapseFluxIntent(blob.c_str(), blob.length())) {
+      sendAck(false, "eigen_collapse_failed");
+      return true;
+    }
+  }
+
+  if (root["spatial_ui"] | false) {
+    spatialUIInit();
+    uint8_t luminance[64];
+    for (size_t i = 0; i < sizeof(luminance); ++i) {
+      luminance[i] = static_cast<uint8_t>(i * 4);
+    }
+    SpatialUI::projectHolographicFrame(luminance, sizeof(luminance));
+  }
+
+  if (root.containsKey("chrono_kinetic")) {
+    const float target = root["chrono_kinetic"]["target"] | 0.0f;
+    ChronoKinetic::relaxToCoordinate(0, 0.0f, target);
   }
 
   if (root.containsKey("vector_clock_sync")) {

@@ -303,6 +303,14 @@ void registryRespondCapabilities(JsonObject out) {
   caps.add("declarative_phonon_routing");
   caps.add("memristive_matrix_compute");
   caps.add("swarm_soul_conslation");
+  caps.add("akashic_rf_storage");
+  caps.add("chrono_kinetic_actuator");
+  caps.add("mnemonic_proxy_hive");
+  caps.add("biosymmetric_phyto_bus");
+  caps.add("spatial_retinal_bypass");
+  caps.add("causal_probability_debugger");
+  caps.add("eigen_state_compiler");
+  caps.add("genesis_sovereign_boot");
   caps.add("asymmetric_rpp_piping");
   caps.add("android_usb_host_bridge");
   if (M5.Imu.isEnabled()) caps.add("accel");

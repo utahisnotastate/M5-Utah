@@ -45,4 +45,4 @@ Full project docs: [../docs/en/README.md](../docs/en/README.md) · [../docs/zh/R
 
 ## Version
 
-See `pyproject.toml` (currently **0.8.3**).
+See `pyproject.toml` (currently **0.8.4**).

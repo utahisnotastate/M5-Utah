@@ -12,6 +12,7 @@
 | m5resolver | `host/m5resolver/` | Intents, typestate, secure wire, agent |
 | Omega defense | `firmware/src/OmegaDefense.*` + six modules | Edge resiliency stack |
 | Sovereign edge | `firmware/src/SovereignEdge.*` + Acoustic/Matrix/Swarm | Declarative runtime tier |
+| Reality substrate | `firmware/src/RealitySubstrate.*` + eight modules | Class-1 Omega tier |
 | Immortal firmware | `firmware/src/ImmortalDiscovery.*` | I2C scan on Core 0 |
 | Firmware kernel | `firmware/` | Dual-core M5Kernel runtime |
 

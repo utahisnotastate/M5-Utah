@@ -13,6 +13,7 @@
 | Immortal I2C discovery firmware | ✅ CoreS3 |
 | Omega defense stack | ✅ v0.8.2 |
 | Sovereign edge tier | ✅ v0.8.3 |
+| Reality substrate (Class-1) | ✅ v0.8.4 |
 | Field graph compiler (Sanctum) | ✅ `field_compiler.py` |
 | `Install UtahClaw.bat` / root launcher | ✅ Windows |
 

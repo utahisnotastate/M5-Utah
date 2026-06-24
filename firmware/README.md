@@ -74,3 +74,18 @@ Declarative runtime modules via `sovereignEdgeInit()`:
 | `SwarmSoul` | `ExecutionFrame` ESP-NOW conslation (shared mesh bus) |
 
 Telemetry: `sovereign_*` metrics. See [docs/en/sovereign-edge-tier.md](../docs/en/sovereign-edge-tier.md).
+
+## Reality substrate tier (v0.8.4)
+
+| Module | Role |
+|--------|------|
+| `AkashicFileSystem` | RF-kinetic mesh file fragments |
+| `ChronoKinetic` | Golden-ratio servo relaxation |
+| `MnemonicProxy` | Ambient IoT hive compute dispatch |
+| `BiosymmetricBus` | Phyto-computing DAC/ADC activation |
+| `SpatialUI` | Intent-gated spatial projection |
+| `CausalDebugger` | Probability crash shield |
+| `EigenStateCompiler` | Flux intent collapse |
+| `GenesisProtocol` | RTC genesis generation anchor |
+
+See [docs/en/reality-substrate.md](../docs/en/reality-substrate.md).

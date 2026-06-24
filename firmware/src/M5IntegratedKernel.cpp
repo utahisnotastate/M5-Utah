@@ -4,6 +4,7 @@
 #include "JumpKernel.h"
 #include "OmegaDefense.h"
 #include "SovereignEdge.h"
+#include "RealitySubstrate.h"
 #include "OtaRollbackFence.h"
 #include "SystemHealthHarvester.h"
 #include "VectorFence.h"
@@ -24,6 +25,7 @@ void m5IntegratedKernelBoot() {
   systemHealthHarvesterInit();
   omegaDefenseInit();
   sovereignEdgeInit();
+  realitySubstrateInit();
   immortalDiscoveryInit();
   M5Kernel::start();
 }

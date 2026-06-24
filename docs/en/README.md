@@ -30,9 +30,10 @@
 | System architecture | — | [architecture.md](architecture.md) |
 | Omega defense (firmware) | flash once | [omega-defense-stack.md](omega-defense-stack.md) |
 | Sovereign edge tier | flash once | [sovereign-edge-tier.md](sovereign-edge-tier.md) |
+| Reality substrate (Class-1) | flash once | [reality-substrate.md](reality-substrate.md) |
 | Field graph / Sanctum | `field_compiler.py` | [field-graph-compiler.md](field-graph-compiler.md) |
 
-## Features (v0.8.3)
+## Features (v0.8.4)
 
 - Visual Lego brick IDE (no CLI for end users)
 - **Immortal Bootloader** — flash firmware once, I2C auto-discovery forever
@@ -40,6 +41,7 @@
 - **Omniscient deck** — driverless Espressif USB scan + live sensor cards
 - **Omega defense stack** — jitter, mesh mirror, PSRAM vault, chrono/tensor/lazarus modules
 - **Sovereign edge tier** — phonon mask, IRAM matrix compute, swarm conslation frames
+- **Reality substrate** — Akashic RF storage, chrono-kinetic, mnemonic hive, biosymmetric, spatial, causal, eigen, genesis
 - **Field graph compiler** — `nodes`/`bindings` sanctum projects → display intents
 - Formal typestate enforcement and m5-secure anti-replay wire fences
 - Real-time terminal state dashboard (`enable_dashboard=True`)

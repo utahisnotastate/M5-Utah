@@ -71,7 +71,7 @@ The M5Stack ecosystem offers many entry points. **m5-utah** is the only stack th
 
 **Summary:** Arduino and ESP-IDF give you raw control but no unified intent pipeline, no typestate guards, and no kid-friendly IDE. UIFlow and EZData optimize for beginners or cloud dashboards but hide the wire protocol and lack formal verification, anti-replay fences, and dual-core orchestration. **m5-utah** targets both audiences: Lego-simple UX up front, bulletproof engineering underneath.
 
-## Production architecture (v0.8.2)
+## Production architecture (v0.8.4)
 
 ```
 [Human intent / Utah Flux / vibe IDE]
@@ -119,7 +119,7 @@ Docs: [docs/en/utah-claw-studio.md](docs/en/utah-claw-studio.md) · [中文](doc
 
 ## Omega defense stack (firmware)
 
-Six edge-resiliency modules run on every CoreS3 boot: Brownian timing jitter, ESP-NOW mesh state mirror, PSRAM ephemeral vault, chrono scheduler, tensor scoring, and Lazarus RTC recovery. **Sovereign edge tier** (v0.8.3) adds phonon acoustic masking, IRAM matrix telematics, and swarm conslation frames. See [docs/en/omega-defense-stack.md](docs/en/omega-defense-stack.md) and [docs/en/sovereign-edge-tier.md](docs/en/sovereign-edge-tier.md).
+Six edge-resiliency modules run on every CoreS3 boot: Brownian timing jitter, ESP-NOW mesh state mirror, PSRAM ephemeral vault, chrono scheduler, tensor scoring, and Lazarus RTC recovery. **Sovereign edge tier** (v0.8.3) adds phonon acoustic masking, IRAM matrix telematics, and swarm conslation frames. **Reality substrate** (v0.8.4) adds Akashic RF storage, chrono-kinetic actuation, mnemonic hive, biosymmetric bus, spatial UI, causal debugger, eigen compiler, and genesis boot. See [docs/en/omega-defense-stack.md](docs/en/omega-defense-stack.md), [docs/en/sovereign-edge-tier.md](docs/en/sovereign-edge-tier.md), and [docs/en/reality-substrate.md](docs/en/reality-substrate.md).
 
 ## One-time firmware flash (adult helper)
 

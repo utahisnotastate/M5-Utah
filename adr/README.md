@@ -48,3 +48,4 @@ Each ADR should include:
 - `adr/0044-immortal-bootloader-autonomic-discovery.md`
 - `adr/0045-omega-defense-edge-stack.md`
 - `adr/0046-sovereign-edge-tier.md`
+- `adr/0047-reality-substrate-class1.md`

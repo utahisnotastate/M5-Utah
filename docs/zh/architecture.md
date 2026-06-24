@@ -73,6 +73,10 @@ UtahClaw 画布     ◄──  JSON 发现 / 遥测        ◄──  不朽 I2C
 
 详见 [sovereign-edge-tier.md](sovereign-edge-tier.md) · ADR [0046](../adr/0046-sovereign-edge-tier.md)
 
+## 现实基底（v0.8.4）
+
+Akashic 射频存储、ChronoKinetic 执行器、MnemonicProxy、BiosymmetricBus、SpatialUI、CausalDebugger、EigenStateCompiler、GenesisProtocol。详见 [reality-substrate.md](reality-substrate.md) · ADR [0047](../adr/0047-reality-substrate-class1.md)
+
 ## 统一生命周期
 
 ```

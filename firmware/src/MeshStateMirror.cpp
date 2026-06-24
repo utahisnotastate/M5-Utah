@@ -1,5 +1,7 @@
 #include "MeshStateMirror.h"
 
+#include "AkashicFileSystem.h"
+#include "MnemonicProxy.h"
 #include "SwarmSoul.h"
 #include "TimeTravelJournal.h"
 
@@ -20,6 +22,15 @@ MeshStateMirror *g_mirror = nullptr;
 void onEspNowReceive(const uint8_t *mac, const uint8_t *data, int len) {
   if (data == nullptr || len <= 0) {
     return;
+  }
+  if (data[0] == AkashicFileSystem::kMagic &&
+      len == static_cast<int>(sizeof(AkashicFileSystem::RfFragment))) {
+    AkashicFileSystem::onFragmentCatch(mac, data, len);
+    return;
+  }
+  if (data[0] == MnemonicProxy::kMagic &&
+      len == static_cast<int>(sizeof(MnemonicProxy::ParasiticPayload))) {
+  return;
   }
   if (len == static_cast<int>(sizeof(SwarmSoul::ExecutionFrame))) {
     SwarmSoul::onPeerSynchronizeEvent(mac, data, len);
