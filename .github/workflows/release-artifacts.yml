@@ -22,7 +22,7 @@ jobs:
           sha256sum dist/m5-utah-${GITHUB_REF_NAME}.zip > dist/SHA256SUMS.txt
 
       - name: Upload release assets
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/m5-utah-${{ github.ref_name }}.zip
